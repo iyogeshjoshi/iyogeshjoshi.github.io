@@ -1,6 +1,8 @@
 layout: stacked
 style: light
 
+encoding: "utf-8"
+
 plugins:
   - jekyll-octicons
   - jekyll-github-metadata
