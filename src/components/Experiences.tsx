@@ -87,12 +87,23 @@ const TechTag = styled.span`
   }
 `;
 
+const Location = styled.span`
+  color: var(--secondary-color);
+  font-size: 1rem;
+  margin-left: 1rem;
+  &::before {
+    content: '📍';
+    margin-right: 0.3rem;
+  }
+`;
+
 interface Experience {
   company: string;
   position: string;
   duration: string;
   description: string[];
   technologies: string[];
+  location: string;
 }
 
 interface ExperiencesProps {
@@ -105,7 +116,8 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
     if (!acc[curr.company]) {
       acc[curr.company] = {
         positions: [],
-        technologies: new Set<string>()
+        technologies: new Set<string>(),
+        location: curr.location
       };
     }
     acc[curr.company].positions.push({
@@ -115,7 +127,11 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
     });
     curr.technologies.forEach(tech => acc[curr.company].technologies.add(tech));
     return acc;
-  }, {} as Record<string, { positions: Array<{ position: string; duration: string; description: string[] }>, technologies: Set<string> }>);
+  }, {} as Record<string, { 
+    positions: Array<{ position: string; duration: string; description: string[] }>, 
+    technologies: Set<string>,
+    location: string 
+  }>);
 
   return (
     <ExperienceContainer
@@ -139,7 +155,10 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.1 }}
           >
-            <Company>{company}</Company>
+            <Company>
+              {company}
+              {data.location && <Location>{data.location}</Location>}
+            </Company>
             {data.positions.map((pos, posIndex) => (
               <div key={`${pos.position}-${posIndex}`}>
                 <Role>{pos.position}</Role>
