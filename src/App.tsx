@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { motion } from 'framer-motion';
 import { PortfolioData, loadPortfolioData } from './utils/yamlLoader';
 import Header from './components/Header';
@@ -10,6 +10,8 @@ import Experiences from './components/Experiences';
 import Contact from './components/Contact';
 import DownloadButton from './components/DownloadButton';
 import ThemeToggle from './components/ThemeToggle';
+import SEO from './components/SEO';
+import { Theme, lightTheme, darkTheme } from './theme';
 
 const AppContainer = styled.div`
   background-color: var(--bg-color);
@@ -44,16 +46,16 @@ const LoadingContainer = styled.div`
 const App: React.FC = () => {
   const [data, setData] = useState<PortfolioData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return (savedTheme as 'light' | 'dark') || 'dark';
+  const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'dark';
+    return savedTheme === 'light' ? lightTheme : darkTheme;
   });
 
   useEffect(() => {
-    // Set initial theme
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'dark';
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    const theme = savedTheme === 'light' ? lightTheme : darkTheme;
+    setCurrentTheme(theme);
+    document.documentElement.setAttribute('data-theme', theme.type);
   }, []);
 
   // Helper function to parse date string
@@ -85,10 +87,10 @@ const App: React.FC = () => {
   };
 
   const toggleTheme = useCallback(() => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      document.documentElement.setAttribute('data-theme', newTheme);
+    setCurrentTheme((prevTheme: Theme) => {
+      const newTheme = prevTheme.type === 'light' ? darkTheme : lightTheme;
+      localStorage.setItem('theme', newTheme.type);
+      document.documentElement.setAttribute('data-theme', newTheme.type);
       return newTheme;
     });
   }, []);
@@ -116,58 +118,61 @@ const App: React.FC = () => {
   }
 
   return (
-    <AppContainer>
-      <ThemeToggle theme={theme} onToggle={toggleTheme} />
-      <Header name={data.name} />
-      <MainContent>
-        <Section
-          id="about"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 0.8 }}
-        >
-          <About bio={data.bio} tagline={data.tagline} name={data.name} />
-        </Section>
-        <Section
-          id="skills"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 0.8 }}
-        >
-          <Skills skills={data.skills} />
-        </Section>
-        <Section
-          id="soft-skills"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 0.8 }}
-        >
-          <SoftSkills softSkills={data.soft_skills} />
-        </Section>
-        <Section
-          id="experiences"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 0.8 }}
-        >
-          <Experiences experiences={data.experiences} />
-        </Section>
-        <Section
-          id="contact"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 0.8 }}
-        >
-          <Contact contact={data.contact} />
-        </Section>
-      </MainContent>
-      <DownloadButton onDownload={handleDownload} />
-    </AppContainer>
+    <ThemeProvider theme={currentTheme}>
+      <AppContainer>
+        <SEO />
+        <ThemeToggle theme={currentTheme.type} onToggle={toggleTheme} />
+        <Header name={data.name} />
+        <MainContent>
+          <Section
+            id="about"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ duration: 0.8 }}
+          >
+            <About bio={data.bio} tagline={data.tagline} name={data.name} />
+          </Section>
+          <Section
+            id="skills"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ duration: 0.8 }}
+          >
+            <Skills skills={data.skills} />
+          </Section>
+          <Section
+            id="soft-skills"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ duration: 0.8 }}
+          >
+            <SoftSkills softSkills={data.soft_skills} />
+          </Section>
+          <Section
+            id="experiences"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ duration: 0.8 }}
+          >
+            <Experiences experiences={data.experiences} />
+          </Section>
+          <Section
+            id="contact"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ duration: 0.8 }}
+          >
+            <Contact contact={data.contact} />
+          </Section>
+        </MainContent>
+        <DownloadButton onDownload={handleDownload} />
+      </AppContainer>
+    </ThemeProvider>
   );
 };
 

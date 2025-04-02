@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const FloatingButton = styled(motion.button)`
   position: fixed;
   top: 20px;
-  right: 76px;
+  right: 84px;
   background-color: var(--accent-color);
   color: var(--bg-color);
   border: none;
@@ -18,13 +18,7 @@ const FloatingButton = styled(motion.button)`
   gap: 6px;
   font-size: 14px;
   box-shadow: 0 2px 8px var(--shadow-color);
-  transition: all 0.3s ease;
   z-index: 1000;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--shadow-color);
-  }
 
   svg {
     width: 14px;
@@ -32,7 +26,7 @@ const FloatingButton = styled(motion.button)`
   }
 
   @media (max-width: 768px) {
-    right: 67px;
+    right: 75px;
     height: 32px;
     padding: 0 12px;
     font-size: 13px;
@@ -58,7 +52,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ onDownload }) => {
   return (
     <FloatingButton
       onClick={onDownload}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.05, translateY: -2 }}
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}

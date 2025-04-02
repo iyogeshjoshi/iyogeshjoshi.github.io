@@ -119,7 +119,7 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
         transition={{ delay: 0.6 }}
       >
         <ContactLink
-          href={`mailto:${contact.email}`}
+          href={`mailto:${contact.email}?subject=deviloper.dev: Hello!`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
