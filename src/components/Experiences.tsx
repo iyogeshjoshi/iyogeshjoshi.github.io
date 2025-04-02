@@ -55,7 +55,7 @@ const Duration = styled.p`
 
 const Description = styled.ul`
   color: var(--text-color);
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
   margin-left: 1.2rem;
   

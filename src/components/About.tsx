@@ -28,7 +28,7 @@ const Content = styled.div`
 
 const Bio = styled.div`
   color: var(--text-color);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
 
   p {

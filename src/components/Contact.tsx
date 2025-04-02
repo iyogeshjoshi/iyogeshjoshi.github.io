@@ -16,7 +16,7 @@ const Title = styled(motion.h2)`
 
 const Description = styled(motion.p)`
   color: var(--text-color);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 2rem;
   max-width: 600px;
