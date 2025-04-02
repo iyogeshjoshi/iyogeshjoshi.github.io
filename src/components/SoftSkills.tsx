@@ -4,8 +4,7 @@ import { motion } from 'framer-motion';
 import { Skill } from '../utils/yamlLoader';
 
 const SoftSkillsContainer = styled(motion.div)`
-  min-height: 100vh;
-  padding-top: 100px;
+  padding: 2rem 0;
 `;
 
 const Title = styled(motion.h2)`
@@ -14,7 +13,7 @@ const Title = styled(motion.h2)`
   margin-bottom: 2rem;
 `;
 
-const SkillsGrid = styled.div`
+const SkillsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
@@ -35,30 +34,34 @@ const SkillCategory = styled(motion.div)`
   }
 `;
 
-const CategoryTitle = styled.h3`
+const CategoryTitle = styled(motion.h3)`
   color: var(--text-color);
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  position: relative;
 `;
 
-const SkillsList = styled.ul`
+const SkillsList = styled(motion.ul)`
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
 `;
 
 const SkillItem = styled(motion.li)`
-  color: var(--text-color);
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
+  background-color: var(--card-bg);
+  color: var(--accent-color);
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
 
-  &::before {
-    content: '▹';
-    color: var(--accent-color);
+  &:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transform: translateY(-2px);
   }
 `;
 
@@ -66,39 +69,67 @@ interface SoftSkillsProps {
   softSkills: Skill[];
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const categoryVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+};
+
 const SoftSkills: React.FC<SoftSkillsProps> = ({ softSkills }) => {
   return (
     <SoftSkillsContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }}
     >
-      <Title
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        Professional Skills
-      </Title>
+      <Title variants={itemVariants}>Soft Skills</Title>
       <SkillsGrid>
         {softSkills.map((category, index) => (
           <SkillCategory
             key={category.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
+            variants={categoryVariants}
           >
-            <CategoryTitle>{category.name}</CategoryTitle>
+            <CategoryTitle variants={itemVariants}>
+              {category.name}
+            </CategoryTitle>
             <SkillsList>
-              {category.items.map((item, itemIndex) => (
+              {category.items.map((skill, skillIndex) => (
                 <SkillItem
-                  key={item}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + itemIndex * 0.05 }}
+                  key={`${category.name}-${skillIndex}`}
+                  variants={itemVariants}
                 >
-                  {item}
+                  {skill}
                 </SkillItem>
               ))}
             </SkillsList>

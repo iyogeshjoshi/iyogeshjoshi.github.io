@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PortfolioData, loadPortfolioData } from './utils/yamlLoader';
 import Header from './components/Header';
 import About from './components/About';
@@ -33,7 +33,7 @@ const Section = styled(motion.section)`
   justify-content: center;
 `;
 
-const LoadingContainer = styled.div`
+const LoadingContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,6 +42,30 @@ const LoadingContainer = styled.div`
   color: var(--accent-color);
   background-color: var(--bg-color);
 `;
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut"
+    }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
 
 const App: React.FC = () => {
   const [data, setData] = useState<PortfolioData | null>(null);
@@ -114,63 +138,85 @@ const App: React.FC = () => {
   }, [sortExperiences]);
 
   if (loading || !data) {
-    return <LoadingContainer>Loading...</LoadingContainer>;
+    return (
+      <LoadingContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        Loading...
+      </LoadingContainer>
+    );
   }
 
   return (
     <ThemeProvider theme={currentTheme}>
       <AppContainer>
         <SEO />
-        <ThemeToggle theme={currentTheme.type} onToggle={toggleTheme} />
-        <Header name={data.name} />
-        <MainContent>
-          <Section
-            id="about"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="content"
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ duration: 0.8 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <About bio={data.bio} tagline={data.tagline} name={data.name} />
-          </Section>
-          <Section
-            id="skills"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ duration: 0.8 }}
-          >
-            <Skills skills={data.skills} />
-          </Section>
-          <Section
-            id="soft-skills"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ duration: 0.8 }}
-          >
-            <SoftSkills softSkills={data.soft_skills} />
-          </Section>
-          <Section
-            id="experiences"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ duration: 0.8 }}
-          >
-            <Experiences experiences={data.experiences} />
-          </Section>
-          <Section
-            id="contact"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-20%" }}
-            transition={{ duration: 0.8 }}
-          >
-            <Contact contact={data.contact} />
-          </Section>
-        </MainContent>
-        <DownloadButton onDownload={handleDownload} />
+            <ThemeToggle theme={currentTheme.type} onToggle={toggleTheme} />
+            <Header name={data.name} />
+            <MainContent>
+              <Section
+                id="about"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20%" }}
+              >
+                <About bio={data.bio} tagline={data.tagline} name={data.name} />
+              </Section>
+              
+              <Section
+                id="skills"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20%" }}
+              >
+                <Skills skills={data.skills} />
+              </Section>
+
+              <Section
+                id="soft-skills"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20%" }}
+              >
+                <SoftSkills softSkills={data.soft_skills} />
+              </Section>
+
+              <Section
+                id="experiences"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20%" }}
+              >
+                <Experiences experiences={data.experiences} />
+              </Section>
+
+              <Section
+                id="contact"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20%" }}
+              >
+                <Contact contact={data.contact} />
+              </Section>
+            </MainContent>
+            <DownloadButton onDownload={handleDownload} />
+          </motion.div>
+        </AnimatePresence>
       </AppContainer>
     </ThemeProvider>
   );

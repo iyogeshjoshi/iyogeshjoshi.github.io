@@ -93,37 +93,72 @@ interface ContactProps {
   contact: ContactInfo;
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
+const linkVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  },
+  hover: {
+    y: -5,
+    scale: 1.05,
+    transition: {
+      duration: 0.2,
+      ease: "easeInOut"
+    }
+  },
+  tap: {
+    scale: 0.95
+  }
+};
+
 const Contact: React.FC<ContactProps> = ({ contact }) => {
   return (
     <ContactContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }}
     >
-      <Title
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
+      <Title variants={itemVariants}>
         Get in Touch
       </Title>
-      <Description
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
+      <Description variants={itemVariants}>
         I'm currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!
       </Description>
-      <ContactLinks
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-      >
+      <ContactLinks variants={containerVariants}>
         <ContactLink
-          href={`mailto:${contact.email}?subject=deviloper.dev: Hello!`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          href={`mailto:${contact.email}`}
+          variants={linkVariants}
+          whileHover="hover"
+          whileTap="tap"
         >
           <EmailIcon /> Email
         </ContactLink>
@@ -131,8 +166,9 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
           href={contact.github}
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          variants={linkVariants}
+          whileHover="hover"
+          whileTap="tap"
         >
           <GithubIcon /> GitHub
         </ContactLink>
@@ -140,8 +176,9 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
           href={contact.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          variants={linkVariants}
+          whileHover="hover"
+          whileTap="tap"
         >
           <LinkedInIcon /> LinkedIn
         </ContactLink>
@@ -149,8 +186,9 @@ const Contact: React.FC<ContactProps> = ({ contact }) => {
           href={contact.x}
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          variants={linkVariants}
+          whileHover="hover"
+          whileTap="tap"
         >
           <XIcon /> X
         </ContactLink>

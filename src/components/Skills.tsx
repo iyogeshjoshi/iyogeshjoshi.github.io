@@ -2,14 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-interface Skill {
-  name: string;
-  items: string[];
-}
-
 const SkillsContainer = styled(motion.div)`
-  min-height: 100vh;
-  padding-top: 100px;
+  padding: 2rem 0;
 `;
 
 const Title = styled(motion.h2)`
@@ -18,13 +12,13 @@ const Title = styled(motion.h2)`
   margin-bottom: 2rem;
 `;
 
-const SkillsGrid = styled.div`
+const SkillsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 `;
 
-const SkillCard = styled(motion.div)`
+const SkillCategory = styled(motion.div)`
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 8px;
@@ -39,25 +33,28 @@ const SkillCard = styled(motion.div)`
   }
 `;
 
-const SkillCategory = styled.h3`
+const CategoryTitle = styled(motion.h3)`
   color: var(--text-color);
   font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
 
-const SkillList = styled.div`
+const SkillsList = styled(motion.ul)`
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
 `;
 
-const SkillTag = styled(motion.span)`
+const SkillItem = styled(motion.li)`
   background-color: var(--card-bg);
   color: var(--accent-color);
-  border: 1px solid var(--card-border);
-  padding: 0.3rem 0.8rem;
+  padding: 0.4rem 1rem;
   border-radius: 15px;
   font-size: 0.9rem;
+  border: 1px solid var(--card-border);
   transition: all 0.3s ease;
 
   &:hover {
@@ -67,47 +64,80 @@ const SkillTag = styled(motion.span)`
   }
 `;
 
+interface Skill {
+  name: string;
+  items: string[];
+}
+
 interface SkillsProps {
   skills: Skill[];
 }
 
-const Skills: React.FC<SkillsProps> = ({ skills = [] }) => {
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const categoryVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+};
+
+const Skills: React.FC<SkillsProps> = ({ skills }) => {
   return (
     <SkillsContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }}
     >
-      <Title
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        Skills & Expertise
-      </Title>
+      <Title variants={itemVariants}>Technical Skills</Title>
       <SkillsGrid>
-        {(skills || []).map((category, index) => (
-          <SkillCard
-            key={category.name || index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
+        {skills.map((category, index) => (
+          <SkillCategory
+            key={category.name}
+            variants={categoryVariants}
           >
-            <SkillCategory>{category.name}</SkillCategory>
-            <SkillList>
-              {(category.items || []).map((item, itemIndex) => (
-                <SkillTag
-                  key={item || itemIndex}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + itemIndex * 0.05 }}
+            <CategoryTitle variants={itemVariants}>
+              {category.name}
+            </CategoryTitle>
+            <SkillsList>
+              {category.items.map((skill, skillIndex) => (
+                <SkillItem
+                  key={`${category.name}-${skillIndex}`}
+                  variants={itemVariants}
                 >
-                  {item}
-                </SkillTag>
+                  {skill}
+                </SkillItem>
               ))}
-            </SkillList>
-          </SkillCard>
+            </SkillsList>
+          </SkillCategory>
         ))}
       </SkillsGrid>
     </SkillsContainer>

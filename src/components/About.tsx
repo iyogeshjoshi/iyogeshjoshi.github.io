@@ -22,11 +22,11 @@ const Tagline = styled(motion.p)`
   margin-bottom: 2rem;
 `;
 
-const Content = styled.div`
+const Content = styled(motion.div)`
   max-width: 800px;
 `;
 
-const Bio = styled.div`
+const Bio = styled(motion.div)`
   color: var(--text-color);
   font-size: 1.2rem;
   line-height: 1.6;
@@ -52,30 +52,39 @@ interface AboutProps {
   name: string;
 }
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
 const About: React.FC<AboutProps> = ({ bio, tagline, name }) => {
   return (
     <AboutContainer
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }}
     >
       <Title
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2 }}
+        variants={fadeInUp}
       >
         {name}
       </Title>
       <Tagline
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.4 }}
+        variants={fadeInUp}
       >
         {tagline}
       </Tagline>
       <Content>
-        <Bio>
+        <Bio
+          variants={fadeInUp}
+        >
           {bio}
         </Bio>
       </Content>

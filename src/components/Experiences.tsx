@@ -13,7 +13,7 @@ const Title = styled(motion.h2)`
   margin-bottom: 2rem;
 `;
 
-const ExperienceGrid = styled.div`
+const ExperienceGrid = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -55,7 +55,7 @@ const Duration = styled.p`
 
 const Description = styled.ul`
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.6;
   margin-left: 1.2rem;
   
@@ -101,78 +101,65 @@ interface Experience {
   company: string;
   position: string;
   duration: string;
+  location: string;
   description: string[];
   technologies: string[];
-  location: string;
 }
 
 interface ExperiencesProps {
   experiences: Experience[];
 }
 
-const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
-  // Group experiences by company
-  const groupedExperiences = experiences.reduce((acc, curr) => {
-    if (!acc[curr.company]) {
-      acc[curr.company] = {
-        positions: [],
-        technologies: new Set<string>(),
-        location: curr.location
-      };
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
     }
-    acc[curr.company].positions.push({
-      position: curr.position,
-      duration: curr.duration,
-      description: curr.description
-    });
-    curr.technologies.forEach(tech => acc[curr.company].technologies.add(tech));
-    return acc;
-  }, {} as Record<string, { 
-    positions: Array<{ position: string; duration: string; description: string[] }>, 
-    technologies: Set<string>,
-    location: string 
-  }>);
+  }
+};
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
+const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
   return (
     <ExperienceContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }}
     >
-      <Title
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        Work Experience
-      </Title>
+      <Title variants={cardVariants}>Work Experience</Title>
       <ExperienceGrid>
-        {Object.entries(groupedExperiences).map(([company, data], index) => (
+        {experiences.map((exp, index) => (
           <ExperienceCard
-            key={company}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
+            key={index}
+            variants={cardVariants}
           >
-            <Company>
-              {company}
-              {data.location && <Location>{data.location}</Location>}
-            </Company>
-            {data.positions.map((pos, posIndex) => (
-              <div key={`${pos.position}-${posIndex}`}>
-                <Role>{pos.position}</Role>
-                <Duration>{pos.duration}</Duration>
-                <Description>
-                  {pos.description.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </Description>
-              </div>
-            ))}
+            <Company>{exp.company}</Company>
+            <Role>{exp.position}</Role>
+            <Duration>{exp.duration}</Duration>
+            <Location>{exp.location}</Location>
+            <Description>
+              {exp.description.map((desc, i) => (
+                <li key={i}>{desc}</li>
+              ))}
+            </Description>
             <Tech>
-              {Array.from(data.technologies).map((tech) => (
-                <TechTag key={tech}>{tech}</TechTag>
+              {exp.technologies.map((tech, i) => (
+                <TechTag key={i}>{tech}</TechTag>
               ))}
             </Tech>
           </ExperienceCard>

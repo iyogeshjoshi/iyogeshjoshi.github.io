@@ -3,43 +3,45 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const ProjectsContainer = styled(motion.div)`
-  min-height: 100vh;
-  padding-top: 100px;
+  padding: 2rem 0;
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  color: #64ffda;
-  margin-bottom: 3rem;
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
 `;
 
-const ProjectsGrid = styled.div`
+const ProjectsGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 `;
 
 const ProjectCard = styled(motion.div)`
-  background-color: rgba(100, 255, 218, 0.1);
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 2rem;
-  transition: transform 0.3s ease;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px var(--shadow-color);
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+    border-color: var(--accent-color);
   }
 `;
 
-const ProjectTitle = styled.h3`
-  color: #64ffda;
+const ProjectTitle = styled(motion.h3)`
+  color: var(--text-color);
   font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
 
-const ProjectDescription = styled.p`
-  color: #e6f1ff;
-  margin-bottom: 1.5rem;
+const ProjectDescription = styled(motion.p)`
+  color: var(--text-color);
+  font-size: 1rem;
   line-height: 1.6;
 `;
 
@@ -72,7 +74,7 @@ const ProjectLink = styled.a`
 `;
 
 interface Project {
-  name: string;
+  title: string;
   description: string;
   technologies: string[];
   link: string;
@@ -82,30 +84,45 @@ interface ProjectsProps {
   projects: Project[];
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
 const Projects: React.FC<ProjectsProps> = ({ projects }) => {
   return (
     <ProjectsContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20%" }}
     >
-      <Title
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        Featured Projects
-      </Title>
+      <Title variants={cardVariants}>Projects</Title>
       <ProjectsGrid>
         {projects.map((project, index) => (
           <ProjectCard
-            key={project.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
+            key={index}
+            variants={cardVariants}
           >
-            <ProjectTitle>{project.name}</ProjectTitle>
+            <ProjectTitle>{project.title}</ProjectTitle>
             <ProjectDescription>{project.description}</ProjectDescription>
             <TechnologiesList>
               {project.technologies.map((tech) => (
