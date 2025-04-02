@@ -1,110 +1,104 @@
-# Deviloper.dev Portfolio
+# Portfolio Website
 
-A modern, responsive portfolio website built with React, TypeScript, and styled-components. The site features smooth animations, a clean design, and dynamic content loading from YAML files.
+A modern, responsive portfolio website built with React, TypeScript, and Vite. Features a dark/light theme toggle, smooth animations, and sections for showcasing experience, skills, and contact information.
 
-## Features
+## 🚀 Live Demo
 
-- 🎨 Modern, responsive design
-- ⚡ Smooth animations and transitions
-- 📱 Mobile-friendly layout
-- 🔄 Dynamic content loading from YAML
-- 🌙 Dark mode optimized
-- 🎯 SEO friendly
+Visit the live site: [deviloper.dev](https://deviloper.dev)
 
-## Tech Stack
+## ✨ Features
 
-- React 18
+- 🌓 Dark/Light theme toggle
+- 📱 Fully responsive design
+- 🎯 Smooth scroll animations
+- 💼 Experience timeline
+- 🛠️ Skills showcase
+- 📬 Contact section
+- 🎨 Modern UI with consistent styling
+- 🔧 Built with TypeScript for type safety
+
+## 🛠️ Tech Stack
+
+- React
 - TypeScript
+- Vite
 - Styled Components
 - Framer Motion
-- React Router
-- js-yaml
+- YAML for content management
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
+## 🚀 Quick Start
 
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/deviloper-portfolio.git
-cd deviloper-portfolio
-```
+   ```bash
+   git clone git@github.com:iyogeshjoshi/iyogeshjoshi.github.io.git
+   cd iyogeshjoshi.github.io
+   ```
 
 2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-```
+   ```bash
+   npm install
+   ```
 
 3. Start the development server:
-```bash
-npm start
-# or
-yarn start
-```
+   ```bash
+   npm run dev
+   ```
 
-The site will be available at `http://localhost:3000`.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Building for Production
+## 📝 Configuration
 
-To create a production build:
+1. Update your information in `public/data.yaml`
+2. Modify theme colors in `src/index.css`
+3. Update SEO information in `src/components/SEO.tsx`
 
-```bash
-npm run build
-# or
-yarn build
-```
+## 📦 Building for Production
 
-The build output will be in the `build` directory.
-
-## Deployment
-
-### Deploying to Deviloper.dev
-
-1. Build the project:
 ```bash
 npm run build
 ```
 
-2. Deploy the contents of the `build` directory to your web hosting service.
+The built files will be in the `dist` directory.
 
-### Using Netlify (Recommended)
+## 🚀 Deployment
 
-1. Push your code to GitHub
-2. Connect your repository to Netlify
-3. Set the build command to `npm run build`
-4. Set the publish directory to `build`
-5. Deploy!
+This site is configured to deploy to GitHub Pages using GitHub Actions. The deployment is automatic when you push to the master branch.
 
-## Customization
+### Custom Domain Setup
 
-### Updating Content
+1. The `CNAME` file in the `public` directory contains:
+   ```
+   deviloper.dev
+   ```
 
-The site's content is stored in `src/data.yaml`. Edit this file to update your:
+2. DNS Settings for deviloper.dev:
+   - Add these A records pointing to GitHub Pages:
+     ```
+     185.199.108.153
+     185.199.109.153
+     185.199.110.153
+     185.199.111.153
+     ```
+   - Add a CNAME record if using a subdomain
 
-- Personal information
-- Skills
-- Projects
-- Contact information
+3. GitHub Pages Settings:
+   - Go to repository settings
+   - Navigate to "Pages"
+   - Ensure "Custom domain" is set to "deviloper.dev"
+   - Enable "Enforce HTTPS"
 
-### Styling
+## 📄 License
 
-The site uses styled-components for styling. The main theme colors are defined in the components and can be modified to match your preferences.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/iyogeshjoshi/iyogeshjoshi.github.io/issues).
 
-## License
+## 👤 Author
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+**Yogesh Joshi**
+- Website: [deviloper.dev](https://deviloper.dev)
+- GitHub: [@iyogeshjoshi](https://github.com/iyogeshjoshi)
+- LinkedIn: [Yogesh Joshi](https://linkedin.com/in/iyogeshjoshi)
+- X: [@iyogeshjoshi](https://x.com/iyogeshjoshi) 
