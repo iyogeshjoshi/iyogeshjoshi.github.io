@@ -82,7 +82,7 @@ const XIcon = () => (
   </svg>
 );
 
-interface Contact {
+interface ContactInfo {
   email: string;
   github: string;
   linkedin: string;
@@ -90,7 +90,7 @@ interface Contact {
 }
 
 interface ContactProps {
-  contact: Contact;
+  contact: ContactInfo;
 }
 
 const Contact: React.FC<ContactProps> = ({ contact }) => {

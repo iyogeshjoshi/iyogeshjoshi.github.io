@@ -5,8 +5,6 @@ import { motion } from 'framer-motion';
 interface Skill {
   name: string;
   items: string[];
-  progress?: number;
-  level?: string;
 }
 
 const SkillsContainer = styled(motion.div)`
@@ -67,32 +65,6 @@ const SkillTag = styled(motion.span)`
     color: var(--bg-color);
     transform: translateY(-2px);
   }
-`;
-
-const ProgressBar = styled.div<{ progress?: number }>`
-  width: 100%;
-  height: 6px;
-  background-color: var(--card-border);
-  border-radius: 3px;
-  margin-top: 0.5rem;
-  overflow: hidden;
-`;
-
-const Progress = styled.div<{ progress?: number }>`
-  width: ${props => (props.progress || 0)}%;
-  height: 100%;
-  background-color: var(--accent-color);
-  border-radius: 3px;
-  transition: width 0.6s ease;
-`;
-
-const SkillLevel = styled.div`
-  color: var(--secondary-color);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 interface SkillsProps {
