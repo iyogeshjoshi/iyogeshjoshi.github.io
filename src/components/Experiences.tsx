@@ -8,9 +8,9 @@ const ExperienceContainer = styled(motion.div)`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  color: #64ffda;
-  margin-bottom: 3rem;
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const ExperienceGrid = styled.div`
@@ -20,130 +20,70 @@ const ExperienceGrid = styled.div`
 `;
 
 const ExperienceCard = styled(motion.div)`
-  background-color: rgba(100, 255, 218, 0.1);
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 2rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px var(--shadow-color);
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(100, 255, 218, 0.15);
-    background-color: rgba(100, 255, 218, 0.15);
-    border-color: rgba(100, 255, 218, 0.4);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle at center,
-      rgba(100, 255, 218, 0.1) 0%,
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+    border-color: var(--accent-color);
   }
 `;
 
-const CompanyName = styled.h3`
-  color: #64ffda;
+const Company = styled.h3`
+  color: var(--text-color);
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -0.5rem;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background-color: #64ffda;
-    transition: width 0.3s ease;
-  }
-
-  ${ExperienceCard}:hover &::after {
-    width: 100px;
-  }
+  margin-bottom: 0.5rem;
 `;
 
-const PositionSection = styled.div`
-  margin-bottom: 2rem;
-  padding-left: 1rem;
-  border-left: 2px solid rgba(100, 255, 218, 0.2);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const Position = styled.h4`
-  color: #ccd6f6;
+const Role = styled.h4`
+  color: var(--secondary-color);
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 `;
 
 const Duration = styled.p`
-  color: #8892b0;
-  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-size: 1rem;
   margin-bottom: 1rem;
 `;
 
 const Description = styled.ul`
-  color: #e6f1ff;
-  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 1rem;
   line-height: 1.6;
-  list-style: none;
-  padding: 0;
-`;
-
-const DescriptionItem = styled.li`
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-
-  &::before {
-    content: '▹';
-    color: #64ffda;
-    flex-shrink: 0;
+  margin-left: 1.2rem;
+  
+  li {
+    margin-bottom: 0.5rem;
   }
 `;
 
-const TechStack = styled.div`
+const Tech = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
+  gap: 0.5rem;
+  margin-top: 1rem;
 `;
 
-const Tech = styled.span`
-  background-color: rgba(100, 255, 218, 0.1);
-  color: #64ffda;
+const TechTag = styled.span`
+  background-color: var(--card-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--card-border);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  border: 1px solid transparent;
-  cursor: default;
 
   &:hover {
-    background-color: rgba(100, 255, 218, 0.2);
+    background-color: var(--accent-color);
+    color: var(--bg-color);
     transform: translateY(-2px);
-    border-color: rgba(100, 255, 218, 0.4);
-    box-shadow: 0 2px 4px rgba(100, 255, 218, 0.1);
   }
 `;
 
@@ -199,23 +139,23 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.1 }}
           >
-            <CompanyName>{company}</CompanyName>
+            <Company>{company}</Company>
             {data.positions.map((pos, posIndex) => (
-              <PositionSection key={`${pos.position}-${posIndex}`}>
-                <Position>{pos.position}</Position>
+              <div key={`${pos.position}-${posIndex}`}>
+                <Role>{pos.position}</Role>
                 <Duration>{pos.duration}</Duration>
                 <Description>
                   {pos.description.map((item, i) => (
-                    <DescriptionItem key={i}>{item}</DescriptionItem>
+                    <li key={i}>{item}</li>
                   ))}
                 </Description>
-              </PositionSection>
+              </div>
             ))}
-            <TechStack>
+            <Tech>
               {Array.from(data.technologies).map((tech) => (
-                <Tech key={tech}>{tech}</Tech>
+                <TechTag key={tech}>{tech}</TechTag>
               ))}
-            </TechStack>
+            </Tech>
           </ExperienceCard>
         ))}
       </ExperienceGrid>

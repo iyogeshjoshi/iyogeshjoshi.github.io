@@ -10,31 +10,49 @@ const AboutContainer = styled(motion.div)`
   padding-top: 80px;
 `;
 
-const Title = styled(motion.h1)`
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  color: #64ffda;
+const Title = styled(motion.h2)`
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const Tagline = styled(motion.p)`
   font-size: 1.5rem;
-  color: #8892b0;
+  color: var(--secondary-color);
   margin-bottom: 2rem;
 `;
 
-const Bio = styled(motion.p)`
-  font-size: 1.2rem;
-  line-height: 1.8;
+const Content = styled.div`
   max-width: 800px;
-  color: #e6f1ff;
+`;
+
+const Bio = styled.div`
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.6;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 interface AboutProps {
   bio: string;
   tagline: string;
+  name: string;
 }
 
-const About: React.FC<AboutProps> = ({ bio, tagline }) => {
+const About: React.FC<AboutProps> = ({ bio, tagline, name }) => {
   return (
     <AboutContainer
       initial={{ opacity: 0, y: 20 }}
@@ -47,7 +65,7 @@ const About: React.FC<AboutProps> = ({ bio, tagline }) => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
       >
-        Yogesh Joshi
+        {name}
       </Title>
       <Tagline
         initial={{ opacity: 0, x: -20 }}
@@ -56,13 +74,11 @@ const About: React.FC<AboutProps> = ({ bio, tagline }) => {
       >
         {tagline}
       </Tagline>
-      <Bio
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.6 }}
-      >
-        {bio}
-      </Bio>
+      <Content>
+        <Bio>
+          {bio}
+        </Bio>
+      </Content>
     </AboutContainer>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { motion, useScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { PortfolioData, loadPortfolioData } from './utils/yamlLoader';
 import Header from './components/Header';
 import About from './components/About';
@@ -127,7 +127,7 @@ const App: React.FC = () => {
           viewport={{ once: true, margin: "-20%" }}
           transition={{ duration: 0.8 }}
         >
-          <About bio={data.bio} tagline={data.tagline} />
+          <About bio={data.bio} tagline={data.tagline} name={data.name} />
         </Section>
         <Section
           id="skills"

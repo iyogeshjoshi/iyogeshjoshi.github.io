@@ -9,9 +9,9 @@ const SoftSkillsContainer = styled(motion.div)`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  color: #64ffda;
-  margin-bottom: 3rem;
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const SkillsGrid = styled.div`
@@ -21,58 +21,25 @@ const SkillsGrid = styled.div`
 `;
 
 const SkillCategory = styled(motion.div)`
-  background-color: rgba(100, 255, 218, 0.1);
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 2rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px var(--shadow-color);
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(100, 255, 218, 0.15);
-    background-color: rgba(100, 255, 218, 0.15);
-    border-color: rgba(100, 255, 218, 0.4);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle at center,
-      rgba(100, 255, 218, 0.1) 0%,
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+    border-color: var(--accent-color);
   }
 `;
 
 const CategoryTitle = styled.h3`
-  color: #64ffda;
+  color: var(--text-color);
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -0.5rem;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background-color: #64ffda;
-  }
 `;
 
 const SkillsList = styled.ul`
@@ -82,7 +49,7 @@ const SkillsList = styled.ul`
 `;
 
 const SkillItem = styled(motion.li)`
-  color: #e6f1ff;
+  color: var(--text-color);
   margin-bottom: 0.8rem;
   display: flex;
   align-items: center;
@@ -91,7 +58,7 @@ const SkillItem = styled(motion.li)`
 
   &::before {
     content: '▹';
-    color: #64ffda;
+    color: var(--accent-color);
   }
 `;
 

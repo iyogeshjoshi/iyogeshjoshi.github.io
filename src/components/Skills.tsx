@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Skill } from '../utils/yamlLoader';
+
+interface Skill {
+  name: string;
+  items: string[];
+  progress?: number;
+  level?: string;
+}
 
 const SkillsContainer = styled(motion.div)`
   min-height: 100vh;
@@ -9,9 +15,9 @@ const SkillsContainer = styled(motion.div)`
 `;
 
 const Title = styled(motion.h2)`
-  font-size: 2.5rem;
-  color: #64ffda;
-  margin-bottom: 3rem;
+  color: var(--accent-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const SkillsGrid = styled.div`
@@ -20,67 +26,73 @@ const SkillsGrid = styled.div`
   gap: 2rem;
 `;
 
-const SkillCategory = styled(motion.div)`
-  background-color: rgba(100, 255, 218, 0.1);
-  border: 1px solid rgba(100, 255, 218, 0.2);
+const SkillCard = styled(motion.div)`
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
-  padding: 2rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px var(--shadow-color);
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(100, 255, 218, 0.15);
-    background-color: rgba(100, 255, 218, 0.15);
-    border-color: rgba(100, 255, 218, 0.4);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle at center,
-      rgba(100, 255, 218, 0.1) 0%,
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px var(--shadow-color);
+    border-color: var(--accent-color);
   }
 `;
 
-const CategoryTitle = styled.h3`
-  color: #64ffda;
+const SkillCategory = styled.h3`
+  color: var(--text-color);
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 `;
 
-const SkillsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const SkillItem = styled(motion.li)`
-  color: #e6f1ff;
-  margin-bottom: 0.8rem;
+const SkillList = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+`;
 
-  &::before {
-    content: '▹';
-    color: #64ffda;
+const SkillTag = styled(motion.span)`
+  background-color: var(--card-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--card-border);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transform: translateY(-2px);
   }
+`;
+
+const ProgressBar = styled.div<{ progress?: number }>`
+  width: 100%;
+  height: 6px;
+  background-color: var(--card-border);
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+`;
+
+const Progress = styled.div<{ progress?: number }>`
+  width: ${props => (props.progress || 0)}%;
+  height: 100%;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+`;
+
+const SkillLevel = styled.div`
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 interface SkillsProps {
@@ -104,26 +116,26 @@ const Skills: React.FC<SkillsProps> = ({ skills = [] }) => {
       </Title>
       <SkillsGrid>
         {(skills || []).map((category, index) => (
-          <SkillCategory
+          <SkillCard
             key={category.name || index}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.1 }}
           >
-            <CategoryTitle>{category.name}</CategoryTitle>
-            <SkillsList>
+            <SkillCategory>{category.name}</SkillCategory>
+            <SkillList>
               {(category.items || []).map((item, itemIndex) => (
-                <SkillItem
+                <SkillTag
                   key={item || itemIndex}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 + itemIndex * 0.05 }}
                 >
                   {item}
-                </SkillItem>
+                </SkillTag>
               ))}
-            </SkillsList>
-          </SkillCategory>
+            </SkillList>
+          </SkillCard>
         ))}
       </SkillsGrid>
     </SkillsContainer>

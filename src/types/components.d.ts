@@ -17,6 +17,7 @@ declare module './components/About' {
   interface AboutProps {
     bio: string;
     tagline: string;
+    name: string;
   }
   const About: React.FC<AboutProps>;
   export default About;

@@ -3,6 +3,8 @@ import yaml from 'js-yaml';
 export interface Skill {
   name: string;
   items: string[];
+  progress?: number;
+  level?: string;
 }
 
 export interface Experience {
