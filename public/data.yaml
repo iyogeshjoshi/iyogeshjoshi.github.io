@@ -1,0 +1,189 @@
+name: "YOGESH JOSHI"
+bio: "Results-driven Lead Software Engineer with ~11 years of expertise in JavaScript and Full-stack development. Skilled in designing, developing, and optimizing scalable, high-performance software solutions. Experienced in leading teams, mentoring developers, and driving technical excellence. Passionate about driving technical excellence, fostering collaboration, and continuously learning to stay ahead in a dynamic industry."
+tagline: "Lead Software Engineer"
+
+skills:
+  - name: "Languages & Frameworks"
+    items:
+      - "JavaScript/TypeScript"
+      - "React.js"
+      - "Node.js"
+      - "Express"
+      - "Redux"
+      - "Next.js"
+      - "Angular"
+      - "Vue.js"
+      - "PHP"
+
+  - name: "Backend & API Development"
+    items:
+      - "RESTful APIs"
+      - "GraphQL"
+      - "WebSockets"
+      - "Socket.io"
+      - "Microservices Architecture"
+      - "Serverless Computing"
+      - "Event-driven Architecture"
+      - "Firebase Functions"
+      - "Redis"
+      - "Express"
+
+  - name: "Databases & Storage"
+    items:
+      - "PostgreSQL"
+      - "MySQL"
+      - "MongoDB"
+      - "Redis"
+      - "Firebase Firestore"
+      - "DynamoDB"
+
+  - name: "Cloud & DevOps"
+    items:
+      - "AWS"
+      - "GCP"
+      - "CI/CD"
+      - "Jenkins"
+      - "GitHub Actions"
+      - "Docker"
+      - "Kubernetes"
+      - "Terraform"
+      - "Lambda"
+      - "DynamoDB"
+      - "Google Cloud"
+
+  - name: "Testing & Quality"
+    items:
+      - "Jest"
+      - "Mocha"
+      - "Cypress"
+      - "Selenium"
+      - "TDD/BDD"
+
+  - name: "Security & Authentication"
+    items:
+      - "OAuth"
+      - "JWT"
+      - "SAML"
+      - "Web Security Best Practices"
+      - "OWASP Guidelines"
+
+experiences:
+  - company: "VISA International"
+    position: "Lead Software Engineer"
+    duration: "AUGUST 2023 - FEBURARY 2025"
+    description: 
+      - Brainstorming session with Product and Designers to simplify and define specs for Devs
+      - Developing specs before development starts to identify and fix any issues
+      - Helping team understand complex concepts as well helping them grow with understanding of Software design and patterns by having multiple learning sessions with team
+      - Have updated the existing architecture on AWS to successfully reduce the cost significantly
+      - Collaborated across team and function for successfully designing, developing & maintaining the product
+      - Implemented and maintained multiple Front-end applications as well as developed and deployed microservices service APIs required for them
+      - Collaborated with UX/UI designers to improve the user experience and journey across the product
+      - Deployment of multiple services on Rancher Kubernetes and AWS"
+    technologies:
+      - "React"
+      - "Node.js"
+      - "AWS"
+      - "Kubernetes"
+      - "TypeScript"
+      - "Microservices"
+
+  - company: "VISA International"
+    position: "Senior Software Engineer"
+    duration: "AUGUST 2020 - AUGUST 2023"
+    description: 
+      - Designed and developed mobile application using ReactNative, Redux, Redux State Tree, redux and other hybrid technologies
+      - Managed new interns and trainees, and helped them on-board and learn new technologies and tools
+      - Helped junior developers and colleagues with their tasks and fix issues when they are stuck
+      - Managed release of application from internal releases to the play store releases
+      - Created a micro-service architecture template using Node.js and other required plugins with black-end tools
+      - Designed and developed backend REST APIs for multiple modules
+      - Developed and managed micro-services on Back-end using Node.js
+      - Have added automations, email scripts, and other tools in place to automate daily mundane tasks and processes"
+    technologies:
+      - "React Native"
+      - "Redux"
+      - "Node.js"
+      - "Microservices"
+      - "REST APIs"
+      - "Automation"
+
+  - company: "YARA International"
+    position: "Senior Software Engineer"
+    duration: "AUGUST 2013 - AUGUST 2015"
+    description: 
+      - Designed and developed mobile application using ReactNative, Redux, Redux State Tree, redux and other hybrid technologies
+      - Managed new interns and trainees, and helped them on-board and learn new technologies and tools
+      - Helped junior developers and colleagues with their tasks and fix issues when they are stuck
+      - Managed release of application from internal releases to the play store releases
+      - Created a micro-service architecture template using Node.js and other required plugins with black-end tools
+      - Designed and developed backend REST APIs for multiple modules
+      - Developed and managed micro-services on Back-end using Node.js
+      - Have added automations, email scripts, and other tools in place to automate daily mundane tasks and processes"
+    technologies:
+      - "React Native"
+      - "Redux"
+      - "Node.js"
+      - "Microservices"
+      - "REST APIs"
+      - "Automation"
+  
+  - company: "Ather Energy"
+    position: "Senior Software Engineer"
+    duration: "AUGUST 2015 - AUGUST 2020"
+    description: 
+      - Designed and developed mobile application using ReactNative, Redux, Redux State Tree, redux and other hybrid technologies
+      - Managed new interns and trainees, and helped them on-board and learn new technologies and tools
+      - Helped junior developers and colleagues with their tasks and fix issues when they are stuck
+      - Managed release of application from internal releases to the play store releases
+      - Created a micro-service architecture template using Node.js and other required plugins with black-end tools
+      - Designed and developed backend REST APIs for multiple modules
+      - Developed and managed micro-services on Back-end using Node.js
+      - Have added automations, email scripts, and other tools in place to automate daily mundane tasks and processes"
+    technologies:
+      - "React Native"
+      - "Redux"
+      - "Node.js"
+      - "Microservices"
+      - "REST APIs"
+      - "Automation"
+
+soft_skills:
+  - name: "System Architecture & Design"
+    items:
+      - "SOC"
+      - "MVVM"
+      - "DDD principles"
+      - "Event-Driven Architecture"
+
+  - name: "Agile & Team Leadership"
+    items:
+      - "Agile Methodologies"
+      - "Scrum"
+      - "Kanban"
+      - "Sprint Planning"
+      - "Mentorship & Code Reviews"
+
+  - name: "Problem-Solving & Critical Thinking"
+    items:
+      - "Debugging"
+      - "Performance Tuning"
+      - "Scalable System Design"
+
+  - name: "Communication"
+    items:
+      - "Cross-functional Teamwork"
+      - "Technical Documentation"
+      - "Stakeholder Management"
+
+  - name: "Project Management"
+    items:
+      - "Prioritization"
+      - "Estimation"
+      - "Delivering within Deadlines"
+
+contact:
+  email: "hello@deviloper.dev"
+  github: "https://github.com/iyogeshjoshi"
+  linkedin: "https://linkedin.com/in/iyogeshjoshi"
+  twitter: "https://twitter.com/iyogeshjoshi"

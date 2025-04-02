@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  will-change: background-color, color;
+  min-height: 100%;
+}
+
+:root {
+  /* Light theme */
+  --bg-color-light: #ffffff;
+  --text-color-light: #0a192f;
+  --accent-color-light: #64ffda;
+  --secondary-color-light: #8892b0;
+  --card-bg-light: rgba(100, 255, 218, 0.1);
+  --card-border-light: rgba(100, 255, 218, 0.2);
+  --card-hover-bg-light: rgba(100, 255, 218, 0.15);
+  --card-hover-border-light: rgba(100, 255, 218, 0.4);
+  --shadow-color-light: rgba(0, 0, 0, 0.1);
+
+  /* Dark theme */
+  --bg-color-dark: #0a192f;
+  --text-color-dark: #e6f1ff;
+  --accent-color-dark: #64ffda;
+  --secondary-color-dark: #8892b0;
+  --card-bg-dark: rgba(100, 255, 218, 0.1);
+  --card-border-dark: rgba(100, 255, 218, 0.2);
+  --card-hover-bg-dark: rgba(100, 255, 218, 0.15);
+  --card-hover-border-dark: rgba(100, 255, 218, 0.4);
+  --shadow-color-dark: rgba(0, 0, 0, 0.3);
+
+  /* Default to dark theme */
+  --bg-color: var(--bg-color-dark);
+  --text-color: var(--text-color-dark);
+  --accent-color: var(--accent-color-dark);
+  --secondary-color: var(--secondary-color-dark);
+  --card-bg: var(--card-bg-dark);
+  --card-border: var(--card-border-dark);
+  --card-hover-bg: var(--card-hover-bg-dark);
+  --card-hover-border: var(--card-hover-border-dark);
+  --shadow-color: var(--shadow-color-dark);
+}
+
+[data-theme='light'] {
+  --bg-color: var(--bg-color-light);
+  --text-color: var(--text-color-light);
+  --accent-color: var(--accent-color-light);
+  --secondary-color: var(--secondary-color-light);
+  --card-bg: var(--card-bg-light);
+  --card-border: var(--card-border-light);
+  --card-hover-bg: var(--card-hover-bg-light);
+  --card-hover-border: var(--card-hover-border-light);
+  --shadow-color: var(--shadow-color-light);
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+/* Ensure proper height inheritance */
+body, #root {
+  min-height: 100%;
+} 
