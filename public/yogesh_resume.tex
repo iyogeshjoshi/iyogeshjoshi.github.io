@@ -1,0 +1,112 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Define custom colors
+\definecolor{sectionblue}{RGB}{0,102,204}
+\definecolor{headergray}{RGB}{100,100,100}
+
+% Set up header: shown only on the first page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{%
+  \textbf{\Large YOGESH JOSHI}\\[2mm]
+  \small Bangalore, KA \quad | \quad +91 8000038220 \quad | \quad
+  \href{mailto:iyogeshjoshi@gmail.com}{iyogeshjoshi@gmail.com} \quad | \quad
+  \href{http://iyogeshjoshi.com}{iyogeshjoshi.com} \quad | \quad
+  \href{https://github.com/iyogeshjoshi}{@iyogeshjoshi}%
+}
+\fancypagestyle{plain}{%
+  \fancyhf{} % clear all header and footer fields
+  \renewcommand{\headrulewidth}{0pt} % no line in header area
+}
+
+% Formatting for section titles
+\titleformat{\section}{\color{sectionblue}\bfseries\Large}{}{0em}{}[\titlerule]
+\titleformat{\subsection}[runin]{\bfseries\color{sectionblue}}{}{0em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\begin{document}
+\thispagestyle{fancy}  % Ensures header appears on the first page
+
+\section*{Professional Summary}
+\begin{itemize}[leftmargin=*]
+  \item Results-driven Lead Software Engineer with 11 years of experience in fullstack JavaScript development.
+  \item Expert in designing, architecting, and optimizing scalable web applications using Node.js, React, and related frameworks.
+  \item Proven leadership in mentoring teams, streamlining development processes, and driving technical excellence.
+\end{itemize}
+
+\section*{Technical Skills}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Languages \& Frameworks}: JavaScript (ES6+), TypeScript, Node.js, React.js, Angular, Vue.js, Next.js, NestJS, Micro-Frontend React.
+  \item \textbf{Backend \& APIs}: RESTful APIs, GraphQL, WebSockets, Microservices Architecture, Serverless Computing (AWS Lambda, Firebase Functions).
+  \item \textbf{Databases \& Storage}: PostgreSQL, MySQL, MongoDB, Redis, Firebase Firestore, IndexedDB.
+  \item \textbf{DevOps \& Cloud}: AWS (EC2, S3, Lambda, DynamoDB, Aurora), Google Cloud, Docker, Kubernetes, CI/CD Pipelines, Terraform.
+  \item \textbf{Testing \& QA}: Jest, Mocha, Chai, Cypress, Selenium, TDD/BDD.
+  \item \textbf{Security}: OAuth, JWT, SAML, Web Security Best Practices, OWASP Guidelines.
+  \item \textbf{Mobile \& Frontend}: PWA, React Native, Google Maps SDK/APIs.
+  \item \textbf{Methodologies}: Agile (Scrum, Kanban), Code Reviews, Mentoring, Technical Documentation.
+\end{itemize}
+
+\section*{Experience}
+
+\subsection*{Lead Software Engineer, YARA International, Bengaluru, KA (Aug 2022 -- Feb 2025)}
+\begin{itemize}[leftmargin=*]
+  \item Spearheaded the design and implementation of scalable fullstack solutions using Node.js and React, leading to significant cost reductions on AWS.
+  \item Directed the architectural overhaul of legacy systems into modern, maintainable codebases based on a JavaScript stack.
+  \item Collaborated with product managers and UI/UX teams to integrate microservices and create user-centric applications.
+  \item Mentored team members on advanced JavaScript patterns, improving overall code quality and team productivity.
+  \item Automated testing, deployment workflows, and performance monitoring to streamline development and operations.
+\end{itemize}
+
+\subsection*{Senior Software Engineer, YARA International, Bengaluru, KA (Aug 2020 -- Aug 2022)}
+\begin{itemize}[leftmargin=*]
+  \item Developed and maintained fullstack applications by implementing RESTful and GraphQL APIs using NestJS.
+  \item Built responsive mobile applications using React Native with state management via MobX and Redux.
+  \item Facilitated onboarding and training for interns and junior developers, fostering a collaborative team environment.
+  \item Automated routine tasks and enhanced code hygiene through custom scripts and CI/CD integration.
+  \item Collaborated with cross-functional teams to drive product improvements and meet release deadlines.
+\end{itemize}
+
+\subsection*{Senior Software Engineer, Ather Energy Pvt Ltd., Bengaluru, KA (Jun 2015 -- Aug 2020)}
+\begin{itemize}[leftmargin=*]
+  \item Engineered responsive web and mobile applications using React.js, Redux, and Node.js for vehicle platform integration.
+  \item Developed optimized navigation systems using Google Maps APIs tailored for hardware with resource constraints.
+  \item Identified and resolved performance bottlenecks, implementing best practices in front-end optimization and testing.
+  \item Worked closely with multi-disciplinary teams to integrate system-level applications using Go-lang and modern JavaScript stacks.
+  \item Led initiatives for code standardization and documentation to ensure long-term maintainability.
+\end{itemize}
+
+\subsection*{Software Artisan, Function Space, Bangalore, KA (May 2014 -- Jun 2015)}
+\begin{itemize}[leftmargin=*]
+  \item Developed interactive web applications and gamified learning tools using JavaScript and PHP.
+  \item Created comprehensive dashboards to analyze user engagement and system performance.
+  \item Collaborated with design and product teams to refine features and enhance user experiences.
+\end{itemize}
+
+\subsection*{Fullstack Developer, Avinashi Ventures, Surat, GJ (Jun 2013 -- Apr 2014)}
+\begin{itemize}[leftmargin=*]
+  \item Developed enterprise-level HRMS systems using AngularJS and Node.js, improving internal operational efficiencies.
+  \item Designed and implemented SMS delivery and reporting systems, integrating them with core application workflows.
+  \item Streamlined data processing and reporting through innovative use of MongoDB and JavaScript-based solutions.
+\end{itemize}
+
+\section*{Education}
+\textbf{Bachelor of Engineering in Computer Engineering}, Gujarat Technological University (GTU), Surat, GJ \\
+\textbf{CGPA}: 8.05 (2013)
+
+\section*{Additional Information}
+\begin{itemize}[leftmargin=*]
+  \item Passionate about game development and home automation.
+  \item Active contributor to open-source projects.
+\end{itemize}
+
+\end{document}
