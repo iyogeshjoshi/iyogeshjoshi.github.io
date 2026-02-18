@@ -1,0 +1,143 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[top=0.75in, bottom=0.75in, left=0.75in, right=0.75in]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome}
+
+% Colors
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{datecolor}{RGB}{100,100,100}
+
+% Header settings
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{%
+  \textbf{\Large YOGESH JOSHI}\\[2mm]
+  \small Bangalore, KA 560102 \quad \textbullet \quad (+91) 8000038220 \quad \textbullet \quad
+  \href{mailto:iyogeshjoshi@gmail.com}{iyogeshjoshi@gmail.com} \quad \textbullet \quad
+  \href{https://github.com/iyogeshjoshi}{\faGithub{} iyogeshjoshi} \quad \textbullet \quad
+  \href{https://linkedin.com/in/iyogeshjoshi}{\faLinkedin{} iyogeshjoshi}
+}
+\fancypagestyle{plain}{\fancyhf{} \renewcommand{\headrulewidth}{0pt}}
+
+% Section formatting
+\titleformat{\section}{\color{sectioncolor}\Large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}[runin]{\bfseries}{}{0em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\begin{document}
+\thispagestyle{fancy}
+
+%-----------------------------------------------
+\section*{Professional Summary}
+Staff Software Engineer with 12+ years of expertise in full-stack JavaScript/TypeScript development. Architected an AWS infrastructure redesign that cut cloud costs by 80\% while improving scalability, and led delivery of enterprise-grade micro-frontend systems handling 100K+ daily transactions. Known for architectural leadership, cross-functional mentorship, and shipping complex features on tight timelines.
+
+%-----------------------------------------------
+\section*{Skills}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{Languages:} JavaScript (ES6+), TypeScript, Go
+  \item \textbf{Architecture:} Micro-frontends, Webpack Module Federation, Microservices, Serverless
+  \item \textbf{Frontend:} React, Next.js, Vue.js, Redux, React Native, GWT
+  \item \textbf{Backend:} Node.js, NestJS, Express.js, Spring Boot, GraphQL
+  \item \textbf{Cloud/DevOps:} AWS (EC2, S3, Lambda, DynamoDB), Docker, Kubernetes, Terraform, Mulesoft
+  \item \textbf{Databases:} PostgreSQL, MongoDB, Redis, Firebase Firestore
+  \item \textbf{Testing:} Jest, Cypress, Playwright, Selenium
+  \item \textbf{Digital Adoption:} DAP platforms, Contextual fabs, In-app guidance
+\end{itemize}
+
+%-----------------------------------------------
+\section*{Experience}
+
+\subsection*{\large Whatfix}
+\textcolor{datecolor}{Bengaluru, KA \textbar Jun 2025 -- Present} \\
+\textbf{\textit{Staff Software Engineer}}
+
+Whatfix is a leading Digital Adoption Platform (DAP) empowering organizations to guide, automate, and track user journeys across software applications.
+
+\textbf{Selfhelp Hub}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Contextual fab embedded in client applications, giving end-users access to curated help articles, training videos, automations, and task assignments
+  \item \textbf{Delivered "Tasklist" feature} within one month -- enables organizations to create actionable tasks for end-users with configurable notification frequency via the fab
+  \item Tasklist supports multiple task types: reading articles, watching videos, performing automations, and completing defined actions
+  \item \textbf{Increased Selfhelp Hub adoption from 80\% to 100\%} across enterprise client base through feature enhancements and UX improvements
+  \item \textbf{Tech Stack:} ReactJS, Micro-frontends (Webpack Module Federation), GWT, Spring Boot, Playwright
+\end{itemize}
+
+\textbf{QuickRead}
+\begin{itemize}[leftmargin=*, nosep]
+  \item AI-powered query system enabling users to ask questions against all curated organizational content
+  \item Building core agent that traverses organizational content and generates contextual, accurate responses to user queries; improving content discoverability across enterprise client base
+\end{itemize}
+
+\textbf{Glimpse}
+\begin{itemize}[leftmargin=*, nosep]
+  \item In-context FAQ solution allowing organizations to define highlightable selectors on their applications; selectors are underlined with a distinctive rainbow indicator and open a modal with AI-generated answers via QuickRead
+  \item Implementing suggested questions section that auto-populates queries in Selfhelp Hub for seamless cross-product integration
+\end{itemize}
+
+\textbf{Team Leadership}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Mentoring team of 3-4 engineers, conducting code reviews, and driving technical excellence
+\end{itemize}
+
+\subsection*{\large YARA International}
+\textcolor{datecolor}{Bengaluru, KA \textbar Aug 2020 -- Feb 2025} \\
+\textbf{\textit{Lead Software Engineer}} (Aug 2022 -- Feb 2025)
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{Spearheaded AWS infrastructure redesign} that reduced cloud costs by 80\% while improving system performance and scalability
+  \item \textbf{Architected micro-frontend architecture} using React, enabling team autonomy and faster deployment cycles
+  \item \textbf{Designed and deployed microservices} on AWS and Mulesoft Anypoint middleware, handling 100K+ daily transactions
+  \item Led engineering team, conducting technical reviews, mentoring junior developers, and driving SOLID principles adoption
+\end{itemize}
+
+\textbf{\textit{Senior Software Engineer}} (Aug 2020 -- Aug 2022)
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Developed cross-platform mobile application using React Native, MobX, and Firebase, serving 50K+ users
+  \item Created NestJS micro-service template adopted as standard across backend teams
+  \item Mentored 4 interns/trainees through onboarding and skill development programs
+  \item Managed release pipeline from internal testing to Google Play Store production releases
+\end{itemize}
+
+\subsection*{\large Ather Energy Private Ltd.}
+\textcolor{datecolor}{Bengaluru, KA \textbar Jun 2015 -- Aug 2020} \\
+\textbf{\textit{Senior Software Engineer (Associate Manager)}}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Designed vehicle navigation system using vanilla JS/React and Google Maps API, optimized for hardware with severe memory constraints across the Ather scooter fleet
+  \item Built mobile app using React Native + Firebase for vehicle-cloud sync, achieving 4.6$\star$ app store rating with 100K+ downloads
+  \item Developed Go-lang integrations for system-level vehicle applications
+  \item Created automation tools using shell scripting, reducing QA testing time by 40\%
+\end{itemize}
+
+\subsection*{\large Function Space}
+\textcolor{datecolor}{Bangalore, KA \textbar May 2014 -- Jun 2015} \\
+\textbf{\textit{Software Artisan}}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Built web applications and online community platform (PHP/JavaScript), including Learnise — a learning ecosystem with in-browser IDEs — and Play Physics, a suite of interactive science learning games
+\end{itemize}
+
+\subsection*{\large Avinashi Ventures Pvt Ltd}
+\textcolor{datecolor}{Surat, GJ \textbar Jun 2013 -- Apr 2014} \\
+\textbf{\textit{Fullstack Software Developer}}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Built HRMS system (AngularJS, Node.js, MongoDB), bulk SMS telemarketing delivery system, and automated mail reporting with charts — foundational full-stack experience spanning frontend, backend, and integrations
+\end{itemize}
+
+%-----------------------------------------------
+\section*{Education}
+\textbf{Bachelor of Engineering: Computer Engineering} (2009 -- 2013) \\
+Gujarat Technological University, Surat, GJ \\
+CGPA: 8.05
+
+\end{document}

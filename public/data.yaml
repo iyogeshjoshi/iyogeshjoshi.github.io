@@ -1,0 +1,226 @@
+name: YOGESH JOSHI
+bio: Lead Software Engineer with over a decade of extensive expertise in full-stack development and JavaScript, excelling in the design and optimization of scalable software solutions. Demonstrates strong leadership in architecting complex systems and fostering team collaboration to deliver innovative, user-focused applications. Committed to advancing technical excellence and driving impactful results through continuous learning and strategic foresight.
+tagline: Lead Software Engineer
+
+skills:
+  - name: Languages & Frameworks
+    items:
+      - JavaScript/TypeScript
+      - React.js
+      - Node.js
+      - Express
+      - Redux
+      - Next.js
+      - Angular
+      - Vue.js
+      - PHP
+
+  - name: Backend & API Development
+    items:
+      - RESTful APIs
+      - GraphQL
+      - WebSockets
+      - Socket.io
+      - Microservices Architecture
+      - Serverless Computing
+      - Event-driven Architecture
+      - Firebase Functions
+      - Redis
+      - Express
+
+  - name: Databases & Storage
+    items:
+      - PostgreSQL
+      - MySQL
+      - MongoDB
+      - Redis
+      - Firebase Firestore
+      - DynamoDB
+
+  - name: Cloud & DevOps
+    items:
+      - AWS
+      - GCP
+      - CI/CD
+      - Jenkins
+      - GitHub Actions
+      - Docker
+      - Kubernetes
+      - Terraform
+      - Lambda
+      - DynamoDB
+      - Google Cloud
+
+  - name: Testing & Quality
+    items:
+      - Jest
+      - Mocha
+      - Cypress
+      - Selenium
+      - TDD/BDD
+
+  - name: Security & Authentication
+    items:
+      - OAuth
+      - JWT
+      - SAML
+      - Web Security Best Practices
+      - OWASP Guidelines
+
+experiences:
+  - company: YARA International
+    position: Lead Software Engineer
+    duration: AUGUST 2023 - FEBURARY 2025
+    location: Bengaluru, KA
+    description: 
+      - Lead team brainstorms to streamline tasks, boosting efficiency and clarity.
+      - Architect complex systems, achieving measurable AWS cost reductions.
+      - Facilitate learning sessions, enhancing team's software design skills.
+      - Collaborate with UI/UX teams to optimize cross-platform user experience.
+      - Deploy and maintain robust applications on Mulesoft and AWS.
+      - Analyzed system architecture to streamline processes, resulting in marked improvements in product scalability and
+      - performance.
+      - Implemented cutting-edge microservice APIs, optimizing front-end application performance and user experience.
+      - Examined codebase efficiencies, leading to significant performance enhancements and streamlined operations.
+    technologies:
+      - NestJs
+      - AWS
+      - MuleSoft
+      - kubernetes
+  
+  - company: YARA International
+    position: Senior Software Engineer
+    duration: AUGUST 2020 - AUGUST 2022
+    location: Bengaluru, KA
+    description:
+      - Developed mobile apps with ReactNative, boosting user engagement by enhancing functionality.
+      - Led intern training, fostering skill development and onboarding efficiency.
+      - Resolved technical issues for junior developers, improving team productivity.
+      - Managed app releases, ensuring timely updates and feature rollouts.
+      - Designed backend APIs and microservices, optimizing system architecture.
+      - Spearheaded app performance optimizations, resulting in noticeable improvements in user engagement and retention.
+      - Implemented CI/CD pipelines, streamlining deployment processes and reducing release times significantly.
+      - Conducted code reviews to ensure adherence to coding standards, enhancing code quality and reducing bugs.
+      - Maintained comprehensive technical documentation, which improved onboarding efficiency and reduced knowledge gaps.
+    technologies:
+      - React
+      - Node.js
+      - Kubernetes
+      - TypeScript
+      - Microservices
+      - Micro-Frontend
+  
+  - company: Ather Energy Pvt. Ltd.
+    position: Senior Software Engineer (Associate Manager)
+    duration: JUNE 2015 - AUGUST 2020
+    location: Bengaluru, KA
+    description:
+      - Led software development using ReactJS and Redux, enhancing vehicle-system integration.
+      - Developed cross-platform mobile apps with React Native, improving data synchronization.
+      - Engineered navigation solutions with Google Maps API, optimizing for limited hardware.
+      - Identified and resolved app performance issues, boosting efficiency.
+      - Collaborated with system team on Go-lang integration, enhancing UI app functionality.
+      - Diagnosed and resolved system bottlenecks, implementing optimized solutions that resulted in noticeable performance improvements.
+      - Facilitated the integration of Go-lang applications with UI, fostering a cohesive development environment across teams.
+      - Automated routine tasks through scripting, significantly accelerating QA processes and boosting team efficiency.
+    technologies:
+      - React
+      - Electron
+      - Node.js
+      - Kubernetes
+      - GCP
+      - Go-lang
+      - Python
+      - D3
+      - Google Maps SDK / Navigation
+      - ReactNative
+      - Firebase
+      - Socket.IO
+      - Microservices
+  
+  - company: Function Space Pvt. Ltd.
+    position: Software Engineer (Software Artisan)
+    duration: MAY 2014 - JUNE 2015
+    location: Bengaluru, KA
+    description:
+      - Developed web applications, ensuring robust functionality and user engagement.
+      - Built and maintained a science forum platform using PHP and JavaScript, enhancing user interaction.
+      - Created educational applications integrating learning and gaming, boosting user engagement.
+      - Collaborated with sales and product teams to align development with user needs, improving satisfaction.
+      - Developed dashboards to analyze user data, providing insights for strategic decisions.
+      - Pioneered a gamified learning platform, fostering engaging educational experiences and enhancing user interaction with
+      - science concepts.
+      - Crafted multi-tier dashboards for data tracking, enabling precise analysis of user behavior and informed decision-making.
+      - Implemented comprehensive testing protocols for web applications, ensuring flawless functionality and user-centric design.
+    technologies:
+      - PHP
+      - JavaScript
+      - MongoDB
+      - PostgreSQL
+      - Socket.IO
+      - Node.js
+      - ReactNative
+      - Python
+      - LaTex
+      - Express
+  
+  - company: Avinashi Ventures Pvt. Ltd.
+    position: Fullstack Software Developer
+    duration: JUNE 2013 - APRIL 2014
+    location: Surat, GJ
+    description:
+      - Built comprehensive HRMS system with AngularJs, NodeJs; improved team target tracking.
+      - Created bulk SMS system with NodeJs, enhancing communication efficiency.
+      - Automated report generation with NodeJs, PHP, boosting data-driven decision-making.
+      - Engineered an intuitive HRMS analytics dashboard, driving proactive decision-making through predictive insights.
+      - Integrated telemarketing SMS system with BizBrain, optimizing alert delivery and enhancing communication efficiency.
+      - Crafted automated email reporting tools, facilitating timely information flow and data-driven strategies.
+      - Maintained robust backend systems using NodeJs and MongoDB, ensuring seamless data integrity and system reliability.
+    technologies:
+      - Node.js
+      - Angular
+      - PHP
+      - Socket.IO
+      - MongoDB
+      - PostgreSQL
+      - Express
+
+soft_skills:
+  - name: System Architecture & Design
+    items:
+      - SOC
+      - MVVM
+      - DDD principles
+      - Event-Driven Architecture
+
+  - name: Agile & Team Leadership
+    items:
+      - Agile Methodologies
+      - Scrum
+      - Kanban
+      - Sprint Planning
+      - Mentorship & Code Reviews
+
+  - name: Problem-Solving & Critical Thinking
+    items:
+      - Debugging
+      - Performance Tuning
+      - Scalable System Design
+
+  - name: Communication
+    items:
+      - Cross-functional Teamwork
+      - Technical Documentation
+      - Stakeholder Management
+
+  - name: Project Management
+    items:
+      - Prioritization
+      - Estimation
+      - Delivering within Deadlines
+
+contact:
+  email: hello@deviloper.dev
+  github: https://github.com/iyogeshjoshi
+  linkedin: https://linkedin.com/in/iyogeshjoshi
+  x: https://x.com/iyogeshjoshi
