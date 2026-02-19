@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { hoverEffects, entranceAnimations, createStaggeredAnimation } from '../utils/microInteractions';
+import {
+  hoverEffects,
+  entranceAnimations,
+  createStaggeredAnimation,
+} from '../utils/microInteractions';
 
 const ExperienceContainer = styled(motion.div)`
   padding: 2rem 0;
@@ -26,7 +30,11 @@ const TimelineLine = styled(motion.div)`
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--accent-color), var(--color-primary-500, #a855f7));
+  background: linear-gradient(
+    180deg,
+    var(--accent-color),
+    var(--color-primary-500, #a855f7)
+  );
   transform: translateX(-50%);
   border-radius: 2px;
   overflow: hidden;
@@ -38,13 +46,22 @@ const TimelineLine = styled(motion.div)`
     left: 0;
     right: 0;
     height: 100%;
-    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
     animation: shimmer 3s infinite;
   }
 
   @keyframes shimmer {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
   }
 
   @media (max-width: 768px) {
@@ -57,19 +74,22 @@ const TimelineItem = styled(motion.div)<{ index: number }>`
   margin-bottom: 4rem;
   display: flex;
   align-items: center;
-  
-  ${props => props.index % 2 === 0 ? `
+
+  ${(props) =>
+    props.index % 2 === 0
+      ? `
     flex-direction: row;
-    text-align: right;
-    
+    text-align: left;
+
     @media (max-width: 768px) {
       flex-direction: row;
       text-align: left;
     }
-  ` : `
+  `
+      : `
     flex-direction: row-reverse;
     text-align: left;
-    
+
     @media (max-width: 768px) {
       flex-direction: row;
       text-align: left;
@@ -81,20 +101,26 @@ const TimelineItem = styled(motion.div)<{ index: number }>`
   }
 `;
 
-const TimelineContent = styled(motion.div)<{ index: number; expanded: boolean }>`
+const TimelineContent = styled(motion.div)<{
+  index: number;
+  expanded: boolean;
+}>`
   flex: 1;
   max-width: 45%;
-  
-  ${props => props.index % 2 === 0 ? `
+
+  ${(props) =>
+    props.index % 2 === 0
+      ? `
     margin-right: 2rem;
-    
+
     @media (max-width: 768px) {
       margin-right: 0;
       margin-left: 1rem;
     }
-  ` : `
+  `
+      : `
     margin-left: 2rem;
-    
+
     @media (max-width: 768px) {
       margin-left: 1rem;
     }
@@ -129,8 +155,12 @@ const ExperienceCard = styled(motion.div)<{ expanded: boolean }>`
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--color-primary-500, #a855f7));
-    opacity: ${props => props.expanded ? 1 : 0};
+    background: linear-gradient(
+      90deg,
+      var(--accent-color),
+      var(--color-primary-500, #a855f7)
+    );
+    opacity: ${(props) => (props.expanded ? 1 : 0)};
     transition: opacity 0.3s ease;
   }
 `;
@@ -182,7 +212,11 @@ const CompanyHeader = styled.div`
 const CompanyLogo = styled(motion.div)`
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--accent-color), var(--color-primary-500, #a855f7));
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--color-primary-500, #a855f7)
+  );
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -201,7 +235,12 @@ const CompanyLogo = styled(motion.div)`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
     transition: left 0.5s ease;
   }
 
@@ -241,7 +280,7 @@ const Location = styled.span`
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  
+
   &::before {
     content: '📍';
   }
@@ -262,7 +301,7 @@ const Description = styled.ul`
   li {
     margin-bottom: 0.8rem;
     position: relative;
-    
+
     &::marker {
       color: var(--accent-color);
     }
@@ -292,7 +331,11 @@ const MetricsContainer = styled.div`
 `;
 
 const Metric = styled.div`
-  background: linear-gradient(135deg, var(--accent-color), var(--color-primary-500, #a855f7));
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    var(--color-primary-500, #a855f7)
+  );
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -337,9 +380,9 @@ const TechTag = styled(motion.span)`
 
   [data-theme='light'] & {
     background-color: rgba(147, 112, 219, 0.2);
-    color: #4B0082;
+    color: #4b0082;
     border: 1px solid rgba(147, 112, 219, 0.4);
-    
+
     &:hover {
       background-color: var(--accent-color);
       color: #ffffff;
@@ -353,7 +396,7 @@ const ExpandIcon = styled(motion.span)<{ expanded: boolean }>`
   right: 1.5rem;
   font-size: 1.2rem;
   color: var(--accent-color);
-  transform: ${props => props.expanded ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transform: ${(props) => (props.expanded ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: transform 0.3s ease;
 `;
 
@@ -387,7 +430,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
   const getCompanyInitials = (company: string) => {
     return company
       .split(' ')
-      .map(word => word[0])
+      .map((word) => word[0])
       .join('')
       .toUpperCase()
       .slice(0, 2);
@@ -395,12 +438,13 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
 
   // Generate mock achievements and metrics for demonstration
   const generateAchievements = (description: string[]) => {
-    const achievements = description.filter(desc => 
-      desc.toLowerCase().includes('improved') || 
-      desc.toLowerCase().includes('increased') || 
-      desc.toLowerCase().includes('reduced') ||
-      desc.toLowerCase().includes('led') ||
-      desc.toLowerCase().includes('implemented')
+    const achievements = description.filter(
+      (desc) =>
+        desc.toLowerCase().includes('improved') ||
+        desc.toLowerCase().includes('increased') ||
+        desc.toLowerCase().includes('reduced') ||
+        desc.toLowerCase().includes('led') ||
+        desc.toLowerCase().includes('implemented')
     );
     return achievements.length > 0 ? achievements : [description[0]];
   };
@@ -412,9 +456,9 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
       ['User Satisfaction', '95%'],
       ['Code Quality', 'A+'],
       ['Team Size', '5-8'],
-      ['Projects', '12+']
+      ['Projects', '12+'],
     ];
-    
+
     // Return 2-3 metrics per experience
     const startIndex = (index * 2) % metrics.length;
     return metrics.slice(startIndex, startIndex + 3);
@@ -423,10 +467,10 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
   const containerVariants = createStaggeredAnimation(0.2, 0.3);
 
   const timelineItemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: -50,
-      scale: 0.9
+      scale: 0.9,
     },
     visible: (index: number) => ({
       opacity: 1,
@@ -441,9 +485,9 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
   };
 
   const markerVariants = {
-    hidden: { 
+    hidden: {
       scale: 0,
-      opacity: 0
+      opacity: 0,
     },
     visible: (index: number) => ({
       scale: 1,
@@ -457,10 +501,10 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       scale: 0.95,
-      y: 20
+      y: 20,
     },
     visible: (index: number) => ({
       opacity: 1,
@@ -484,7 +528,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
       <Title variants={entranceAnimations.fadeInUp}>
         Professional Experience
       </Title>
-      
+
       <TimelineContainer>
         <TimelineLine
           initial={{ scaleY: 0 }}
@@ -493,12 +537,12 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
           transition={{ duration: 1.5, ease: 'easeOut' }}
           style={{ transformOrigin: 'top' }}
         />
-        
+
         {experiences.map((exp, index) => {
           const isExpanded = expandedItems.has(index);
           const achievements = generateAchievements(exp.description);
           const metrics = generateMetrics(index);
-          
+
           return (
             <TimelineItem
               key={index}
@@ -510,39 +554,36 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                 variants={markerVariants}
                 custom={index}
                 {...hoverEffects.pulse}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.3,
                   boxShadow: '0 0 0 8px var(--accent-color)',
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2 },
                 }}
                 whileTap={{ scale: 0.9 }}
               />
-              
+
               <TimelineContent index={index} expanded={isExpanded}>
                 <ExperienceCard
                   expanded={isExpanded}
                   onClick={() => toggleExpanded(index)}
                   variants={cardVariants}
                   custom={index}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.02,
-                    transition: { duration: 0.2 }
+                    transition: { duration: 0.2 },
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <ExpandIcon 
-                    expanded={isExpanded}
-                    whileHover={{ scale: 1.2 }}
-                  >
+                  <ExpandIcon expanded={isExpanded} whileHover={{ scale: 1.2 }}>
                     ⌄
                   </ExpandIcon>
-                  
+
                   <CompanyHeader>
                     <CompanyLogo
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.1,
                         rotate: 5,
-                        transition: { duration: 0.2 }
+                        transition: { duration: 0.2 },
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -553,10 +594,10 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                       <Role>{exp.position}</Role>
                     </CompanyInfo>
                   </CompanyHeader>
-                  
+
                   <Duration>{exp.duration}</Duration>
                   <Location>{exp.location}</Location>
-                  
+
                   <AnimatePresence>
                     {isExpanded && (
                       <ExpandedContent
@@ -570,7 +611,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                             <li key={i}>{desc}</li>
                           ))}
                         </Description>
-                        
+
                         {achievements.length > 0 && (
                           <div>
                             <TechTitle>Key Achievements</TechTitle>
@@ -586,7 +627,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                             ))}
                           </div>
                         )}
-                        
+
                         <MetricsContainer>
                           {metrics.map(([label, value], i) => (
                             <Metric key={i}>
@@ -595,7 +636,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ experiences }) => {
                             </Metric>
                           ))}
                         </MetricsContainer>
-                        
+
                         <TechStack>
                           <TechTitle>Technologies Used</TechTitle>
                           <TechGrid>
