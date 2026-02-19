@@ -1,142 +1,140 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import ProjectGallery from './ProjectGallery';
+import ProjectDetailModal from './ProjectDetailModal';
+import { projects, projectCategories } from '../data/projects';
+import { Project } from '../types/project';
+import { GitHubRepo } from '../utils/github';
 
 const ProjectsContainer = styled(motion.div)`
-  padding: 2rem 0;
-`;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
 
-const Title = styled(motion.h2)`
-  color: var(--accent-color);
-  font-size: 2rem;
-  margin-bottom: 2rem;
-`;
-
-const ProjectsGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-`;
-
-const ProjectCard = styled(motion.div)`
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px var(--shadow-color);
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 15px var(--shadow-color);
-    border-color: var(--accent-color);
+  @media (max-width: 768px) {
+    padding: 0 var(--spacing-md);
   }
 `;
-
-const ProjectTitle = styled(motion.h3)`
-  color: var(--text-color);
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-`;
-
-const ProjectDescription = styled(motion.p)`
-  color: var(--text-color);
-  font-size: 1rem;
-  line-height: 1.6;
-`;
-
-const TechnologiesList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-`;
-
-const Technology = styled.span`
-  background-color: rgba(100, 255, 218, 0.1);
-  color: #64ffda;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.9rem;
-`;
-
-const ProjectLink = styled.a`
-  color: #64ffda;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #9effeb;
-  }
-`;
-
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  link: string;
-}
 
 interface ProjectsProps {
-  projects: Project[];
+  githubRepos?: GitHubRepo[];
+  showFeaturedOnly?: boolean;
+  maxProjects?: number;
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1
-    }
-  }
-};
+const Projects: React.FC<ProjectsProps> = ({
+  githubRepos = [],
+  showFeaturedOnly = false,
+  maxProjects,
+}) => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-};
+  const allProjects = React.useMemo(() => {
+    const githubMapped: Project[] = githubRepos.map((repo) => ({
+      id: `github-${repo.name}`,
+      title: repo.name,
+      description: repo.description,
+      longDescription: repo.description,
+      technologies: repo.language
+        ? [
+            {
+              name: repo.language,
+              category: 'frontend' as const,
+              color: repo.languageColor || '#666',
+            },
+          ]
+        : [],
+      category: projectCategories.find((c) => c.id === 'fullstack')!,
+      images: [],
+      liveUrl: repo.url,
+      githubUrl: repo.url,
+      featured: true,
+      completionDate: new Date(repo.updatedAt),
+      challenges: [],
+      outcomes: [],
+      metrics: {
+        customMetrics: {
+          Stars: repo.stars.toString(),
+        },
+      },
+    }));
 
-const Projects: React.FC<ProjectsProps> = ({ projects }) => {
+    const manualProjects = showFeaturedOnly
+      ? projects.filter((project) => project.featured)
+      : projects;
+
+    const combined = [...githubMapped, ...manualProjects];
+
+    if (maxProjects) {
+      return combined.slice(0, maxProjects);
+    }
+
+    return combined;
+  }, [githubRepos, showFeaturedOnly, maxProjects]);
+
+  const handleProjectSelect = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 300);
+  };
+
+  const handleNavigateProject = (direction: 'prev' | 'next') => {
+    if (!selectedProject) return;
+
+    const currentIndex = allProjects.findIndex(
+      (p) => p.id === selectedProject.id
+    );
+    let newIndex: number;
+
+    if (direction === 'prev') {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : allProjects.length - 1;
+    } else {
+      newIndex = currentIndex < allProjects.length - 1 ? currentIndex + 1 : 0;
+    }
+
+    setSelectedProject(allProjects[newIndex]);
+  };
+
+  const canNavigatePrev = () => {
+    if (!selectedProject) return false;
+    const currentIndex = allProjects.findIndex(
+      (p) => p.id === selectedProject.id
+    );
+    return allProjects.length > 1 && currentIndex !== -1;
+  };
+
+  const canNavigateNext = () => {
+    if (!selectedProject) return false;
+    const currentIndex = allProjects.findIndex(
+      (p) => p.id === selectedProject.id
+    );
+    return allProjects.length > 1 && currentIndex !== -1;
+  };
+
   return (
-    <ProjectsContainer
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-20%" }}
-    >
-      <Title variants={cardVariants}>Projects</Title>
-      <ProjectsGrid>
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={index}
-            variants={cardVariants}
-          >
-            <ProjectTitle>{project.title}</ProjectTitle>
-            <ProjectDescription>{project.description}</ProjectDescription>
-            <TechnologiesList>
-              {project.technologies.map((tech) => (
-                <Technology key={tech}>{tech}</Technology>
-              ))}
-            </TechnologiesList>
-            <ProjectLink href={project.link} target="_blank" rel="noopener noreferrer">
-              View Project →
-            </ProjectLink>
-          </ProjectCard>
-        ))}
-      </ProjectsGrid>
+    <ProjectsContainer>
+      <ProjectGallery
+        projects={allProjects}
+        categories={projectCategories}
+        onProjectSelect={handleProjectSelect}
+      />
+
+      <ProjectDetailModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onNavigate={handleNavigateProject}
+        canNavigatePrev={canNavigatePrev()}
+        canNavigateNext={canNavigateNext()}
+      />
     </ProjectsContainer>
   );
 };
 
-export default Projects; 
+export default Projects;

@@ -50,18 +50,43 @@ const SkillsList = styled(motion.ul)`
 `;
 
 const SkillItem = styled(motion.li)`
-  background-color: var(--card-bg);
-  color: var(--accent-color);
+  background-color: rgba(138, 43, 226, 0.3); /* More solid purple background */
+  color: #ffffff; /* White text in dark mode */
   padding: 0.4rem 1rem;
   border-radius: 15px;
   font-size: 0.9rem;
-  border: 1px solid var(--card-border);
+  border: 1px solid rgba(138, 43, 226, 0.5);
   transition: all 0.3s ease;
 
   &:hover {
     background-color: var(--accent-color);
-    color: var(--bg-color);
+    color: #ffffff;
     transform: translateY(-2px);
+  }
+
+  /* Light theme skill items */
+  [data-theme='light'] & {
+    background-color: rgba(147, 112, 219, 0.2); /* Light purple background */
+    color: #4B0082; /* Deep purple text in light mode */
+    border: 1px solid rgba(147, 112, 219, 0.4);
+    
+    &:hover {
+      background-color: var(--accent-color);
+      color: #ffffff;
+    }
+  }
+
+  [data-theme='auto'] & {
+    @media (prefers-color-scheme: light) {
+      background-color: rgba(147, 112, 219, 0.2);
+      color: #4B0082;
+      border: 1px solid rgba(147, 112, 219, 0.4);
+      
+      &:hover {
+        background-color: var(--accent-color);
+        color: #ffffff;
+      }
+    }
   }
 `;
 
@@ -75,9 +100,9 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
-      delayChildren: 0.1
-    }
-  }
+      delayChildren: 0.1,
+    },
+  },
 };
 
 const categoryVariants = {
@@ -88,9 +113,9 @@ const categoryVariants = {
     transition: {
       duration: 0.5,
       staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
+      delayChildren: 0.2,
+    },
+  },
 };
 
 const itemVariants = {
@@ -100,9 +125,9 @@ const itemVariants = {
     scale: 1,
     transition: {
       duration: 0.3,
-      ease: "easeOut"
-    }
-  }
+      ease: 'easeOut',
+    },
+  },
 };
 
 const SoftSkills: React.FC<SoftSkillsProps> = ({ softSkills }) => {
@@ -111,15 +136,12 @@ const SoftSkills: React.FC<SoftSkillsProps> = ({ softSkills }) => {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-20%" }}
+      viewport={{ once: true, margin: '-20%' }}
     >
       <Title variants={itemVariants}>Soft Skills</Title>
       <SkillsGrid>
-        {softSkills.map((category, index) => (
-          <SkillCategory
-            key={category.name}
-            variants={categoryVariants}
-          >
+        {softSkills.map((category) => (
+          <SkillCategory key={category.name} variants={categoryVariants}>
             <CategoryTitle variants={itemVariants}>
               {category.name}
             </CategoryTitle>
@@ -140,4 +162,4 @@ const SoftSkills: React.FC<SoftSkillsProps> = ({ softSkills }) => {
   );
 };
 
-export default SoftSkills; 
+export default SoftSkills;

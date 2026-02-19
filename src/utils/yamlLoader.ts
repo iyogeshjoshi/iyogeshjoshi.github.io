@@ -11,6 +11,7 @@ export interface Experience {
   company: string;
   position: string;
   duration: string;
+  location: string;
   description: string[];
   technologies: string[];
 }
@@ -26,7 +27,7 @@ export interface Contact {
   email: string;
   github: string;
   linkedin: string;
-  twitter: string;
+  x: string;
 }
 
 export interface PortfolioData {
@@ -48,7 +49,7 @@ export const loadPortfolioData = async (): Promise<PortfolioData> => {
     }
     const yamlText = await response.text();
     const data = yaml.load(yamlText) as PortfolioData;
-    
+
     // Validate the data structure
     if (!data || typeof data !== 'object') {
       throw new Error('Invalid YAML data structure');
@@ -86,8 +87,8 @@ export const loadPortfolioData = async (): Promise<PortfolioData> => {
         email: '',
         github: '',
         linkedin: '',
-        twitter: ''
-      }
+        x: '',
+      },
     };
   }
-}; 
+};

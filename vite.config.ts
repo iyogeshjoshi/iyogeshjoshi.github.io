@@ -7,6 +7,13 @@ export default defineConfig({
   base: '/', // Root path since this is the user/organization site
   build: {
     outDir: 'dist',
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
+  server: {
+    port: 3000,
+    open: true,
+  },
+  preview: {
+    port: 4173,
+  },
 }); 
