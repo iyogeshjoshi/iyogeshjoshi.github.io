@@ -90,4 +90,4 @@ declare module './components/DownloadButton' {
   }
   const DownloadButton: React.FC<DownloadButtonProps>;
   export default DownloadButton;
-} 
+}

@@ -9,10 +9,10 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-  title = "Yogesh Joshi - Lead Software Engineer",
-  description = "Lead Software Engineer with over a decade of expertise in full-stack development and JavaScript. Skilled in React, Node.js, AWS, and microservices architecture. Experienced in designing scalable solutions and leading development teams.",
-  image = "https://deviloper.dev/images/android-chrome-512x512.png",
-  url = "https://deviloper.dev"
+  title = 'Yogesh Joshi - Lead Software Engineer',
+  description = 'Lead Software Engineer with over a decade of expertise in full-stack development and JavaScript. Skilled in React, Node.js, AWS, and microservices architecture. Experienced in designing scalable solutions and leading development teams.',
+  image = 'https://deviloper.dev/images/android-chrome-512x512.png',
+  url = 'https://deviloper.dev',
 }) => {
   return (
     <Helmet>
@@ -41,15 +41,32 @@ const SEO: React.FC<SEOProps> = ({
       {/* Additional Meta Tags */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="theme-color" content="#0a192f" />
-      <meta name="keywords" content="Software Engineer, Full Stack Developer, JavaScript, TypeScript, React, Node.js, AWS, GCP, Microservices, Lead Developer, System Architecture, DevOps, Cloud Computing" />
+      <meta
+        name="keywords"
+        content="Software Engineer, Full Stack Developer, JavaScript, TypeScript, React, Node.js, AWS, GCP, Microservices, Lead Developer, System Architecture, DevOps, Cloud Computing"
+      />
       <meta name="author" content="Yogesh Joshi" />
       <meta name="robots" content="index, follow" />
       <meta name="language" content="English" />
 
       {/* Favicon */}
-      <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/images/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/images/favicon-16x16.png"
+      />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/images/apple-touch-icon.png"
+      />
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="icon" href="/images/favicon.ico" />
       <meta name="msapplication-TileColor" content="#0a192f" />
@@ -57,4 +74,4 @@ const SEO: React.FC<SEOProps> = ({
   );
 };
 
-export default SEO; 
+export default SEO;

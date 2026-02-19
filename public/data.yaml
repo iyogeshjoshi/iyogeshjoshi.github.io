@@ -1,6 +1,6 @@
 name: YOGESH JOSHI
-bio: Lead Software Engineer with over a decade of extensive expertise in full-stack development and JavaScript, excelling in the design and optimization of scalable software solutions. Demonstrates strong leadership in architecting complex systems and fostering team collaboration to deliver innovative, user-focused applications. Committed to advancing technical excellence and driving impactful results through continuous learning and strategic foresight.
-tagline: Lead Software Engineer
+bio: Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript development. Architected an AWS infrastructure redesign that cut cloud costs by 80% while improving scalability, and led delivery of enterprise-grade micro-frontend systems handling 100K+ daily transactions. Known for architectural leadership, cross-functional mentorship, and shipping complex features on tight timelines.
+tagline: Staff Software Engineer
 
 skills:
   - name: Languages & Frameworks
@@ -68,11 +68,33 @@ skills:
       - OWASP Guidelines
 
 experiences:
+  - company: Whatfix
+    position: Staff Software Engineer
+    duration: JUNE 2025 - PRESENT
+    location: Bengaluru, KA
+    description:
+      - 'Selfhelp Hub: Contextual fab embedded in client applications, giving end-users access to curated help articles, training videos, automations, and task assignments'
+      - 'Delivered "Tasklist" feature within one month -- enables organizations to create actionable tasks for end-users with configurable notification frequency via the fab'
+      - 'Tasklist supports multiple task types: reading articles, watching videos, performing automations, and completing defined actions'
+      - 'Increased Selfhelp Hub adoption from 80% to 100% across enterprise client base through feature enhancements and UX improvements'
+      - 'QuickRead: AI-powered query system enabling users to ask questions against all curated organizational content'
+      - 'Building core agent that traverses organizational content and generates contextual, accurate responses to user queries'
+      - 'Glimpse: In-context FAQ solution allowing organizations to define highlightable selectors on their applications'
+      - 'Implementing suggested questions section that auto-populates queries in Selfhelp Hub for seamless cross-product integration'
+      - 'Mentoring team of 3-4 engineers, conducting code reviews, and driving technical excellence'
+    technologies:
+      - ReactJS
+      - Micro-frontends
+      - Webpack Module Federation
+      - GWT
+      - Spring Boot
+      - Playwright
+
   - company: YARA International
     position: Lead Software Engineer
     duration: AUGUST 2023 - FEBURARY 2025
     location: Bengaluru, KA
-    description: 
+    description:
       - Lead team brainstorms to streamline tasks, boosting efficiency and clarity.
       - Architect complex systems, achieving measurable AWS cost reductions.
       - Facilitate learning sessions, enhancing team's software design skills.
@@ -87,7 +109,7 @@ experiences:
       - AWS
       - MuleSoft
       - kubernetes
-  
+
   - company: YARA International
     position: Senior Software Engineer
     duration: AUGUST 2020 - AUGUST 2022
@@ -109,7 +131,7 @@ experiences:
       - TypeScript
       - Microservices
       - Micro-Frontend
-  
+
   - company: Ather Energy Pvt. Ltd.
     position: Senior Software Engineer (Associate Manager)
     duration: JUNE 2015 - AUGUST 2020
@@ -137,7 +159,7 @@ experiences:
       - Firebase
       - Socket.IO
       - Microservices
-  
+
   - company: Function Space Pvt. Ltd.
     position: Software Engineer (Software Artisan)
     duration: MAY 2014 - JUNE 2015
@@ -163,7 +185,7 @@ experiences:
       - Python
       - LaTex
       - Express
-  
+
   - company: Avinashi Ventures Pvt. Ltd.
     position: Fullstack Software Developer
     duration: JUNE 2013 - APRIL 2014
