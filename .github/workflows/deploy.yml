@@ -19,6 +19,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
 
     steps:
       - name: Checkout repository
@@ -38,7 +39,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        environment: github-pages
         env:
           NODE_ENV: production
           CI: false
