@@ -6,22 +6,22 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   :root {
     /* Dark theme (default) - Purple Gradient Palette */
-    --bg-color: #4B0082; /* Deep purple background */
-    --text-color: #ffffff; /* White text for better readability */
-    --secondary-color: #BA55D3; /* Medium orchid for secondary text */
-    --accent-color: #8A2BE2; /* Blue violet for accents */
-    --card-bg: rgba(138, 43, 226, 0.1); /* Blue violet with opacity */
-    --card-border: rgba(138, 43, 226, 0.2);
-    --shadow-color: rgba(75, 0, 130, 0.3); /* Deep purple shadow */
+    --bg-color: #1E1434; /* Rich dark purple background */
+    --text-color: #E8E0F0; /* Soft lavender white for readability */
+    --secondary-color: #B794F6; /* Light purple for secondary */
+    --accent-color: #9F7AEA; /* Medium purple for accents */
+    --card-bg: rgba(159, 122, 234, 0.08);
+    --card-border: rgba(159, 122, 234, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.3);
     
     /* Color palette - Dark theme */
-    --color-primary-500: #8A2BE2; /* Blue violet */
-    --color-secondary-500: #9370DB; /* Medium slate blue */
-    --color-accent-500: #BA55D3; /* Medium orchid */
-    --color-neutral-50: #DDA0DD; /* Light purple */
-    --color-neutral-100: #f4f4f5;
-    --color-neutral-800: #4B0082; /* Deep purple */
-    --color-neutral-900: #4B0082; /* Deep purple */
+    --color-primary-500: #9F7AEA;
+    --color-secondary-500: #B794F6;
+    --color-accent-500: #D6BCFA;
+    --color-neutral-50: #E8E0F0;
+    --color-neutral-100: #2D2344;
+    --color-neutral-800: #4C3668;
+    --color-neutral-900: #1E1434; */
     
     /* Typography */
     --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -72,13 +72,13 @@ const GlobalStyle = createGlobalStyle`
 
   @media (prefers-color-scheme: dark) {
     [data-theme='auto'] {
-      --bg-color: #4B0082; /* Deep purple background */
-      --text-color: #ffffff; /* White text for better readability */
-      --secondary-color: #BA55D3; /* Medium orchid for secondary text */
-      --accent-color: #8A2BE2; /* Blue violet for accents */
-      --card-bg: rgba(138, 43, 226, 0.1);
-      --card-border: rgba(138, 43, 226, 0.2);
-      --shadow-color: rgba(75, 0, 130, 0.3);
+      --bg-color: #1E1434;
+      --text-color: #E8E0F0;
+      --secondary-color: #B794F6;
+      --accent-color: #9F7AEA;
+      --card-bg: rgba(159, 122, 234, 0.08);
+      --card-border: rgba(159, 122, 234, 0.2);
+      --shadow-color: rgba(0, 0, 0, 0.3);
     }
   }
 
