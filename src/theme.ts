@@ -227,20 +227,22 @@ const lightColorPalette: ColorPalette = {
 // Typography Scale
 const typography: TypographyScale = {
   fontFamily: {
-    primary: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
-    secondary: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
+    primary:
+      "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
+    secondary:
+      "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
     mono: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
   },
   fontSize: {
-    xs: '0.75rem',    // 12px
-    sm: '0.875rem',   // 14px
-    base: '1rem',     // 16px
-    lg: '1.125rem',   // 18px
-    xl: '1.25rem',    // 20px
-    '2xl': '1.5rem',  // 24px
+    xs: '0.75rem', // 12px
+    sm: '0.875rem', // 14px
+    base: '1rem', // 16px
+    lg: '1.125rem', // 18px
+    xl: '1.25rem', // 20px
+    '2xl': '1.5rem', // 24px
     '3xl': '1.875rem', // 30px
     '4xl': '2.25rem', // 36px
-    '5xl': '3rem',    // 48px
+    '5xl': '3rem', // 48px
   },
   fontWeight: {
     light: 300,
@@ -258,15 +260,15 @@ const typography: TypographyScale = {
 
 // Spacing Scale
 const spacing: SpacingScale = {
-  xs: '0.25rem',   // 4px
-  sm: '0.5rem',    // 8px
-  md: '1rem',      // 16px
-  lg: '1.5rem',    // 24px
-  xl: '2rem',      // 32px
-  '2xl': '3rem',   // 48px
-  '3xl': '4rem',   // 64px
-  '4xl': '6rem',   // 96px
-  '5xl': '8rem',   // 128px
+  xs: '0.25rem', // 4px
+  sm: '0.5rem', // 8px
+  md: '1rem', // 16px
+  lg: '1.5rem', // 24px
+  xl: '2rem', // 32px
+  '2xl': '3rem', // 48px
+  '3xl': '4rem', // 64px
+  '4xl': '6rem', // 96px
+  '5xl': '8rem', // 128px
 };
 
 // Animation Settings
@@ -330,9 +332,12 @@ export const getThemeColors = (isDark: boolean = false) => {
 };
 
 // CSS Custom Properties Generator
-export const generateCSSCustomProperties = (theme: Theme, isDark: boolean = false) => {
+export const generateCSSCustomProperties = (
+  theme: Theme,
+  isDark: boolean = false
+) => {
   const colors = isDark ? darkColorPalette : lightColorPalette;
-  
+
   return {
     // Primary colors
     '--color-primary-50': colors.primary[50],
@@ -345,7 +350,7 @@ export const generateCSSCustomProperties = (theme: Theme, isDark: boolean = fals
     '--color-primary-700': colors.primary[700],
     '--color-primary-800': colors.primary[800],
     '--color-primary-900': colors.primary[900],
-    
+
     // Secondary colors
     '--color-secondary-50': colors.secondary[50],
     '--color-secondary-100': colors.secondary[100],
@@ -357,7 +362,7 @@ export const generateCSSCustomProperties = (theme: Theme, isDark: boolean = fals
     '--color-secondary-700': colors.secondary[700],
     '--color-secondary-800': colors.secondary[800],
     '--color-secondary-900': colors.secondary[900],
-    
+
     // Accent colors
     '--color-accent-50': colors.accent[50],
     '--color-accent-100': colors.accent[100],
@@ -369,7 +374,7 @@ export const generateCSSCustomProperties = (theme: Theme, isDark: boolean = fals
     '--color-accent-700': colors.accent[700],
     '--color-accent-800': colors.accent[800],
     '--color-accent-900': colors.accent[900],
-    
+
     // Neutral colors
     '--color-neutral-50': colors.neutral[50],
     '--color-neutral-100': colors.neutral[100],
@@ -381,27 +386,33 @@ export const generateCSSCustomProperties = (theme: Theme, isDark: boolean = fals
     '--color-neutral-700': colors.neutral[700],
     '--color-neutral-800': colors.neutral[800],
     '--color-neutral-900': colors.neutral[900],
-    
+
     // Semantic colors
     '--color-success': colors.semantic.success,
     '--color-warning': colors.semantic.warning,
     '--color-error': colors.semantic.error,
     '--color-info': colors.semantic.info,
-    
+
     // Legacy color mappings for backward compatibility
-    '--bg-color': isDark ? '#4B0082' : '#DDA0DD', // Deep purple : Light purple
-    '--text-color': isDark ? '#ffffff' : '#4B0082', // White : Deep purple
-    '--secondary-color': isDark ? '#BA55D3' : '#8A2BE2', // Medium orchid : Blue violet
-    '--accent-color': isDark ? '#8A2BE2' : '#9370DB', // Blue violet : Medium slate blue
-    '--card-bg': isDark ? 'rgba(138, 43, 226, 0.1)' : 'rgba(147, 112, 219, 0.05)',
-    '--card-border': isDark ? 'rgba(138, 43, 226, 0.2)' : 'rgba(147, 112, 219, 0.15)',
-    '--shadow-color': isDark ? 'rgba(75, 0, 130, 0.3)' : 'rgba(75, 0, 130, 0.1)',
-    
+    '--bg-color': isDark ? '#4B0082' : '#F8F5FA', // Deep purple : Soft lavender white
+    '--text-color': isDark ? '#ffffff' : '#3D2C5E', // White : Dark purple-gray
+    '--secondary-color': isDark ? '#BA55D3' : '#7C3AED', // Medium orchid : Vivid purple
+    '--accent-color': isDark ? '#8A2BE2' : '#8B5CF6', // Blue violet : Bright purple
+    '--card-bg': isDark
+      ? 'rgba(138, 43, 226, 0.1)'
+      : 'rgba(139, 92, 246, 0.06)',
+    '--card-border': isDark
+      ? 'rgba(138, 43, 226, 0.2)'
+      : 'rgba(139, 92, 246, 0.15)',
+    '--shadow-color': isDark
+      ? 'rgba(75, 0, 130, 0.3)'
+      : 'rgba(61, 44, 94, 0.08)',
+
     // Typography
     '--font-family-primary': theme.typography.fontFamily.primary,
     '--font-family-secondary': theme.typography.fontFamily.secondary,
     '--font-family-mono': theme.typography.fontFamily.mono,
-    
+
     // Spacing
     '--spacing-xs': theme.spacing.xs,
     '--spacing-sm': theme.spacing.sm,
@@ -412,7 +423,7 @@ export const generateCSSCustomProperties = (theme: Theme, isDark: boolean = fals
     '--spacing-3xl': theme.spacing['3xl'],
     '--spacing-4xl': theme.spacing['4xl'],
     '--spacing-5xl': theme.spacing['5xl'],
-    
+
     // Animation
     '--duration-fast': theme.animations.duration.fast,
     '--duration-normal': theme.animations.duration.normal,

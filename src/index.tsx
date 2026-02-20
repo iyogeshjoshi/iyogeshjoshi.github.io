@@ -45,13 +45,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   [data-theme='light'] {
-    --bg-color: #DDA0DD; /* Light purple background */
-    --text-color: #4B0082; /* Deep purple text */
-    --secondary-color: #8A2BE2; /* Blue violet for secondary text */
-    --accent-color: #9370DB; /* Medium slate blue for accents */
-    --card-bg: rgba(147, 112, 219, 0.05); /* Medium slate blue with low opacity */
-    --card-border: rgba(147, 112, 219, 0.15);
-    --shadow-color: rgba(75, 0, 130, 0.1); /* Light purple shadow */
+    --bg-color: #F8F5FA; /* Soft lavender white background */
+    --text-color: #3D2C5E; /* Dark purple-gray for readable text */
+    --secondary-color: #7C3AED; /* Vivid purple for secondary */
+    --accent-color: #8B5CF6; /* Bright purple for accents */
+    --card-bg: rgba(139, 92, 246, 0.06);
+    --card-border: rgba(139, 92, 246, 0.15);
+    --shadow-color: rgba(61, 44, 94, 0.08);
   }
 
   [data-theme='auto'] {
@@ -60,13 +60,13 @@ const GlobalStyle = createGlobalStyle`
 
   @media (prefers-color-scheme: light) {
     [data-theme='auto'] {
-      --bg-color: #DDA0DD; /* Light purple background */
-      --text-color: #4B0082; /* Deep purple text */
-      --secondary-color: #8A2BE2; /* Blue violet for secondary text */
-      --accent-color: #9370DB; /* Medium slate blue for accents */
-      --card-bg: rgba(147, 112, 219, 0.05);
-      --card-border: rgba(147, 112, 219, 0.15);
-      --shadow-color: rgba(75, 0, 130, 0.1);
+      --bg-color: #F8F5FA;
+      --text-color: #3D2C5E;
+      --secondary-color: #7C3AED;
+      --accent-color: #8B5CF6;
+      --card-bg: rgba(139, 92, 246, 0.06);
+      --card-border: rgba(139, 92, 246, 0.15);
+      --shadow-color: rgba(61, 44, 94, 0.08);
     }
   }
 
