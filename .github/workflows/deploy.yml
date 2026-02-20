@@ -38,6 +38,7 @@ jobs:
 
       - name: Build
         run: npm run build
+        environment: github-pages
         env:
           NODE_ENV: production
           CI: false
