@@ -38,6 +38,7 @@ jobs:
         env:
           NODE_ENV: production
           CI: false
+          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
