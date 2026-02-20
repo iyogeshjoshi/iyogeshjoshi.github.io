@@ -19,10 +19,5 @@ export default defineConfig(({ mode }) => {
     preview: {
       port: 4173,
     },
-    define: {
-      'import.meta.env.VITE_GITHUB_TOKEN': JSON.stringify(
-        env.VITE_GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN || ''
-      ),
-    },
   };
 });
