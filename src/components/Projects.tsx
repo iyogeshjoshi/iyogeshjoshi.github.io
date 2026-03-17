@@ -59,6 +59,14 @@ const Projects: React.FC<ProjectsProps> = ({
           Stars: repo.stars.toString(),
         },
       },
+      // Pass GitHub metadata for displaying on card
+      githubMeta: {
+        stars: repo.stars,
+        forks: repo.forks,
+        language: repo.language || 'Unknown',
+        languageColor: repo.languageColor || '#666',
+        updatedAt: repo.updatedAt,
+      },
     }));
 
     const manualProjects = showFeaturedOnly

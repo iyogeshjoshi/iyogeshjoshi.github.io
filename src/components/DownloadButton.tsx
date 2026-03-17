@@ -13,7 +13,8 @@ const Button = styled(motion.button)`
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  justify-content: center;
+  gap: 6px;
   font-size: 14px;
   font-weight: 500;
   box-shadow: 0 4px 12px var(--shadow-color);
@@ -38,7 +39,12 @@ const Button = styled(motion.button)`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s ease;
   }
 
@@ -49,6 +55,7 @@ const Button = styled(motion.button)`
   svg {
     width: 16px;
     height: 16px;
+    flex-shrink: 0;
     transition: transform var(--duration-normal) var(--easing-ease-out);
   }
 
@@ -80,7 +87,7 @@ const Button = styled(motion.button)`
 
   @media (max-width: 480px) {
     padding: 0 var(--spacing-xs);
-    
+
     span {
       display: none;
     }
@@ -154,7 +161,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({ onDownload }) => {
           </SuccessIndicator>
         )}
       </AnimatePresence>
-      
+
       <Button
         onClick={handleDownload}
         {...hoverEffects.lift}

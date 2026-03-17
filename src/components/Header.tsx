@@ -16,7 +16,9 @@ const navigationItems = [
 const HeaderContainer = styled.header`
   background-color: rgba(75, 0, 130, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(75, 0, 130, 0.4);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 2px 10px rgba(75, 0, 130, 0.4);
   position: fixed;
   top: 0;
   left: 0;
@@ -32,13 +34,17 @@ const HeaderContainer = styled.header`
   /* Light theme header */
   [data-theme='light'] & {
     background-color: rgba(221, 160, 221, 0.95);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 2px 10px rgba(147, 112, 219, 0.2);
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.1),
+      0 2px 10px rgba(147, 112, 219, 0.2);
   }
 
   [data-theme='auto'] & {
     @media (prefers-color-scheme: light) {
       background-color: rgba(221, 160, 221, 0.95);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 2px 10px rgba(147, 112, 219, 0.2);
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        0 2px 10px rgba(147, 112, 219, 0.2);
     }
   }
 `;
@@ -48,7 +54,11 @@ const ScrollProgressBar = styled(motion.div)`
   bottom: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    var(--secondary-color)
+  );
   transform-origin: left;
 `;
 
@@ -79,19 +89,19 @@ const Logo = styled(motion.div)`
 
   /* Light theme logo */
   [data-theme='light'] & {
-    color: #4B0082;
-    
+    color: #4b0082;
+
     &:hover {
-      color: #8A2BE2;
+      color: #8a2be2;
     }
   }
 
   [data-theme='auto'] & {
     @media (prefers-color-scheme: light) {
-      color: #4B0082;
-      
+      color: #4b0082;
+
       &:hover {
-        color: #8A2BE2;
+        color: #8a2be2;
       }
     }
   }
@@ -118,9 +128,9 @@ const DesktopButtonContainer = styled.div`
 `;
 
 const NavLink = styled(motion.a)<{ $isActive: boolean }>`
-  color: ${props => props.$isActive ? 'var(--accent-color)' : '#ffffff'};
+  color: ${(props) => (props.$isActive ? 'var(--accent-color)' : '#ffffff')};
   text-decoration: none;
-  font-weight: ${props => props.$isActive ? '600' : '400'};
+  font-weight: ${(props) => (props.$isActive ? '600' : '400')};
   font-size: 0.95rem;
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: 6px;
@@ -139,7 +149,9 @@ const NavLink = styled(motion.a)<{ $isActive: boolean }>`
   }
 
   /* Active indicator */
-  ${props => props.$isActive && `
+  ${(props) =>
+    props.$isActive &&
+    `
     &::after {
       content: '';
       position: absolute;
@@ -155,20 +167,20 @@ const NavLink = styled(motion.a)<{ $isActive: boolean }>`
 
   /* Light theme nav link */
   [data-theme='light'] & {
-    color: ${props => props.$isActive ? '#8A2BE2' : '#4B0082'};
-    
+    color: ${(props) => (props.$isActive ? '#8A2BE2' : '#4B0082')};
+
     &:hover {
-      color: #8A2BE2;
+      color: #8a2be2;
       background-color: rgba(147, 112, 219, 0.1);
     }
   }
 
   [data-theme='auto'] & {
     @media (prefers-color-scheme: light) {
-      color: ${props => props.$isActive ? '#8A2BE2' : '#4B0082'};
-      
+      color: ${(props) => (props.$isActive ? '#8A2BE2' : '#4B0082')};
+
       &:hover {
-        color: #8A2BE2;
+        color: #8a2be2;
         background-color: rgba(147, 112, 219, 0.1);
       }
     }
@@ -215,12 +227,12 @@ const HamburgerLine = styled(motion.span)`
   transform-origin: center;
 
   [data-theme='light'] & {
-    background-color: #4B0082;
+    background-color: #4b0082;
   }
 
   [data-theme='auto'] & {
     @media (prefers-color-scheme: light) {
-      background-color: #4B0082;
+      background-color: #4b0082;
     }
   }
 `;
@@ -252,9 +264,9 @@ const MobileMenu = styled(motion.div)`
 
 const MobileNavLink = styled(motion.a)<{ $isActive: boolean }>`
   display: block;
-  color: ${props => props.$isActive ? 'var(--accent-color)' : '#ffffff'};
+  color: ${(props) => (props.$isActive ? 'var(--accent-color)' : '#ffffff')};
   text-decoration: none;
-  font-weight: ${props => props.$isActive ? '600' : '400'};
+  font-weight: ${(props) => (props.$isActive ? '600' : '400')};
   padding: var(--spacing-md) var(--spacing-xl);
   border-bottom: 1px solid rgba(138, 43, 226, 0.2);
   transition: all var(--duration-normal) var(--easing-ease-out);
@@ -276,22 +288,22 @@ const MobileNavLink = styled(motion.a)<{ $isActive: boolean }>`
 
   /* Light theme mobile nav link */
   [data-theme='light'] & {
-    color: ${props => props.$isActive ? '#8A2BE2' : '#4B0082'};
+    color: ${(props) => (props.$isActive ? '#8A2BE2' : '#4B0082')};
     border-bottom: 1px solid rgba(147, 112, 219, 0.2);
-    
+
     &:hover {
-      color: #8A2BE2;
+      color: #8a2be2;
       background-color: rgba(147, 112, 219, 0.1);
     }
   }
 
   [data-theme='auto'] & {
     @media (prefers-color-scheme: light) {
-      color: ${props => props.$isActive ? '#8A2BE2' : '#4B0082'};
+      color: ${(props) => (props.$isActive ? '#8A2BE2' : '#4B0082')};
       border-bottom: 1px solid rgba(147, 112, 219, 0.2);
-      
+
       &:hover {
-        color: #8A2BE2;
+        color: #8a2be2;
         background-color: rgba(147, 112, 219, 0.1);
       }
     }
@@ -339,7 +351,10 @@ const Header: React.FC<HeaderProps> = ({ name, children }) => {
       }
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
 
     // Observe all sections
     navigationItems.forEach((item) => {
@@ -356,32 +371,35 @@ const Header: React.FC<HeaderProps> = ({ name, children }) => {
   useEffect(() => {
     const updateScrollProgress = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollTop / docHeight;
       setScrollProgress(progress);
 
       // Backup section detection based on scroll position
       const headerHeight = 80;
-      const sections = navigationItems.map(item => ({
-        id: item.id,
-        element: document.getElementById(item.id),
-      })).filter(section => section.element);
+      const sections = navigationItems
+        .map((item) => ({
+          id: item.id,
+          element: document.getElementById(item.id),
+        }))
+        .filter((section) => section.element);
 
       let currentSection = 'hero';
-      
+
       for (const section of sections) {
         if (section.element) {
           const rect = section.element.getBoundingClientRect();
           const elementTop = rect.top + scrollTop;
-          
+
           if (scrollTop + headerHeight >= elementTop - 100) {
             currentSection = section.id;
           }
         }
       }
-      
+
       // Only update if different from current active section
-      setActiveSection(prev => {
+      setActiveSection((prev) => {
         if (prev !== currentSection) {
           return currentSection;
         }
@@ -399,10 +417,10 @@ const Header: React.FC<HeaderProps> = ({ name, children }) => {
     if (element) {
       const headerHeight = 80; // Approximate header height
       const elementPosition = element.offsetTop - headerHeight;
-      
+
       // Immediately set active section for better UX
       setActiveSection(sectionId);
-      
+
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth',
@@ -412,12 +430,15 @@ const Header: React.FC<HeaderProps> = ({ name, children }) => {
   }, []);
 
   // Handle keyboard navigation
-  const handleKeyDown = useCallback((event: React.KeyboardEvent, sectionId: string) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      scrollToSection(sectionId);
-    }
-  }, [scrollToSection]);
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent, sectionId: string) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        scrollToSection(sectionId);
+      }
+    },
+    [scrollToSection]
+  );
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -480,7 +501,13 @@ const Header: React.FC<HeaderProps> = ({ name, children }) => {
         </Logo>
 
         {/* Desktop Navigation and Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-lg)' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--spacing-lg)',
+          }}
+        >
           <DesktopNavigation>
             {navigationItems.map((item) => (
               <NavLink
@@ -498,16 +525,12 @@ const Header: React.FC<HeaderProps> = ({ name, children }) => {
               </NavLink>
             ))}
           </DesktopNavigation>
-          <DesktopButtonContainer>
-            {children}
-          </DesktopButtonContainer>
+          <DesktopButtonContainer>{children}</DesktopButtonContainer>
         </div>
 
         {/* Mobile Menu Container */}
         <MobileMenuContainer>
-          <ButtonContainer>
-            {children}
-          </ButtonContainer>
+          <ButtonContainer>{children}</ButtonContainer>
           <HamburgerButton
             onClick={toggleMenu}
             whileTap={{ scale: 0.95 }}

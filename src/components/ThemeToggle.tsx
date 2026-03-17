@@ -18,7 +18,8 @@ const ToggleButton = styled(motion.button)`
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  justify-content: center;
+  gap: 6px;
   font-size: 14px;
   font-weight: 500;
   box-shadow: 0 4px 12px var(--shadow-color);
@@ -43,7 +44,12 @@ const ToggleButton = styled(motion.button)`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.5s ease;
   }
 
@@ -73,6 +79,8 @@ const ThemeIcon = styled(motion.span)`
   font-size: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  line-height: 1;
   transition: transform var(--duration-normal) var(--easing-ease-out);
 `;
 
@@ -80,7 +88,7 @@ const ThemeLabel = styled(motion.span)`
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  
+
   @media (max-width: 480px) {
     display: none;
   }
@@ -171,7 +179,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, onToggle }) => {
           </motion.span>
         </AnimatePresence>
       </ThemeIcon>
-      
+
       <AnimatePresence mode="wait">
         <ThemeLabel
           key={theme}

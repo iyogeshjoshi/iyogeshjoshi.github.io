@@ -44,6 +44,14 @@ export interface Project {
   challenges: string[];
   outcomes: string[];
   metrics?: ProjectMetrics;
+  // GitHub-specific metadata for repo cards
+  githubMeta?: {
+    stars: number;
+    forks: number;
+    language: string;
+    languageColor: string;
+    updatedAt: string;
+  };
 }
 
 export interface ProjectGalleryProps {

@@ -136,6 +136,85 @@ const ImageGallerySection = styled.div`
   margin-bottom: var(--spacing-xl);
 `;
 
+// GitHub header section - shown when no images but has GitHub metadata
+const GitHubHeader = styled.div<{ $languageColor: string }>`
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(135deg, ${props => props.$languageColor}15 0%, ${props => props.$languageColor}30 100%);
+  border-bottom: 4px solid ${props => props.$languageColor};
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, ${props => props.$languageColor}10 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to top, var(--bg-color), transparent);
+  }
+`;
+
+const GitHubLanguageBadge = styled.div<{ $color: string }>`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: ${props => props.$color}25;
+  color: ${props => props.$color};
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 1;
+  margin-bottom: var(--spacing-lg);
+`;
+
+const LanguageDot = styled.span<{ $color: string }>`
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: ${props => props.$color};
+`;
+
+const GitHubStatsRow = styled.div`
+  display: flex;
+  gap: var(--spacing-xl);
+  z-index: 1;
+`;
+
+const GitHubStatItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-color);
+  font-size: 1.125rem;
+  font-weight: 500;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
 const MainImage = styled(motion.div)<{ $backgroundImage: string }>`
   width: 100%;
   height: 400px;
@@ -482,6 +561,19 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
     });
   };
 
+  // Check if project has GitHub metadata but no images
+  const hasGitHubMeta = (): boolean => {
+    return !!project && project.images.length === 0 && !!project.githubMeta;
+  };
+
+  // Format number with K suffix
+  const formatNumber = (num: number): string => {
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    }
+    return num.toString();
+  };
+
   // Get current image
   const getCurrentImage = () => {
     if (!project || !project.images.length) {
@@ -572,28 +664,53 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             <ModalContent>
               {/* Image Gallery Section */}
               <ImageGallerySection>
-                <MainImage
-                  $backgroundImage={getCurrentImage()}
-                  {...hoverEffects.glow}
-                  onClick={() => {
-                    // TODO: Implement full-screen image viewer
-                    console.log('Open full-screen image viewer');
-                  }}
-                />
-                
-                {project.images.length > 1 && (
-                  <ImageThumbnails>
-                    {project.images.map((image, index) => (
-                      <Thumbnail
-                        key={index}
-                        $backgroundImage={image.url}
-                        $active={index === selectedImageIndex}
-                        onClick={() => setSelectedImageIndex(index)}
-                        {...hoverEffects.bounce}
-                        whileTap={{ scale: 0.95 }}
-                      />
-                    ))}
-                  </ImageThumbnails>
+                {hasGitHubMeta() && project.githubMeta ? (
+                  <GitHubHeader $languageColor={project.githubMeta.languageColor}>
+                    <GitHubLanguageBadge $color={project.githubMeta.languageColor}>
+                      <LanguageDot $color={project.githubMeta.languageColor} />
+                      {project.githubMeta.language}
+                    </GitHubLanguageBadge>
+                    <GitHubStatsRow>
+                      <GitHubStatItem>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        {formatNumber(project.githubMeta.stars)} stars
+                      </GitHubStatItem>
+                      <GitHubStatItem>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M6 3a3 3 0 00-3 3v2.25a3 3 0 003 3h2.25a3 3 0 003-3V6a3 3 0 00-3-3H6zM15.75 3a3 3 0 00-3 3v2.25a3 3 0 003 3H18a3 3 0 003-3V6a3 3 0 00-3-3h-2.25zM6 12.75a3 3 0 00-3 3V18a3 3 0 003 3h2.25a3 3 0 003-3v-2.25a3 3 0 00-3-3H6zM17.625 13.5a.75.75 0 00-1.5 0v2.625H13.5a.75.75 0 000 1.5h2.625v2.625a.75.75 0 001.5 0v-2.625h2.625a.75.75 0 000-1.5h-2.625V13.5z"/>
+                        </svg>
+                        {formatNumber(project.githubMeta.forks)} forks
+                      </GitHubStatItem>
+                    </GitHubStatsRow>
+                  </GitHubHeader>
+                ) : (
+                  <>
+                    <MainImage
+                      $backgroundImage={getCurrentImage()}
+                      {...hoverEffects.glow}
+                      onClick={() => {
+                        // TODO: Implement full-screen image viewer
+                        console.log('Open full-screen image viewer');
+                      }}
+                    />
+
+                    {project.images.length > 1 && (
+                      <ImageThumbnails>
+                        {project.images.map((image, index) => (
+                          <Thumbnail
+                            key={index}
+                            $backgroundImage={image.url}
+                            $active={index === selectedImageIndex}
+                            onClick={() => setSelectedImageIndex(index)}
+                            {...hoverEffects.bounce}
+                            whileTap={{ scale: 0.95 }}
+                          />
+                        ))}
+                      </ImageThumbnails>
+                    )}
+                  </>
                 )}
               </ImageGallerySection>
 
@@ -708,7 +825,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
               )}
 
               {/* Metrics */}
-              {project.metrics && getMetricsArray().length > 0 && (
+              {((project.metrics && getMetricsArray().length > 0) || (hasGitHubMeta() && project.githubMeta)) && (
                 <ContentSection>
                   <SectionTitle variants={entranceAnimations.fadeInUp}>
                     Key Metrics
@@ -725,6 +842,26 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         <MetricLabel>{metric.label}</MetricLabel>
                       </MetricCard>
                     ))}
+                    {hasGitHubMeta() && project.githubMeta && (
+                      <>
+                        <MetricCard
+                          variants={entranceAnimations.fadeInUp}
+                          custom={getMetricsArray().length}
+                          {...hoverEffects.lift}
+                        >
+                          <MetricValue>{formatNumber(project.githubMeta.forks)}</MetricValue>
+                          <MetricLabel>Forks</MetricLabel>
+                        </MetricCard>
+                        <MetricCard
+                          variants={entranceAnimations.fadeInUp}
+                          custom={getMetricsArray().length + 1}
+                          {...hoverEffects.lift}
+                        >
+                          <MetricValue>{new Date(project.githubMeta.updatedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</MetricValue>
+                          <MetricLabel>Last Updated</MetricLabel>
+                        </MetricCard>
+                      </>
+                    )}
                   </MetricsGrid>
                 </ContentSection>
               )}

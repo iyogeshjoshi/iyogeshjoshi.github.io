@@ -5,23 +5,23 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    /* Dark theme (default) - Purple Gradient Palette */
-    --bg-color: #1E1434; /* Rich dark purple background */
+    /* Dark theme (default) - Lavender Variant */
+    --bg-color: #2D2344; /* Soft dark lavender background */
     --text-color: #E8E0F0; /* Soft lavender white for readability */
     --secondary-color: #B794F6; /* Light purple for secondary */
     --accent-color: #9F7AEA; /* Medium purple for accents */
-    --card-bg: rgba(159, 122, 234, 0.08);
-    --card-border: rgba(159, 122, 234, 0.2);
-    --shadow-color: rgba(0, 0, 0, 0.3);
+    --card-bg: rgba(159, 122, 234, 0.1);
+    --card-border: rgba(159, 122, 234, 0.25);
+    --shadow-color: rgba(0, 0, 0, 0.25);
     
     /* Color palette - Dark theme */
     --color-primary-500: #9F7AEA;
     --color-secondary-500: #B794F6;
     --color-accent-500: #D6BCFA;
     --color-neutral-50: #E8E0F0;
-    --color-neutral-100: #2D2344;
-    --color-neutral-800: #4C3668;
-    --color-neutral-900: #1E1434; */
+    --color-neutral-100: #3D3259;
+    --color-neutral-800: #5B4B7C;
+    --color-neutral-900: #2D2344;
     
     /* Typography */
     --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -45,13 +45,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   [data-theme='light'] {
-    --bg-color: #F8F5FA; /* Soft lavender white background */
-    --text-color: #3D2C5E; /* Dark purple-gray for readable text */
-    --secondary-color: #7C3AED; /* Vivid purple for secondary */
-    --accent-color: #8B5CF6; /* Bright purple for accents */
-    --card-bg: rgba(139, 92, 246, 0.06);
-    --card-border: rgba(139, 92, 246, 0.15);
-    --shadow-color: rgba(61, 44, 94, 0.08);
+    --bg-color: #DDA0DD; /* Light purple background */
+    --text-color: #4B0082; /* Deep purple text */
+    --secondary-color: #8A2BE2; /* Blue violet for secondary text */
+    --accent-color: #9370DB; /* Medium slate blue for accents */
+    --card-bg: rgba(147, 112, 219, 0.05);
+    --card-border: rgba(147, 112, 219, 0.15);
+    --shadow-color: rgba(75, 0, 130, 0.1);
   }
 
   [data-theme='auto'] {
@@ -60,25 +60,25 @@ const GlobalStyle = createGlobalStyle`
 
   @media (prefers-color-scheme: light) {
     [data-theme='auto'] {
-      --bg-color: #F8F5FA;
-      --text-color: #3D2C5E;
-      --secondary-color: #7C3AED;
-      --accent-color: #8B5CF6;
-      --card-bg: rgba(139, 92, 246, 0.06);
-      --card-border: rgba(139, 92, 246, 0.15);
-      --shadow-color: rgba(61, 44, 94, 0.08);
+      --bg-color: #DDA0DD;
+      --text-color: #4B0082;
+      --secondary-color: #8A2BE2;
+      --accent-color: #9370DB;
+      --card-bg: rgba(147, 112, 219, 0.05);
+      --card-border: rgba(147, 112, 219, 0.15);
+      --shadow-color: rgba(75, 0, 130, 0.1);
     }
   }
 
   @media (prefers-color-scheme: dark) {
     [data-theme='auto'] {
-      --bg-color: #1E1434;
+      --bg-color: #2D2344;
       --text-color: #E8E0F0;
       --secondary-color: #B794F6;
       --accent-color: #9F7AEA;
-      --card-bg: rgba(159, 122, 234, 0.08);
-      --card-border: rgba(159, 122, 234, 0.2);
-      --shadow-color: rgba(0, 0, 0, 0.3);
+      --card-bg: rgba(159, 122, 234, 0.1);
+      --card-border: rgba(159, 122, 234, 0.25);
+      --shadow-color: rgba(0, 0, 0, 0.25);
     }
   }
 

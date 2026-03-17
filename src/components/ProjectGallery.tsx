@@ -327,6 +327,74 @@ const TechnologyTag = styled(motion.span)<{ $color?: string }>`
   font-weight: 500;
 `;
 
+// GitHub card variant styles - shown when no images but has GitHub metadata
+const GitHubCardHeader = styled.div<{ $languageColor: string }>`
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, ${props => props.$languageColor}15 0%, ${props => props.$languageColor}30 100%);
+  border-bottom: 3px solid ${props => props.$languageColor};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, ${props => props.$languageColor}10 0%, transparent 70%);
+    opacity: 0.5;
+  }
+`;
+
+const GitHubLanguageBadge = styled.div<{ $color: string }>`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: ${props => props.$color}25;
+  color: ${props => props.$color};
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  z-index: 1;
+  margin-bottom: var(--spacing-md);
+`;
+
+const LanguageDot = styled.span<{ $color: string }>`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${props => props.$color};
+`;
+
+const GitHubStats = styled.div`
+  display: flex;
+  gap: var(--spacing-lg);
+  z-index: 1;
+`;
+
+const GitHubStat = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.9;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+`;
+
 const ProjectLinks = styled.div`
   display: flex;
   gap: var(--spacing-sm);
@@ -421,15 +489,29 @@ const ProjectGallery: React.FC<ProjectGalleryComponentProps> = ({
 
   // Format date
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short' 
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short'
     });
+  };
+
+  // Check if project has GitHub metadata but no images
+  const hasGitHubMeta = (project: Project): boolean => {
+    return project.images.length === 0 && !!project.githubMeta;
   };
 
   // Get placeholder image
   const getProjectImage = (project: Project) => {
     return project.images[0]?.url || '/images/placeholder-project.jpg';
+  };
+
+  // Format number with K suffix for large numbers
+  const formatNumber = (num: number | undefined): string => {
+    if (num === undefined || num === null) return '0';
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    }
+    return num.toString();
   };
 
   return (
@@ -582,10 +664,33 @@ const ProjectGallery: React.FC<ProjectGalleryComponentProps> = ({
                 {...cardHoverEffects.subtle}
                 layout
               >
-                <ProjectImage
-                  $backgroundImage={getProjectImage(project)}
-                  $viewMode={viewMode}
-                />
+                {hasGitHubMeta(project) && project.githubMeta ? (
+                  <GitHubCardHeader $languageColor={project.githubMeta?.languageColor || '#666'}>
+                    <GitHubLanguageBadge $color={project.githubMeta?.languageColor || '#666'}>
+                      <LanguageDot $color={project.githubMeta?.languageColor || '#666'} />
+                      {project.githubMeta?.language || 'Unknown'}
+                    </GitHubLanguageBadge>
+                    <GitHubStats>
+                      <GitHubStat>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        {formatNumber(project.githubMeta?.stars)}
+                      </GitHubStat>
+                      <GitHubStat>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M6 3a3 3 0 00-3 3v2.25a3 3 0 003 3h2.25a3 3 0 003-3V6a3 3 0 00-3-3H6zM15.75 3a3 3 0 00-3 3v2.25a3 3 0 003 3H18a3 3 0 003-3V6a3 3 0 00-3-3h-2.25zM6 12.75a3 3 0 00-3 3V18a3 3 0 003 3h2.25a3 3 0 003-3v-2.25a3 3 0 00-3-3H6zM17.625 13.5a.75.75 0 00-1.5 0v2.625H13.5a.75.75 0 000 1.5h2.625v2.625a.75.75 0 001.5 0v-2.625h2.625a.75.75 0 000-1.5h-2.625V13.5z"/>
+                        </svg>
+                        {formatNumber(project.githubMeta?.forks)}
+                      </GitHubStat>
+                    </GitHubStats>
+                  </GitHubCardHeader>
+                ) : (
+                  <ProjectImage
+                    $backgroundImage={getProjectImage(project)}
+                    $viewMode={viewMode}
+                  />
+                )}
                 
                 <ProjectContent $viewMode={viewMode}>
                   <ProjectMeta>

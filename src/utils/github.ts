@@ -3,6 +3,7 @@ export interface GitHubRepo {
   description: string;
   url: string;
   stars: number;
+  forks: number;
   language: string | null;
   languageColor: string | null;
   updatedAt: string;
@@ -20,6 +21,7 @@ const PINNED_REPOS_QUERY = `
             description
             url
             stargazerCount
+            forkCount
             primaryLanguage {
               name
               color
@@ -41,6 +43,7 @@ const TOP_REPOS_QUERY = `
           description
           url
           stargazerCount
+          forkCount
           primaryLanguage {
             name
             color
@@ -93,6 +96,7 @@ const transformRepo = (repo: {
   description: string | null;
   url: string;
   stargazerCount: number;
+  forkCount: number;
   primaryLanguage: { name: string; color: string } | null;
   updatedAt: string;
 }): GitHubRepo => ({
@@ -100,6 +104,7 @@ const transformRepo = (repo: {
   description: repo.description || 'No description available',
   url: repo.url,
   stars: repo.stargazerCount,
+  forks: repo.forkCount,
   language: repo.primaryLanguage?.name || null,
   languageColor: repo.primaryLanguage?.color || null,
   updatedAt: repo.updatedAt,

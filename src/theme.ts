@@ -392,20 +392,18 @@ export const generateCSSCustomProperties = (
     '--color-warning': colors.semantic.warning,
     '--color-error': colors.semantic.error,
     '--color-info': colors.semantic.info,
-
     // Legacy color mappings for backward compatibility
-    '--bg-color': isDark ? '#1E1434' : '#F8F5FA', // Rich dark purple : Soft lavender white
-    '--text-color': isDark ? '#E8E0F0' : '#3D2C5E', // Soft lavender : Dark purple-gray
-    '--secondary-color': isDark ? '#B794F6' : '#7C3AED', // Light purple : Vivid purple
-    '--accent-color': isDark ? '#9F7AEA' : '#8B5CF6', // Medium purple : Bright purple
+    '--bg-color': isDark ? '#2D2344' : '#DDA0DD', // Soft dark lavender : Light purple
+    '--text-color': isDark ? '#E8E0F0' : '#4B0082', // Soft lavender : Deep purple
+    '--secondary-color': isDark ? '#B794F6' : '#8A2BE2', // Light purple : Blue violet
+    '--accent-color': isDark ? '#9F7AEA' : '#9370DB', // Medium purple : Medium slate blue
     '--card-bg': isDark
-      ? 'rgba(159, 122, 234, 0.08)'
-      : 'rgba(139, 92, 246, 0.06)',
+      ? 'rgba(159, 122, 234, 0.1)'
+      : 'rgba(147, 112, 219, 0.05)',
     '--card-border': isDark
-      ? 'rgba(159, 122, 234, 0.2)'
-      : 'rgba(139, 92, 246, 0.15)',
-    '--shadow-color': isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(61, 44, 94, 0.08)',
-
+      ? 'rgba(159, 122, 234, 0.25)'
+      : 'rgba(147, 112, 219, 0.15)',
+    '--shadow-color': isDark ? 'rgba(0, 0, 0, 0.25)' : 'rgba(75, 0, 130, 0.1)',
     // Typography
     '--font-family-primary': theme.typography.fontFamily.primary,
     '--font-family-secondary': theme.typography.fontFamily.secondary,
