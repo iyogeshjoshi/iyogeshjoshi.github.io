@@ -1,0 +1,187 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[top=0.75in, bottom=0.75in, left=0.75in, right=0.75in]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{fontawesome}
+
+% Colors
+\definecolor{sectioncolor}{RGB}{0,102,204}
+\definecolor{datecolor}{RGB}{100,100,100}
+
+% Header settings
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{%
+  \textbf{\Large YOGESH JOSHI}\\[2mm]
+  \small Bangalore, KA 560102 \quad \textbullet \quad (+91) 8000038220 \quad \textbullet \quad
+  \href{mailto:iyogeshjoshi@gmail.com}{iyogeshjoshi@gmail.com} \quad \textbullet \quad
+  \href{https://github.com/iyogeshjoshi}{\faGithub{} iyogeshjoshi} \quad \textbullet \quad
+  \href{https://linkedin.com/in/iyogeshjoshi}{\faLinkedin{} iyogeshjoshi}
+}
+\fancypagestyle{plain}{\fancyhf{} \renewcommand{\headrulewidth}{0pt}}
+
+% Section formatting
+\titleformat{\section}{\color{sectioncolor}\Large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}[runin]{\bfseries}{}{0em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\begin{document}
+\thispagestyle{fancy}
+
+%-----------------------------------------------
+\section*{Professional Summary}
+Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript development. Architected an AWS infrastructure redesign that cut cloud costs by 80\% while improving scalability, and led delivery of enterprise-grade micro-frontend systems handling 100K+ daily transactions. Known for architectural leadership, cross-functional mentorship, and shipping complex features on tight timelines.
+
+%-----------------------------------------------
+\section*{Technical Skills}
+\begin{itemize}[leftmargin=*, nosep]
+  \item \textbf{Languages:} JavaScript (ES6+), TypeScript, Go, PHP, Python
+  \item \textbf{Frontend:} React, Next.js, Vue.js, Angular, Redux, React Native, Electron, GWT
+  \item \textbf{Backend:} Node.js, NestJS, Express.js, GraphQL, Firebase Functions, Spring Boot
+  \item \textbf{Architecture:} Micro-frontends, Webpack Module Federation, Microservices, Serverless, Event-driven Architecture
+  \item \textbf{Cloud/DevOps:} AWS (EC2, S3, Lambda, DynamoDB), GCP, Docker, Kubernetes, Terraform, MuleSoft, Jenkins, GitHub Actions
+  \item \textbf{Databases:} PostgreSQL, MySQL, MongoDB, Redis, Firebase Firestore, DynamoDB
+  \item \textbf{Testing:} Jest, Cypress, Playwright, Selenium, Mocha, TDD/BDD
+  \item \textbf{Security:} OAuth, JWT, SAML, OWASP Guidelines
+\end{itemize}
+
+%-----------------------------------------------
+\section*{Professional Experience}
+
+\subsection*{\large Whatfix}
+\textcolor{datecolor}{Bengaluru, KA \textbar Jun 2025 -- Present} \\
+\textbf{\textit{Staff Software Engineer}}
+
+Whatfix is a leading Digital Adoption Platform (DAP) empowering organizations to guide, automate, and track user journeys across software applications.
+
+\textbf{Selfhelp Hub}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Contextual fab embedded in client applications, giving end-users access to curated help articles, training videos, automations, and task assignments
+  \item \textbf{Delivered "Tasklist" feature} within one month -- enables organizations to create actionable tasks for end-users with configurable notification frequency via the fab
+  \item Tasklist supports multiple task types: reading articles, watching videos, performing automations, and completing defined actions
+  \item \textbf{Increased Selfhelp Hub adoption from 80\% to 100\%} across enterprise client base through feature enhancements and UX improvements
+  \item Tech Stack: ReactJS, Micro-frontends (Webpack Module Federation), GWT, Spring Boot, Playwright
+\end{itemize}
+
+\textbf{QuickRead}
+\begin{itemize}[leftmargin=*, nosep]
+  \item AI-powered query system enabling users to ask questions against all curated organizational content
+  \item Building core agent that traverses organizational content and generates contextual, accurate responses to user queries; improving content discoverability across enterprise client base
+\end{itemize}
+
+\textbf{Glimpse}
+\begin{itemize}[leftmargin=*, nosep]
+  \item In-context FAQ solution allowing organizations to define highlightable selectors on their applications; selectors are underlined with a distinctive rainbow indicator and open a modal with AI-generated answers via QuickRead
+  \item Implementing suggested questions section that auto-populates queries in Selfhelp Hub for seamless cross-product integration
+\end{itemize}
+
+\textbf{Team Leadership}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Mentoring team of 3-4 engineers, conducting code reviews, and driving technical excellence
+\end{itemize}
+
+\subsection*{\large YARA International}
+\textcolor{datecolor}{Bengaluru, KA \textbar Aug 2020 -- Feb 2025} \\
+\textbf{\textit{Lead Software Engineer}} (Aug 2023 -- Feb 2025)
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Lead team brainstorms to streamline tasks, boosting efficiency and clarity
+  \item Architect complex systems, achieving measurable AWS cost reductions
+  \item \textbf{Spearheaded AWS infrastructure redesign} that reduced cloud costs by 80\% while improving system performance and scalability
+  \item \textbf{Architected micro-frontend architecture} using React, enabling team autonomy and faster deployment cycles
+  \item Designed and deployed microservices on AWS and MuleSoft Anypoint middleware, handling 100K+ daily transactions
+  \item Facilitate learning sessions, enhancing team's software design skills
+  \item Collaborate with UI/UX teams to optimize cross-platform user experience
+  \item Deploy and maintain robust applications on MuleSoft and AWS
+  \item Analyzed system architecture to streamline processes, resulting in marked improvements in product scalability and performance
+  \item Implemented cutting-edge microservice APIs, optimizing front-end application performance and user experience
+  \item Examined codebase efficiencies, leading to significant performance enhancements and streamlined operations
+  \item Led engineering team, conducting technical reviews, mentoring junior developers, and driving SOLID principles adoption
+  \item Technologies: NestJS, AWS, MuleSoft, Kubernetes, React, TypeScript, Microservices
+\end{itemize}
+
+\textbf{\textit{Senior Software Engineer}} (Aug 2020 -- Aug 2023)
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Developed mobile apps with React Native, boosting user engagement by enhancing functionality
+  \item Led intern training, fostering skill development and onboarding efficiency
+  \item Resolved technical issues for junior developers, improving team productivity
+  \item Managed app releases, ensuring timely updates and feature rollouts
+  \item Designed backend APIs and microservices, optimizing system architecture
+  \item Spearheaded app performance optimizations, resulting in noticeable improvements in user engagement and retention
+  \item Implemented CI/CD pipelines, streamlining deployment processes and reducing release times significantly
+  \item Conducted code reviews to ensure adherence to coding standards, enhancing code quality and reducing bugs
+  \item Maintained comprehensive technical documentation, which improved onboarding efficiency and reduced knowledge gaps
+  \item Created NestJS micro-service template adopted as standard across backend teams
+  \item Developed cross-platform mobile application using React Native, MobX, and Firebase, serving 50K+ users
+  \item Mentored 4 interns/trainees through onboarding and skill development programs
+  \item Managed release pipeline from internal testing to Google Play Store production releases
+  \item Technologies: React Native, Firebase, NestJS, MobX, Node.js, Kubernetes, TypeScript
+\end{itemize}
+
+\subsection*{\large Ather Energy Private Ltd.}
+\textcolor{datecolor}{Bengaluru, KA \textbar Jun 2015 -- Aug 2020} \\
+\textbf{\textit{Senior Software Engineer (Associate Manager)}}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Led software development using ReactJS and Redux, enhancing vehicle-system integration
+  \item Developed cross-platform mobile apps with React Native, improving data synchronization
+  \item \textbf{Designed vehicle navigation system} using vanilla JS/React and Google Maps API, optimized for hardware with severe memory constraints across the Ather scooter fleet
+  \item \textbf{Built mobile app using React Native + Firebase} for vehicle-cloud sync, achieving 4.6$\star$ app store rating with 100K+ downloads
+  \item Engineered Go-lang integrations for system-level vehicle applications
+  \item Identified and resolved app performance issues, boosting efficiency
+  \item Collaborated with system team on Go-lang integration, enhancing UI app functionality
+  \item Diagnosed and resolved system bottlenecks, implementing optimized solutions that resulted in noticeable performance improvements
+  \item Facilitated the integration of Go-lang applications with UI, fostering a cohesive development environment across teams
+  \item Automated routine tasks through scripting, significantly accelerating QA processes and boosting team efficiency
+  \item Created automation tools using shell scripting, reducing QA testing time by 40\%
+  \item Technologies: React, Electron, Node.js, Kubernetes, GCP, Go-lang, Python, D3, Google Maps SDK/Navigation, React Native, Firebase, Socket.IO, Microservices
+\end{itemize}
+
+\subsection*{\large Function Space Pvt. Ltd.}
+\textcolor{datecolor}{Bengaluru, KA \textbar May 2014 -- Jun 2015} \\
+\textbf{\textit{Software Engineer (Software Artisan)}}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Developed web applications, ensuring robust functionality and user engagement
+  \item Built and maintained a science forum platform using PHP and JavaScript, enhancing user interaction
+  \item Created educational applications integrating learning and gaming, boosting user engagement
+  \item Built online community platform (PHP/JavaScript), including Learnise --- a learning ecosystem with in-browser IDEs
+  \item Developed Play Physics, a suite of interactive science learning games
+  \item Collaborated with sales and product teams to align development with user needs, improving satisfaction
+  \item Developed dashboards to analyze user data, providing insights for strategic decisions
+  \item Pioneered a gamified learning platform, fostering engaging educational experiences and enhancing user interaction with science concepts
+  \item Crafted multi-tier dashboards for data tracking, enabling precise analysis of user behavior and informed decision-making
+  \item Implemented comprehensive testing protocols for web applications, ensuring flawless functionality and user-centric design
+  \item Technologies: PHP, JavaScript, MongoDB, PostgreSQL, Socket.IO, Node.js, React Native, Python, LaTeX, Express
+\end{itemize}
+
+\subsection*{\large Avinashi Ventures Pvt. Ltd.}
+\textcolor{datecolor}{Surat, GJ \textbar Jun 2013 -- Apr 2014} \\
+\textbf{\textit{Fullstack Software Developer}}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item Built comprehensive HRMS system with AngularJS, Node.js; improved team target tracking
+  \item Created bulk SMS system with Node.js, enhancing communication efficiency
+  \item Automated report generation with Node.js, PHP, boosting data-driven decision-making
+  \item Engineered an intuitive HRMS analytics dashboard, driving proactive decision-making through predictive insights
+  \item Integrated telemarketing SMS system with BizBrain, optimizing alert delivery and enhancing communication efficiency
+  \item Crafted automated email reporting tools, facilitating timely information flow and data-driven strategies
+  \item Maintained robust backend systems using Node.js and MongoDB, ensuring seamless data integrity and system reliability
+  \item Technologies: Node.js, AngularJS, PHP, Socket.IO, MongoDB, PostgreSQL, Express
+\end{itemize}
+
+%-----------------------------------------------
+\section*{Education}
+\textbf{Bachelor of Engineering: Computer Engineering} (2009 -- 2013) \\
+Gujarat Technological University, Surat, GJ \\
+CGPA: 8.05
+
+\end{document}
