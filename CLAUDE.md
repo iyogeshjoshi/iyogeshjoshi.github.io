@@ -26,23 +26,39 @@ npm run test -- --testPathPattern="Hero"    # Run specific test file
 npm run test -- --testNamePattern="renders" # Run tests matching pattern
 ```
 
+## Environment Variables
+
+Create `.env` (already gitignored) before running locally:
+
+```
+VITE_GITHUB_TOKEN=<personal_access_token>
+```
+
+The GitHub token is required for the Projects section. Without it, the section silently renders empty. The token is used to call the GitHub GraphQL API (`/graphql`) to fetch pinned repos, falling back to top repos by star count. Results are cached in `localStorage` for 1 hour under the key `github_repos_cache`.
+
 ## Architecture
 
 ### Data Flow
-- Content is loaded from `public/data.yaml` at runtime via `src/utils/yamlLoader.ts`
-- Projects data in `src/data/projects.ts` supplements YAML data
+- Portfolio content (`name`, `bio`, `tagline`, `skills`, `experiences`, `contact`) is loaded at runtime from `public/data.yaml` via `src/utils/yamlLoader.ts`
+- **Projects come exclusively from GitHub API** — `src/data/projects.ts` has an empty `projects` array by design; `src/utils/github.ts` fetches and maps repos into the `Project` type at runtime
+- Experiences from `data.yaml` are sorted by end date descending in `App.tsx` before being passed to `Experiences`
 - Theme preference stored in localStorage
+
+### data.yaml Contracts
+- Experience `duration` field must follow the format: `"MONTH YEAR - MONTH YEAR"` or `"MONTH YEAR - PRESENT"` (e.g., `"JANUARY 2022 - PRESENT"`). This is parsed by `parseDate()` in `App.tsx` — deviating from this format will cause incorrect sort order.
 
 ### Key Files
 - `src/index.tsx` - Entry point with global styles and CSS variables
-- `src/App.tsx` - Main app component with theme provider
+- `src/App.tsx` - Main app component; also houses `useTheme` and `useSystemTheme` hooks
 - `src/theme.ts` - Theme definitions (light/dark/auto) with color palettes and spacing
 - `src/components/` - React components (Hero, About, Skills, Projects, Contact, etc.)
-- `src/utils/` - Utilities (yamlLoader, projectManager, github, microInteractions)
-- `public/data.yaml` - Portfolio content (name, bio, skills, experience)
+- `src/utils/github.ts` - GitHub GraphQL fetcher with localStorage cache
+- `src/utils/yamlLoader.ts` - Fetches and parses `public/data.yaml`
+- `public/data.yaml` - Portfolio content (name, bio, skills, experience, contact)
 
 ### Theme System
 - Three theme types: `'light' | 'dark' | 'auto'` (auto follows system preference)
+- Toggle cycles in order: `light → dark → auto → light` (not a binary toggle)
 - CSS custom properties in `:root` and `[data-theme='light']` for theming
 - Styled-components ThemeProvider wraps the app
 - Theme toggle persists to localStorage
