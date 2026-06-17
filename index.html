@@ -8,24 +8,26 @@
     <meta name="color-scheme" content="dark light" />
     <meta
       name="description"
-      content="Lead Software Engineer with over a decade of expertise in full-stack development and JavaScript. Skilled in React, Node.js, AWS, and microservices architecture. Experienced in designing scalable solutions and leading development teams."
+      content="Yogesh Joshi — Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript, React, Node.js, AWS, and microservices architecture. Portfolio of projects, experience, and open-source tools."
     />
     <meta
       name="keywords"
-      content="Software Engineer, Full Stack Developer, JavaScript, TypeScript, React, Node.js, AWS, GCP, Microservices, Lead Developer, System Architecture"
+      content="Yogesh Joshi, Staff Software Engineer, Full Stack Developer, JavaScript, TypeScript, React, Node.js, AWS, GCP, Microservices, Lead Developer, System Architecture, deviloper.dev"
     />
     <meta name="robots" content="index, follow" />
+    <meta name="author" content="Yogesh Joshi" />
     <meta name="google-adsense-account" content="ca-pub-5076417401305199" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5076417401305199" crossorigin="anonymous"></script>
     <link rel="canonical" href="https://deviloper.dev" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://deviloper.dev" />
-    <meta property="og:title" content="Yogesh Joshi - Lead Software Engineer" />
+    <meta property="og:title" content="Yogesh Joshi — Staff Software Engineer | Deviloper.dev" />
     <meta
       property="og:description"
-      content="Lead Software Engineer with expertise in full-stack development, React, Node.js, AWS, and microservices architecture."
+      content="Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript development, React, Node.js, AWS, and microservices."
     />
     <meta
       property="og:image"
@@ -35,18 +37,34 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Yogesh Joshi - Lead Software Engineer"
-    />
+    <meta name="twitter:title" content="Yogesh Joshi — Staff Software Engineer | Deviloper.dev" />
     <meta
       name="twitter:description"
-      content="Lead Software Engineer with expertise in full-stack development, React, Node.js, AWS, and microservices architecture."
+      content="Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript development, React, Node.js, AWS, and microservices."
     />
     <meta
       name="twitter:image"
       content="https://deviloper.dev/images/android-chrome-512x512.png"
     />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Yogesh Joshi",
+      "url": "https://deviloper.dev",
+      "jobTitle": "Staff Software Engineer",
+      "description": "Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript development.",
+      "email": "hello@deviloper.dev",
+      "sameAs": [
+        "https://github.com/iyogeshjoshi",
+        "https://linkedin.com/in/iyogeshjoshi",
+        "https://x.com/iyogeshjoshi"
+      ],
+      "knowsAbout": ["JavaScript", "TypeScript", "React", "Node.js", "AWS", "Microservices", "System Architecture"]
+    }
+    </script>
 
     <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,11 +82,309 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>Deviloper.dev</title>
+    <title>Yogesh Joshi — Staff Software Engineer | Deviloper.dev</title>
+
+    <style>
+      /* Minimal styles for the static pre-render content */
+      .static-portfolio {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #0a192f;
+        color: #ccd6f6;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      .sp-nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1d3461;
+      }
+      .sp-nav-name { font-size: 20px; font-weight: 700; color: #64ffda; }
+      .sp-nav-links { display: flex; gap: 20px; }
+      .sp-nav-links a { color: #a8b2d8; text-decoration: none; font-size: 14px; }
+      .sp-main { max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
+      .sp-hero { padding: 80px 0 60px; }
+      .sp-hero h1 { font-size: 48px; font-weight: 700; color: #e6f1ff; margin-bottom: 8px; line-height: 1.1; }
+      .sp-hero h2 { font-size: 28px; font-weight: 400; color: #64ffda; margin-bottom: 24px; }
+      .sp-hero p { font-size: 18px; color: #a8b2d8; max-width: 680px; line-height: 1.7; }
+      .sp-section { margin-bottom: 64px; }
+      .sp-section h2 { font-size: 26px; font-weight: 700; color: #ccd6f6; margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid #1d3461; }
+      .sp-job { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid #112240; }
+      .sp-job:last-child { border-bottom: none; }
+      .sp-job h3 { font-size: 20px; font-weight: 600; color: #e6f1ff; margin-bottom: 4px; }
+      .sp-job-meta { font-size: 14px; color: #64ffda; margin-bottom: 12px; }
+      .sp-job-meta span { color: #8892b0; margin-left: 8px; }
+      .sp-job ul { list-style: disc; padding-left: 20px; color: #a8b2d8; }
+      .sp-job ul li { margin-bottom: 6px; font-size: 15px; line-height: 1.6; }
+      .sp-job-tech { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+      .sp-job-tech span { background: #112240; color: #64ffda; padding: 3px 10px; border-radius: 12px; font-size: 12px; border: 1px solid #1d3461; }
+      .sp-skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+      .sp-skill-group h3 { font-size: 15px; font-weight: 600; color: #ccd6f6; margin-bottom: 10px; }
+      .sp-skill-group ul { list-style: none; padding: 0; }
+      .sp-skill-group ul li { font-size: 14px; color: #8892b0; padding: 4px 0; border-bottom: 1px solid #112240; }
+      .sp-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+      .sp-tool-card { background: #112240; border: 1px solid #1d3461; border-radius: 8px; padding: 20px; }
+      .sp-tool-card h3 { font-size: 17px; font-weight: 600; color: #64ffda; margin-bottom: 8px; }
+      .sp-tool-card p { font-size: 14px; color: #8892b0; line-height: 1.6; margin-bottom: 12px; }
+      .sp-tool-card a { color: #64ffda; font-size: 13px; text-decoration: none; }
+      .sp-contact { display: flex; flex-wrap: wrap; gap: 16px; }
+      .sp-contact a { color: #64ffda; text-decoration: none; font-size: 15px; background: #112240; padding: 10px 18px; border-radius: 6px; border: 1px solid #1d3461; }
+      .sp-footer { padding: 32px 24px; text-align: center; border-top: 1px solid #1d3461; font-size: 13px; color: #8892b0; max-width: 1200px; margin: 0 auto; }
+      .sp-footer a { color: #64ffda; text-decoration: none; margin: 0 8px; }
+      .sp-loading { display: none; }
+    </style>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+  <body style="margin:0;padding:0;background:#0a192f;">
+    <div id="root">
+      <!-- Static portfolio content — visible to crawlers, replaced by React on load -->
+      <div class="static-portfolio">
+        <nav class="sp-nav">
+          <span class="sp-nav-name">Yogesh Joshi</span>
+          <div class="sp-nav-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#tools">Tools</a>
+            <a href="#contact">Contact</a>
+            <a href="/sitemap.html">Sitemap</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+          </div>
+        </nav>
+
+        <div class="sp-main">
+          <!-- Hero -->
+          <section class="sp-hero" id="about">
+            <h1>Yogesh Joshi</h1>
+            <h2>Staff Software Engineer</h2>
+            <p>
+              Staff Software Engineer with 13+ years of expertise in full-stack JavaScript/TypeScript development.
+              Architected an AWS infrastructure redesign that cut cloud costs by 80% while improving scalability,
+              and led delivery of enterprise-grade micro-frontend systems handling 100K+ daily transactions.
+              Known for architectural leadership, cross-functional mentorship, and shipping complex features on tight timelines.
+            </p>
+          </section>
+
+          <!-- Experience -->
+          <section class="sp-section" id="experience">
+            <h2>Work Experience</h2>
+
+            <div class="sp-job">
+              <h3>Staff Software Engineer — Whatfix</h3>
+              <div class="sp-job-meta">June 2025 – Present <span>· Bengaluru, KA</span></div>
+              <ul>
+                <li>Selfhelp Hub: Contextual fab embedded in client applications, giving end-users access to curated help articles, training videos, automations, and task assignments</li>
+                <li>Delivered "Tasklist" feature within one month — enables organizations to create actionable tasks for end-users with configurable notification frequency</li>
+                <li>Increased Selfhelp Hub adoption from 80% to 100% across enterprise client base through feature enhancements and UX improvements</li>
+                <li>QuickRead: AI-powered query system enabling users to ask questions against all curated organizational content</li>
+                <li>Glimpse: In-context FAQ solution allowing organizations to define highlightable selectors on their applications</li>
+                <li>Mentoring team of 3–4 engineers, conducting code reviews, and driving technical excellence</li>
+              </ul>
+              <div class="sp-job-tech">
+                <span>ReactJS</span><span>Micro-frontends</span><span>Webpack Module Federation</span><span>Spring Boot</span><span>Playwright</span>
+              </div>
+            </div>
+
+            <div class="sp-job">
+              <h3>Lead Software Engineer — YARA International</h3>
+              <div class="sp-job-meta">August 2023 – February 2025 <span>· Bengaluru, KA</span></div>
+              <ul>
+                <li>Architected complex systems achieving measurable AWS cost reductions of up to 80%</li>
+                <li>Led team brainstorms to streamline tasks, boosting efficiency and clarity</li>
+                <li>Deployed and maintained robust applications on Mulesoft and AWS</li>
+                <li>Analyzed system architecture to streamline processes, resulting in marked improvements in product scalability and performance</li>
+                <li>Implemented cutting-edge microservice APIs, optimizing front-end application performance</li>
+                <li>Facilitated learning sessions, enhancing team's software design skills</li>
+              </ul>
+              <div class="sp-job-tech">
+                <span>NestJS</span><span>AWS</span><span>MuleSoft</span><span>Kubernetes</span>
+              </div>
+            </div>
+
+            <div class="sp-job">
+              <h3>Senior Software Engineer — YARA International</h3>
+              <div class="sp-job-meta">August 2020 – August 2022 <span>· Bengaluru, KA</span></div>
+              <ul>
+                <li>Developed mobile apps with React Native, boosting user engagement by enhancing functionality</li>
+                <li>Implemented CI/CD pipelines, streamlining deployment processes and reducing release times significantly</li>
+                <li>Designed backend APIs and microservices, optimizing system architecture</li>
+                <li>Conducted code reviews to ensure adherence to coding standards, enhancing code quality and reducing bugs</li>
+                <li>Led intern training, fostering skill development and onboarding efficiency</li>
+              </ul>
+              <div class="sp-job-tech">
+                <span>React</span><span>Node.js</span><span>Kubernetes</span><span>TypeScript</span><span>Micro-Frontend</span>
+              </div>
+            </div>
+
+            <div class="sp-job">
+              <h3>Senior Software Engineer (Associate Manager) — Ather Energy Pvt. Ltd.</h3>
+              <div class="sp-job-meta">June 2015 – August 2020 <span>· Bengaluru, KA</span></div>
+              <ul>
+                <li>Led software development using ReactJS and Redux, enhancing vehicle-system integration</li>
+                <li>Developed cross-platform mobile apps with React Native, improving data synchronization</li>
+                <li>Engineered navigation solutions with Google Maps API, optimizing for limited hardware</li>
+                <li>Collaborated with system team on Go-lang integration, enhancing UI app functionality</li>
+                <li>Automated routine tasks through scripting, significantly accelerating QA processes</li>
+              </ul>
+              <div class="sp-job-tech">
+                <span>React</span><span>Electron</span><span>Node.js</span><span>GCP</span><span>Go-lang</span><span>Python</span><span>Firebase</span><span>D3</span>
+              </div>
+            </div>
+
+            <div class="sp-job">
+              <h3>Software Engineer — Function Space Pvt. Ltd.</h3>
+              <div class="sp-job-meta">May 2014 – June 2015 <span>· Bengaluru, KA</span></div>
+              <ul>
+                <li>Built and maintained a science forum platform using PHP and JavaScript, enhancing user interaction</li>
+                <li>Created educational applications integrating learning and gaming, boosting user engagement</li>
+                <li>Pioneered a gamified learning platform, fostering engaging educational experiences</li>
+                <li>Crafted multi-tier dashboards for data tracking, enabling precise analysis of user behavior</li>
+              </ul>
+              <div class="sp-job-tech">
+                <span>PHP</span><span>JavaScript</span><span>MongoDB</span><span>Node.js</span><span>React Native</span>
+              </div>
+            </div>
+
+            <div class="sp-job">
+              <h3>Fullstack Software Developer — Avinashi Ventures Pvt. Ltd.</h3>
+              <div class="sp-job-meta">June 2013 – April 2014 <span>· Surat, GJ</span></div>
+              <ul>
+                <li>Built comprehensive HRMS system with AngularJS and Node.js; improved team target tracking</li>
+                <li>Created bulk SMS system with Node.js, enhancing communication efficiency</li>
+                <li>Engineered an intuitive HRMS analytics dashboard driving proactive decision-making</li>
+                <li>Maintained robust backend systems using Node.js and MongoDB</li>
+              </ul>
+              <div class="sp-job-tech">
+                <span>Node.js</span><span>Angular</span><span>PHP</span><span>MongoDB</span><span>PostgreSQL</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Skills -->
+          <section class="sp-section" id="skills">
+            <h2>Technical Skills</h2>
+            <div class="sp-skills-grid">
+              <div class="sp-skill-group">
+                <h3>Languages &amp; Frameworks</h3>
+                <ul>
+                  <li>JavaScript / TypeScript</li>
+                  <li>React.js &amp; React Native</li>
+                  <li>Node.js &amp; Express</li>
+                  <li>Next.js &amp; Angular</li>
+                  <li>Redux &amp; Vue.js</li>
+                  <li>PHP &amp; Go-lang</li>
+                  <li>Python</li>
+                </ul>
+              </div>
+              <div class="sp-skill-group">
+                <h3>Backend &amp; APIs</h3>
+                <ul>
+                  <li>RESTful APIs</li>
+                  <li>GraphQL</li>
+                  <li>WebSockets &amp; Socket.io</li>
+                  <li>Microservices Architecture</li>
+                  <li>Serverless &amp; Event-driven</li>
+                  <li>Firebase Functions</li>
+                  <li>Redis</li>
+                </ul>
+              </div>
+              <div class="sp-skill-group">
+                <h3>Cloud &amp; DevOps</h3>
+                <ul>
+                  <li>AWS (Lambda, DynamoDB, EC2)</li>
+                  <li>Google Cloud Platform</li>
+                  <li>Docker &amp; Kubernetes</li>
+                  <li>CI/CD &amp; GitHub Actions</li>
+                  <li>Jenkins &amp; Terraform</li>
+                  <li>MuleSoft</li>
+                </ul>
+              </div>
+              <div class="sp-skill-group">
+                <h3>Databases</h3>
+                <ul>
+                  <li>PostgreSQL &amp; MySQL</li>
+                  <li>MongoDB</li>
+                  <li>Redis</li>
+                  <li>Firebase Firestore</li>
+                  <li>DynamoDB</li>
+                </ul>
+              </div>
+              <div class="sp-skill-group">
+                <h3>Testing &amp; Quality</h3>
+                <ul>
+                  <li>Jest &amp; Mocha</li>
+                  <li>Cypress &amp; Selenium</li>
+                  <li>TDD / BDD</li>
+                  <li>Playwright</li>
+                </ul>
+              </div>
+              <div class="sp-skill-group">
+                <h3>Architecture</h3>
+                <ul>
+                  <li>Micro-Frontend (Module Federation)</li>
+                  <li>System Design &amp; SOC</li>
+                  <li>MVVM &amp; DDD</li>
+                  <li>Event-Driven Architecture</li>
+                  <li>OWASP Security Guidelines</li>
+                  <li>OAuth, JWT &amp; SAML</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tools -->
+          <section class="sp-section" id="tools">
+            <h2>Free Web Tools</h2>
+            <div class="sp-tools">
+              <div class="sp-tool-card">
+                <h3>Online Ruler</h3>
+                <p>
+                  A browser-based screen ruler for measuring in pixels, centimeters, and inches.
+                  Supports PPI calibration via device lookup, screen diagonal input, or physical
+                  credit card drag. Four adjustable ruler edges, crosshair guidelines, dark mode.
+                </p>
+                <a href="https://onlineruler.deviloper.dev">Try Online Ruler →</a>
+              </div>
+              <div class="sp-tool-card">
+                <h3>CharCap — Character Counter</h3>
+                <p>
+                  Real-time character counter with platform limits for 20+ social media and content
+                  platforms including Twitter/X (280), Instagram (2,200), LinkedIn (3,000), TikTok,
+                  YouTube, SMS, and SEO fields. No sign-up required.
+                </p>
+                <a href="https://character-counter.deviloper.dev">Try CharCap →</a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section class="sp-section" id="contact">
+            <h2>Contact</h2>
+            <p style="color:#a8b2d8;margin-bottom:20px;">Available for Staff / Principal / Architect-level engineering roles. Reach out via any of the channels below.</p>
+            <div class="sp-contact">
+              <a href="mailto:hello@deviloper.dev">hello@deviloper.dev</a>
+              <a href="https://github.com/iyogeshjoshi" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://linkedin.com/in/iyogeshjoshi" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://x.com/iyogeshjoshi" target="_blank" rel="noopener">X / Twitter</a>
+            </div>
+          </section>
+        </div>
+
+        <footer class="sp-footer">
+          <p>
+            &copy; 2026 Yogesh Joshi &nbsp;·&nbsp;
+            <a href="/">Home</a>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/sitemap.html">Sitemap</a>
+            <a href="mailto:hello@deviloper.dev">Contact</a>
+          </p>
+        </footer>
+      </div>
+      <!-- End static content -->
+    </div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

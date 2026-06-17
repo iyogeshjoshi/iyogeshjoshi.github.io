@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://deviloper.dev/</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-</urlset> 
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main portfolio: deviloper.dev -->
+  <sitemap>
+    <loc>https://deviloper.dev/sitemap-main.xml</loc>
+    <lastmod>2026-06-17</lastmod>
+  </sitemap>
+
+  <!-- Tool: Online Ruler -->
+  <sitemap>
+    <loc>https://onlineruler.deviloper.dev/sitemap-index.xml</loc>
+    <lastmod>2026-06-17</lastmod>
+  </sitemap>
+
+  <!-- Tool: CharCap — Character Counter -->
+  <sitemap>
+    <loc>https://character-counter.deviloper.dev/sitemap-index.xml</loc>
+    <lastmod>2026-06-17</lastmod>
+  </sitemap>
+
+</sitemapindex>
