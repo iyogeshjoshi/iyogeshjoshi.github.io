@@ -78,11 +78,11 @@ scripts/
 
 ## Phase 2 — Catalog data layer
 
-- [ ] `src/catalog/schema.ts`: zod schema per PRD §7 (`category: tool|game|simulation|app`, `status: live|beta|coming-soon|draft|private`, tagline ≤ 90, description ≥ 150 words for public entries, slug regex, https URL on `*.deviloper.dev`)
-- [ ] `src/data/catalog.yaml`: 6 entries with original descriptions, features, how-to and privacy notes (Verdict `private`; Ping Pong "mouse, vs computer, desktop recommended")
-- [ ] `src/catalog/index.ts`: `publicApps()`, `byCategory()`, `search(q)` (multi-word AND, name/tagline/tags/category), `related(slug, n)`, `categoriesInUse()` (drives chip visibility)
-- [ ] Vite YAML import (virtual module, validated at build start; fails with a readable error)
-- [ ] Tests: schema accepts the real file and rejects bad slugs, short descriptions and non-deviloper hosts; **private/draft never returned by public helpers**; search and related behaviour
+- [x] `src/catalog/schema.ts`: zod schema per PRD §7 (`category: tool|game|simulation|app`, `status: live|beta|coming-soon|draft|private`, tagline ≤ 90, description ≥ 150 words for public entries, slug regex, https URL on `*.deviloper.dev`)
+- [x] `src/data/catalog.yaml`: 6 entries with original descriptions, features, how-to and privacy notes (Verdict `private`; Ping Pong "mouse, vs computer, desktop recommended")
+- [x] `src/catalog/index.ts`: `publicApps()`, `byCategory()`, `search(q)` (multi-word AND, name/tagline/tags/category), `related(slug, n)`, `categoriesInUse()` (drives chip visibility)
+- [x] Vite YAML import (virtual module, validated at build start; fails with a readable error)
+- [x] Tests: schema accepts the real file and rejects bad slugs, short descriptions and non-deviloper hosts; **private/draft never returned by public helpers**; search and related behaviour
 - [ ] Owner review of the 5 public descriptions (copy PR)
 - **Done when:** the data tests are green and the owner has approved the copy
 
@@ -226,3 +226,4 @@ scripts/
 | 2026-11-11 | 1 | Partial: portfolio code/tests/data, jest config, .env.production, root CNAME, yarn.lock removed; deps swapped (zod, vitest, yaml, tsx); token steps removed from deploy.yml. The `ghp_` value in history (5ffe4dd) is, per the owner, a fake test token. |
 | 2026-11-11 | 1 | ✅ Complete: Vite/Vitest config, tsconfig, index.html shell, placeholder entry + test, ci.yml, CLAUDE.md/AGENTS.md. lint/typecheck/test/build green, no sourcemaps. |
 | 2026-11-11 | 3 | ✅ Tokens (Workbench palette), global CSS, no-flash script, useTheme/ThemeToggle, contrast test. Light `--color-live` → #047857 and `--color-warn` → #A94F08 for AA on chip-bg. 40 tests green. |
+| 2026-11-11 | 2 | ✅ zod schema, YAML loader, `virtual:catalog` Vite plugin (public-only, build fails on bad data), query helpers, 6 entries (Verdict private). 110 tests green; no `verdict` and no zod in the client bundle. Owner copy review pending. |
