@@ -9,7 +9,33 @@
       content="A growing collection of side projects — free web tools, small games and simulations, each on its own deviloper.dev subdomain."
     />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#0a192f" />
+    <meta name="theme-color" content="#0A0F1A" />
+    <script>
+      (function () {
+        try {
+          var d = document.documentElement;
+          var m = 'auto';
+          try {
+            var s = localStorage.getItem('theme');
+            if (s === 'light' || s === 'dark' || s === 'auto') m = s;
+          } catch (e) {}
+          var r = m;
+          if (m === 'auto') {
+            r = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          d.setAttribute('data-theme', r);
+          d.setAttribute('data-theme-mode', m);
+          var t = document.querySelector('meta[name="theme-color"]');
+          if (t) t.setAttribute('content', r === 'light' ? '#F6F7F9' : '#0A0F1A');
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
     <link rel="canonical" href="https://deviloper.dev/" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/logo192.png" />

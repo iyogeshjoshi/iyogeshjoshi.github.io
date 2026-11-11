@@ -88,12 +88,12 @@ scripts/
 
 ## Phase 3 — Design tokens and theme
 
-- [ ] `src/styles/tokens.css`: Workbench palette (dark/light), type scale, spacing, radii, motion tokens, from `design/README.md`
-- [ ] Fonts: Space Grotesk, Inter, JetBrains Mono via Google Fonts with `display=swap` + preconnect (subset weights only)
-- [ ] **No-flash inline script** in `<head>`: reads `localStorage.theme`, resolves `auto` via `matchMedia`, sets `data-theme` before paint (T2)
-- [ ] `useTheme`: cycle `light → dark → auto`, persist, follow system changes in auto, update `<meta name="theme-color">`
-- [ ] Theme cross-fade (View Transition API when available), disabled under `prefers-reduced-motion`
-- [ ] Contrast check of every token pair (WCAG AA), recorded in the PR
+- [x] `src/styles/tokens.css`: Workbench palette (dark/light), type scale, spacing, radii, motion tokens, from `design/README.md`
+- [x] Fonts: Space Grotesk, Inter, JetBrains Mono via Google Fonts with `display=swap` + preconnect (subset weights only)
+- [x] **No-flash inline script** in `<head>`: reads `localStorage.theme`, resolves `auto` via `matchMedia`, sets `data-theme` before paint (T2)
+- [x] `useTheme`: cycle `light → dark → auto`, persist, follow system changes in auto, update `<meta name="theme-color">`
+- [x] Theme cross-fade (View Transition API when available), disabled under `prefers-reduced-motion`
+- [x] Contrast check of every token pair (WCAG AA), recorded in the PR
 - **Done when:** toggling has no flash on reload in either theme, and the contrast checks pass
 
 ## Phase 4 — Layout shell
@@ -225,3 +225,4 @@ scripts/
 | 2026-11-11 | 0 | PRD, registry, design canvas and this plan completed; old plan archived |
 | 2026-11-11 | 1 | Partial: portfolio code/tests/data, jest config, .env.production, root CNAME, yarn.lock removed; deps swapped (zod, vitest, yaml, tsx); token steps removed from deploy.yml. The `ghp_` value in history (5ffe4dd) is, per the owner, a fake test token. |
 | 2026-11-11 | 1 | ✅ Complete: Vite/Vitest config, tsconfig, index.html shell, placeholder entry + test, ci.yml, CLAUDE.md/AGENTS.md. lint/typecheck/test/build green, no sourcemaps. |
+| 2026-11-11 | 3 | ✅ Tokens (Workbench palette), global CSS, no-flash script, useTheme/ThemeToggle, contrast test. Light `--color-live` → #047857 and `--color-warn` → #A94F08 for AA on chip-bg. 40 tests green. |

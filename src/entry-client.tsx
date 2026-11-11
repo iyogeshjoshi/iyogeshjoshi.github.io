@@ -3,6 +3,8 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 
 import { Placeholder } from './pages/Placeholder';
 
+import './styles/global.css';
+
 const container = document.getElementById('root');
 
 if (!container) {
