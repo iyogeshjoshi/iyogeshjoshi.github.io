@@ -98,10 +98,10 @@ scripts/
 
 ## Phase 4 — Layout shell
 
-- [ ] `SkipLink`, `Header` (logo, nav: Catalog/About/Contact, ThemeToggle), `Footer` (catalog links generated from data, site + legal links, "Cookie settings", © year)
-- [ ] Footer contact: **email only**, `hello@deviloper.dev` (owner, 2026-11-11). No social links.
-- [ ] `NotFound` page → `404.html` with search box and links to the catalog
-- [ ] Global focus-visible styles; 44px minimum targets
+- [x] `SkipLink`, `Header` (logo, nav: Catalog/About/Contact, ThemeToggle), `Footer` (catalog links generated from data, site + legal links, "Cookie settings", © year)
+- [x] Footer contact: **email only**, `hello@deviloper.dev` (owner, 2026-11-11). No social links.
+- [x] `NotFound` page → `404.html` with search box and links to the catalog
+- [x] Global focus-visible styles; 44px minimum targets
 - **Done when:** shell renders at 360/768/1280px with no horizontal scroll, and keyboard-only navigation works
 
 ## Phase 5 — Catalog home
@@ -140,6 +140,7 @@ scripts/
 - [ ] `Seo` per route: title, description, canonical, OG/Twitter (OG image = the app's desktop light preview at 1200×630)
 - [ ] JSON-LD: `WebSite` (+ `SearchAction` → `/?q=`), `ItemList` on home; `WebApplication`/`VideoGame` + `BreadcrumbList` on detail pages; `Person` publisher
 - [ ] Generate `sitemap-main.xml` (public routes + `lastmod` from `updatedAt`) and `sitemap.xml` index (root + **only subdomains with a real sitemap**: onlineruler, character-counter)
+- [ ] No-JS phone nav: when JS is absent, show the header nav links inline (e.g. `html:not([data-js])` rule + set `data-js` in the inline head script) so the prerendered menu works without JavaScript
 - [ ] `robots.txt` kept; CSP + referrer policy as `<meta>` (PRD H3)
 - [ ] Test: built HTML contains content without JS; **no "verdict" string in `dist/`** (private-leak test); hydration has no mismatch warnings
 - **Done when:** `view-source` of every route shows full content, and the sitemaps validate
@@ -227,3 +228,4 @@ scripts/
 | 2026-11-11 | 1 | ✅ Complete: Vite/Vitest config, tsconfig, index.html shell, placeholder entry + test, ci.yml, CLAUDE.md/AGENTS.md. lint/typecheck/test/build green, no sourcemaps. |
 | 2026-11-11 | 3 | ✅ Tokens (Workbench palette), global CSS, no-flash script, useTheme/ThemeToggle, contrast test. Light `--color-live` → #047857 and `--color-warn` → #A94F08 for AA on chip-bg. 40 tests green. |
 | 2026-11-11 | 2 | ✅ zod schema, YAML loader, `virtual:catalog` Vite plugin (public-only, build fails on bad data), query helpers, 6 entries (Verdict private). 110 tests green; no `verdict` and no zod in the client bundle. Owner copy review pending. |
+| 2026-11-11 | 4 | ✅ SkipLink, Header (phone disclosure menu), email-only Footer with Cookie settings (googlefc), ErrorBoundary, Layout, Container, 404 content page. 15 tests green. Follow-up for no-JS phone nav added to Phase 8. |
