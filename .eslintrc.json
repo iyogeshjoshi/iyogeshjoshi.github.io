@@ -1,14 +1,19 @@
 {
   "root": true,
-  "env": { 
-    "browser": true, 
+  "env": {
+    "browser": true,
     "es2020": true,
     "node": true
   },
   "extends": [
     "eslint:recommended"
   ],
-  "ignorePatterns": ["dist", "node_modules"],
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    "coverage",
+    "design"
+  ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -17,13 +22,24 @@
     }
   },
   "rules": {
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
   },
   "overrides": [
     {
-      "files": ["**/*.{ts,tsx}"],
+      "files": [
+        "**/*.{ts,tsx}"
+      ],
       "parser": "@typescript-eslint/parser",
-      "plugins": ["@typescript-eslint", "react-hooks", "react"],
+      "plugins": [
+        "@typescript-eslint",
+        "react-hooks",
+        "react"
+      ],
       "extends": [
         "plugin:@typescript-eslint/recommended",
         "plugin:react-hooks/recommended",
@@ -31,7 +47,12 @@
         "plugin:react/jsx-runtime"
       ],
       "rules": {
-        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ],
         "@typescript-eslint/no-explicit-any": "off",
         "react/prop-types": "off",
         "react/no-unescaped-entities": "off"

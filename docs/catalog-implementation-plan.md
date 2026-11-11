@@ -65,15 +65,15 @@ scripts/
 
 - [x] Remove portfolio components (Hero, About, Experiences, Skills, SoftSkills, Projects, ProjectGallery, ProjectDetailModal, DownloadButton, Contact) and their tests
 - [x] Remove `public/data.yaml`, `src/utils/{github,projectManager,yamlLoader,microInteractions}.ts`, `src/data/projects.ts`, `src/types/project.ts`, `src/theme.ts`
-- [ ] Remove the static portfolio markup from `index.html` (to be replaced by prerendered output in Phase 8)
+- [x] Remove the static portfolio markup from `index.html` (to be replaced by prerendered output in Phase 8)
 - [x] Q2 Resume files: **keep everything** at current URLs, unlinked (owner, 2026-11-11)
 - [x] Uninstall: `jspdf html2canvas react-to-pdf @react-pdf/renderer react-router-dom react-helmet @types/react-helmet styled-components @types/styled-components js-yaml`(→ dev only) `jest ts-jest jest-environment-jsdom identity-obj-proxy @types/jest`
-- [ ] Install: `zod`; dev: `vitest @vitest/coverage-v8 jsdom @testing-library/react @testing-library/jest-dom @playwright/test sharp tsx yaml`
-- [ ] `vite.config.ts`: `sourcemap: false` (or `'hidden'`), Vitest config, `@/` alias
+- [x] Install: `zod`; dev: `vitest @vitest/coverage-v8 jsdom @testing-library/react @testing-library/jest-dom @playwright/test sharp tsx yaml`
+- [x] `vite.config.ts`: `sourcemap: false` (or `'hidden'`), Vitest config, `@/` alias
 - [x] Workflow: delete the `VITE_GITHUB_TOKEN` steps from `deploy.yml`; delete `.env.production` from the repo
 - [x] Delete the duplicate root `CNAME` (keep `public/CNAME`)
-- [ ] Add `.github/workflows/ci.yml`: lint, type-check, test, build on PRs and `feat/catalog-hub` pushes (**no deploy**)
-- [ ] Update `CLAUDE.md` / `AGENTS.md` for the new architecture
+- [x] Add `.github/workflows/ci.yml`: lint, type-check, test, build on PRs and `feat/catalog-hub` pushes (**no deploy**)
+- [x] Update `CLAUDE.md` / `AGENTS.md` for the new architecture
 - **Done when:** `npm run build` and `npm test` pass on a minimal placeholder page, CI is green, and no secrets are left in the workflow
 
 ## Phase 2 — Catalog data layer
@@ -99,7 +99,7 @@ scripts/
 ## Phase 4 — Layout shell
 
 - [ ] `SkipLink`, `Header` (logo, nav: Catalog/About/Contact, ThemeToggle), `Footer` (catalog links generated from data, site + legal links, "Cookie settings", © year)
-- [ ] ⛔ Q3/Q4 Footer socials and email: currently GitHub/LinkedIn/X + `hello@deviloper.dev`, awaiting confirmation
+- [ ] Footer contact: **email only**, `hello@deviloper.dev` (owner, 2026-11-11). No social links.
 - [ ] `NotFound` page → `404.html` with search box and links to the catalog
 - [ ] Global focus-visible styles; 44px minimum targets
 - **Done when:** shell renders at 360/768/1280px with no horizontal scroll, and keyboard-only navigation works
@@ -130,8 +130,8 @@ scripts/
 - [ ] `/privacy-policy.html` rewrite: scope = deviloper.dev + public subdomains (**Verdict excluded**), Consent Mode/CMP, AdSense + GA4 disclosures, opt-out links, localStorage (theme, ruler calibration). GitHub API section removed. New effective date.
 - [ ] `/sitemap.html`: generated from data
 - [ ] `/contact/`: email only (no form; no backend on Pages)
-- [ ] ⛔ Q6 `/about/`: "About this site" (what it is, who builds it, how it's funded). Recommended for AdSense.
-- [ ] ⛔ Q9 `/terms.html` (recommended)
+- [ ] `/about/`: "About this site" (what it is, who builds it, how it's funded). Recommended for AdSense.
+- [ ] `/terms.html`: terms of use (owner approved)
 - **Done when:** every page linked from the footer exists, there are no broken links, and the owner has approved legal copy
 
 ## Phase 8 — Prerender and SEO
@@ -148,9 +148,9 @@ scripts/
 
 - [ ] Keep `google-adsense-account` meta + `adsbygoogle.js` client script on every page; keep `ads.txt`
 - [ ] **Consent Mode v2 defaults** (all denied, `wait_for_update`) before gtag/AdSense load; GA4 `G-PCZPZC1H5E` kept
-- [ ] ⛔ Q7 Owner enables **AdSense Privacy & messaging** (GDPR + US states). The footer "Cookie settings" reopens it.
-- [ ] `AdSlot` component: lazy on viewport, reserved min-height, "Advertisement" label, spacing from cards/CTAs. **Feature-flagged off** (`ADS_ENABLED=false`) until AdSense approval.
-- [ ] ⛔ Q8 Placement density: 2 on home, 1 per detail page; none on 404/legal/contact
+- [x] Q7 Owner has published the **AdSense Privacy & messaging** consent message. Footer "Cookie settings" reopens it (`googlefc.callbackQueue.push(googlefc.showRevocationMessage)`).
+- [ ] **AdSense Auto ads** (owner decision, 2026-11-11): no manual `AdSlot` units. The site loads only the AdSense script. Placement and density are configured in the AdSense console. Owner action at approval: enable Auto ads and exclude the 404, privacy, terms and contact pages via page exclusions (or set `data-ad-client` page-level opt-out).
+- [ ] Layout hardening for Auto ads: content max-width wrappers, no `overflow:hidden` on page sections that would clip injected ads, stable image dimensions (minimises CLS from injected units)
 - [ ] GA4 events: `select_content`, `outbound_app_open`, `search`, `filter_category`, `theme_change`
 - **Done when:** with consent denied there are no GA/ads cookies (checked in DevTools), and with consent granted the events show in GA4 DebugView
 
@@ -206,15 +206,15 @@ scripts/
 
 | # | Item | Needed by |
 |---|---|---|
-| 🔴 | **Revoke the GitHub PAT** behind `VITE_GITHUB_TOKEN` (it's in the public bundle today) and delete the repo secret | Now |
+| ✅ | GitHub token: owner confirms it was a fake test token; secret removed | — |
 | ✅ Q2 | Resume files: keep all, unlinked | — |
-| Q3/Q4 | Confirm footer socials (GitHub, LinkedIn, X) and `hello@deviloper.dev` | Phase 4 |
+| ✅ Q3/Q4 | Footer: email only | — |
 | — | Approve the 5 public app descriptions | Phase 2 |
-| Q6 | OK to add a short "About this site" page? | Phase 7 |
-| Q9 | Want a Terms of Use page? | Phase 7 |
-| Q7 | Set up AdSense **Privacy & messaging** (GDPR + US states) | Phase 9 / before AdSense review |
-| Q8 | Approve ad density (2 home, 1 per detail page) | Phase 9 |
-| Q10 | Search Console **Domain property** for deviloper.dev | Phase 12 |
+| ✅ Q6 | About page: yes | — |
+| ✅ Q9 | Terms page: yes | — |
+| ✅ Q7 | Consent message published | — |
+| ✅ Q8 | Auto ads | — |
+| ✅ Q10 | Search Console domain property verified | — |
 | ✅ | D1–D3 approved | — |
 | — | Approve merge to `master` | Phase 12 |
 
@@ -223,4 +223,5 @@ scripts/
 | Date | Phase | Note |
 |---|---|---|
 | 2026-11-11 | 0 | PRD, registry, design canvas and this plan completed; old plan archived |
-| 2026-11-11 | 1 | Partial: portfolio code/tests/data, jest config, .env.production, root CNAME, yarn.lock removed; deps swapped (zod, vitest, yaml, tsx); token steps removed from deploy.yml. **Found a real `ghp_` token committed in history (5ffe4dd), so revoking it is mandatory.** Remaining: vite/vitest config, index.html shell, placeholder entry, ci.yml, CLAUDE.md/AGENTS.md. Stopped at usage limit, nothing committed yet. |
+| 2026-11-11 | 1 | Partial: portfolio code/tests/data, jest config, .env.production, root CNAME, yarn.lock removed; deps swapped (zod, vitest, yaml, tsx); token steps removed from deploy.yml. The `ghp_` value in history (5ffe4dd) is, per the owner, a fake test token. |
+| 2026-11-11 | 1 | ✅ Complete: Vite/Vitest config, tsconfig, index.html shell, placeholder entry + test, ci.yml, CLAUDE.md/AGENTS.md. lint/typecheck/test/build green, no sourcemaps. |

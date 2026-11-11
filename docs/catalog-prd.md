@@ -122,8 +122,8 @@ The portfolio content (experience, skills, GitHub projects, resume) is **removed
 | A1 | Keep `google-adsense-account` meta, the `adsbygoogle.js` client script and `ads.txt` (root `ads.txt` covers all subdomains) | P0 |
 | A2 | **Google-certified CMP** for EEA/UK/Switzerland traffic (required by Google to serve ads there). Recommended: AdSense **Privacy & messaging** (GDPR message + US state regulations message), configured in the AdSense console. One setup covers every site in the account. | P0 (owner action) |
 | A3 | **Google Consent Mode v2**: `gtag('consent','default',{…denied})` for ad_storage, ad_user_data, ad_personalization and analytics_storage **before** GA4/AdSense load. The CMP updates consent. GA4 stays in place but respects consent. | P0 |
-| A4 | Reusable `<AdSlot>` component: lazy-mounted on viewport entry, reserved min-height (no CLS), labelled "Advertisement", never adjacent to clickable cards or CTAs (≥ 24px spacing plus a visual separator) to avoid accidental clicks | P0 |
-| A5 | Placement (manual units, not Auto Ads, for layout control): home has one unit after the first card row (in-feed) and one above the footer. Detail page has one unit after the description. **No ads** on 404, privacy, terms or contact. **Ad units are added only after AdSense approval**; until then only the verification script loads. | P0 |
+| A4 | ~~Manual `<AdSlot>` units~~: **superseded by A5 (Auto ads)**. Layout must tolerate injected ad units: no clipping containers, reserved image dimensions. | — |
+| A5 | **AdSense Auto ads** (owner decision 2026-11-11): the site loads the AdSense script only. Placement and density are managed in the AdSense console. The 404, privacy, terms and contact pages are excluded via AdSense page exclusions. Content quality rules (A6) still apply. | P0 |
 | A6 | Content quality bar for review: no lorem ipsum, no "under construction" pages, every indexable page has substantial original text, working navigation, no broken links | P0 |
 | A7 | GA4 events: `select_content` (card → detail), `outbound_app_open` (CTA → subdomain), `search` (debounced), `filter_category`, `theme_change` | P1 |
 | A8 | "Cookie settings" footer link reopens the CMP (`googlefc.callbackQueue` / `showRevocationMessage`) | P0 |
@@ -279,12 +279,15 @@ Per-category landing pages once a category has more than 6 apps, a changelog/"wh
 |---|---|---|
 | ✅ Q1 | ~~Full list of subdomains~~ — **resolved 2026-11-11**: 6 active, see [`subdomains.md`](./subdomains.md). Per-app follow-ups (Primordia description, Ping Pong controls, Verdict data handling) are listed there. | — |
 | ⛔ Q2 | Resume files (`yogesh_resume*.pdf/.docx/.tex/.pages`, `Deviloper.png`): delete, or keep at the same URLs unlinked? | Cleanup phase |
-| Q3 | Footer social links: keep GitHub, LinkedIn and X, or a subset? | Footer |
-| Q4 | Is `hello@deviloper.dev` still the right public contact email? | Contact, privacy, footer |
+| ✅ Q3 | Footer social links: keep GitHub, LinkedIn and X, or a subset? | Footer |
+| ✅ Q4 | Is `hello@deviloper.dev` still the right public contact email? | Contact, privacy, footer |
 | ✅ Q5 | ~~Hero tagline~~: owner wants a generic "collection of my side projects" line. Draft in the design: **"Side projects, small tools & games."** + sub-line. Owner to approve the final wording. | Hero, metadata |
-| ⛔ Q6 | OK to have a short **"About this site"** page (who builds it, why, how it's funded)? Not a portfolio, but AdSense reviewers expect one. | IA, AdSense |
-| ⛔ Q7 | Will you set up **AdSense Privacy & messaging** (GDPR + US states) in the AdSense console? I'll provide steps; it can't be done from code. | Ads/consent |
-| Q8 | Ad placement density: OK with the placements in A5 (2 units on home, 1 per detail page) after approval? | Ads |
-| Q9 | Do you want a Terms of Use page? | IA |
-| Q10 | Is `deviloper.dev` set up as a Search Console **Domain property**? | Sitemaps |
-| Q11 | Do the subdomains each have their own privacy policy, or do they link to the root one? (This affects the policy's scope wording.) | Privacy |
+| ✅ Q6 | OK to have a short **"About this site"** page (who builds it, why, how it's funded)? Not a portfolio, but AdSense reviewers expect one. | IA, AdSense |
+| ✅ Q7 | Will you set up **AdSense Privacy & messaging** (GDPR + US states) in the AdSense console? I'll provide steps; it can't be done from code. | Ads/consent |
+| ✅ Q8 | Ad placement density: OK with the placements in A5 (2 units on home, 1 per detail page) after approval? | Ads |
+| ✅ Q9 | Do you want a Terms of Use page? | IA |
+| ✅ Q10 | Is `deviloper.dev` set up as a Search Console **Domain property**? | Sitemaps |
+| ✅ Q11 | Do the subdomains each have their own privacy policy, or do they link to the root one? (This affects the policy's scope wording.) | Privacy |
+
+
+**Resolved 2026-11-11:** Q3/Q4 footer = email only (`hello@deviloper.dev`); Q6 About page = yes; Q7 consent message published; Q8 = Auto ads; Q9 Terms = yes; Q10 Search Console domain verified; Q11 n/a (Verdict private).

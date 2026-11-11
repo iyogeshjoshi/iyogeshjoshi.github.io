@@ -1,23 +1,30 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'node:url';
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-
-  return {
-    plugins: [react()],
-    base: '/',
-    build: {
-      outDir: 'dist',
-      sourcemap: true,
+export default defineConfig({
+  plugins: [react()],
+  base: '/',
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-    server: {
-      port: 3000,
-      open: true,
-    },
-    preview: {
-      port: 4173,
-    },
-  };
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+  },
+  server: {
+    port: 3000,
+  },
+  preview: {
+    port: 4173,
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    css: true,
+    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.ts'],
+  },
 });
