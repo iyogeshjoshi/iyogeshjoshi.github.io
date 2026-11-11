@@ -1,0 +1,242 @@
+/* Long-form page layout. No overflow clipping: auto ads may inject units. */
+.page {
+  padding-block: var(--space-9) var(--space-11);
+}
+
+.measure {
+  max-width: 68ch;
+}
+
+.header {
+  margin-bottom: var(--space-7);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.lead {
+  margin-top: var(--space-4);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.updated {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* Table of contents */
+.toc {
+  margin-bottom: var(--space-8);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.tocHeading {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.tocList {
+  padding-left: var(--space-5);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  columns: 1;
+}
+
+.tocList li {
+  padding-block: 3px;
+  break-inside: avoid;
+}
+
+.tocList a {
+  color: var(--color-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .tocList {
+    columns: 2;
+    column-gap: var(--space-8);
+  }
+}
+
+/* Prose */
+.prose {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  overflow-wrap: break-word;
+}
+
+.prose > * + *,
+.section > * + * {
+  margin-top: var(--space-4);
+}
+
+.section {
+  margin-top: var(--space-9);
+  scroll-margin-top: var(--space-11);
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  line-height: 1.25;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  scroll-margin-top: var(--space-11);
+}
+
+.prose h3 {
+  margin-top: var(--space-6);
+  font-size: var(--text-md);
+  line-height: 1.35;
+}
+
+.prose p,
+.prose li {
+  color: var(--color-text);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: var(--space-6);
+}
+
+.prose li + li {
+  margin-top: var(--space-2);
+}
+
+.prose a {
+  color: var(--color-accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness var(--duration-fast) var(--ease-out);
+}
+
+.prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 1px 6px;
+  background: var(--color-chip-bg);
+  border-radius: var(--radius-sm);
+}
+
+.prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prose th {
+  font-weight: 600;
+}
+
+/* Summary box */
+.summary {
+  margin-bottom: var(--space-2);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.summaryTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.summary ul {
+  margin-top: var(--space-3);
+}
+
+@media print {
+  .page {
+    padding-block: 0;
+  }
+
+  .measure {
+    max-width: none;
+  }
+
+  .toc {
+    display: none;
+  }
+
+  .prose,
+  .prose p,
+  .prose li,
+  .lead,
+  .updated {
+    color: #000;
+  }
+
+  .prose a {
+    color: #000;
+  }
+
+  .prose a[href^='http']::after,
+  .prose a[href^='mailto:']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+  }
+
+  .summary {
+    background: none;
+    box-shadow: none;
+    border-color: #000;
+  }
+
+  .summary {
+    break-inside: avoid-page;
+  }
+
+  .prose h2,
+  .prose h3 {
+    break-after: avoid;
+  }
+}

@@ -1,0 +1,75 @@
+.card {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.cardLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  margin-top: var(--space-2);
+}
+
+/* Doubled class beats the prose link rule without !important. */
+.email.email {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  color: var(--color-accent-text);
+}
+
+.copy {
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border: 0;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter var(--duration-fast) var(--ease-out);
+}
+
+.copy:hover {
+  filter: brightness(1.08);
+}
+
+.copy[hidden] {
+  display: none;
+}
+
+.status {
+  flex-basis: 100%;
+  min-height: 1.5em;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.status:empty {
+  min-height: 0;
+}
+
+@media print {
+  .copy,
+  .status {
+    display: none;
+  }
+
+  .email.email {
+    color: #000;
+  }
+}
