@@ -106,15 +106,15 @@ scripts/
 
 ## Phase 5 — Catalog home
 
-- [ ] Hero ("Side projects, small tools & games." + sub-line + live count from data)
-- [ ] `SearchBox`: instant, debounced URL sync (`?q=`), `/` and `⌘K/Ctrl+K` focus, `Esc` clears, `aria-live` result count
-- [ ] `CategoryChips`: from `categoriesInUse()`, counts, `aria-pressed`, `?category=` URL sync, back/forward via `popstate`
-- [ ] `AppCard`: preview `<picture>` (light/dark + manual theme override), category/status badges, stretched link to detail, "Open ↗" to subdomain, hover lift
-- [ ] `AppPreview` fallback: CSS-drawn art per app (ported from the design) when no screenshot exists (P5)
-- [ ] Grid reflow animation (framer-motion `layout`, lazy-loaded; off under reduced motion)
-- [ ] Empty state + "Clear search & filters"
-- [ ] "Built to get out of your way" section
-- [ ] Tests: filter/search/URL-sync, chip visibility, keyboard shortcuts, empty state
+- [x] Hero ("Side projects, small tools & games." + sub-line + live count from data)
+- [x] `SearchBox`: instant, debounced URL sync (`?q=`), `/` and `⌘K/Ctrl+K` focus, `Esc` clears, `aria-live` result count
+- [x] `CategoryChips`: from `categoriesInUse()`, counts, `aria-pressed`, `?category=` URL sync, back/forward via `popstate`
+- [x] `AppCard`: preview `<picture>` (light/dark + manual theme override), category/status badges, stretched link to detail, "Open ↗" to subdomain, hover lift
+- [x] `AppPreview` fallback: CSS-drawn art per app (ported from the design) when no screenshot exists (P5)
+- [x] Grid reflow animation (framer-motion `layout`, lazy-loaded; off under reduced motion)
+- [x] Empty state + "Clear search & filters"
+- [x] "Built to get out of your way" section
+- [x] Tests: filter/search/URL-sync, chip visibility, keyboard shortcuts, empty state
 - **Done when:** behaviour matches the `Main`/`Mobile` design boards, and the tests are green
 
 ## Phase 6 — App detail pages (`/apps/<slug>/`)
@@ -140,6 +140,7 @@ scripts/
 - [ ] `Seo` per route: title, description, canonical, OG/Twitter (OG image = the app's desktop light preview at 1200×630)
 - [ ] JSON-LD: `WebSite` (+ `SearchAction` → `/?q=`), `ItemList` on home; `WebApplication`/`VideoGame` + `BreadcrumbList` on detail pages; `Person` publisher
 - [ ] Generate `sitemap-main.xml` (public routes + `lastmod` from `updatedAt`) and `sitemap.xml` index (root + **only subdomains with a real sitemap**: onlineruler, character-counter)
+- [ ] **Leak guard:** `scripts/check-dist.ts` run after build (and in CI) fails if `dist/` contains any private/draft slug or name from catalog.yaml (case-insensitive), covering code, CSS class names and HTML
 - [ ] No-JS phone nav: when JS is absent, show the header nav links inline (e.g. `html:not([data-js])` rule + set `data-js` in the inline head script) so the prerendered menu works without JavaScript
 - [ ] `robots.txt` kept; CSP + referrer policy as `<meta>` (PRD H3)
 - [ ] Test: built HTML contains content without JS; **no "verdict" string in `dist/`** (private-leak test); hydration has no mismatch warnings
@@ -229,3 +230,4 @@ scripts/
 | 2026-11-11 | 3 | ✅ Tokens (Workbench palette), global CSS, no-flash script, useTheme/ThemeToggle, contrast test. Light `--color-live` → #047857 and `--color-warn` → #A94F08 for AA on chip-bg. 40 tests green. |
 | 2026-11-11 | 2 | ✅ zod schema, YAML loader, `virtual:catalog` Vite plugin (public-only, build fails on bad data), query helpers, 6 entries (Verdict private). 110 tests green; no `verdict` and no zod in the client bundle. Owner copy review pending. |
 | 2026-11-11 | 4 | ✅ SkipLink, Header (phone disclosure menu), email-only Footer with Cookie settings (googlefc), ErrorBoundary, Layout, Container, 404 content page. 15 tests green. Follow-up for no-JS phone nav added to Phase 8. |
+| 2026-11-11 | 5 | ✅ Home: hero, search (/, ⌘K, Esc, URL sync), category chips, cards with stretched link + Open CTA (full width on phone), CSS preview art, lazy framer-motion reflow, empty state, analytics events. Found the private app name leaking via an illustration's CSS class names; removed it, and added a dist leak guard to Phase 8. |

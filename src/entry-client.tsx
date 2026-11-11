@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 
-import { Placeholder } from './pages/Placeholder';
-
 import './styles/global.css';
+import { Layout } from './components/layout';
+import { HomePage } from './pages/home/HomePage';
 
 const container = document.getElementById('root');
 
@@ -13,7 +13,9 @@ if (!container) {
 
 const app = (
   <React.StrictMode>
-    <Placeholder />
+    <Layout currentPath="/">
+      <HomePage />
+    </Layout>
   </React.StrictMode>
 );
 
