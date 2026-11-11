@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Studio — add an app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#5EEAD4;text-decoration:none}
+a:hover{text-decoration:underline}
+input,textarea,select{font:400 15px Inter,sans-serif;color:#E6EDF7;background:#0A0F1A;border:1px solid #334155;border-radius:10px}
+input::placeholder,textarea::placeholder{color:#7C8AA0}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #2DD4BF;outline-offset:2px}
+.row:hover{background:#172033}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0A0F1A; color: #E6EDF7; font-family: Inter, system-ui, sans-serif; font-size: 15px; line-height: 1.55">
+
+  <header style="border-bottom: 1px solid #1E293B; background: #0D1420">
+    <div style="padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+        <span style="width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: #2DD4BF; color: #042F2A; font: 500 14px 'JetBrains Mono', monospace">d/</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 18px">deviloper.dev <span style="color: #9AA8BE; font-weight: 500">/ studio</span></span>
+        <span style="padding: 3px 10px; border-radius: 999px; border: 1px solid #FBBF24; color: #FBBF24; font: 500 11px 'JetBrains Mono', monospace; letter-spacing: .04em">LOCAL DEV ONLY · NOT IN PRODUCTION BUILD</span>
+      </div>
+      <span style="font: 400 13px 'JetBrains Mono', monospace; color: #9AA8BE">src/data/catalog.yaml · 5 public · 1 private · 0 unsaved</span>
+    </div>
+  </header>
+
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-start">
+    <nav aria-label="Catalog entries" style="flex: 1 1 280px; max-width: 340px; min-width: 0; padding: 20px 16px; border-right: 1px solid #1E293B">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 0 8px 12px">
+        <h2 style="margin: 0; font: 500 12px 'JetBrains Mono', monospace; letter-spacing: .06em; text-transform: uppercase; color: #9AA8BE">Catalog</h2>
+        <span style="font: 400 12px 'JetBrains Mono', monospace; color: #9AA8BE">readiness</span>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px">
+        <sc-for list="{{entries}}" as="e" hint-placeholder-count="6">
+          <li>
+            <a class="row" href="#" style="display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-radius: 10px; color: #E6EDF7; text-decoration: none">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h.01M9 12h.01M9 18h.01M15 6h.01M15 12h.01M15 18h.01"></path></svg>
+              <span style="flex: 1 1 auto; min-width: 0">
+                <span style="display: block; font-weight: 500">{{e.name}}</span>
+                <span style="display: block; font: 400 12px 'JetBrains Mono', monospace; color: #9AA8BE">{{e.cat}} · {{e.status}}</span>
+              </span>
+              <span style="{{e.scoreStyle}}">{{e.score}}/9</span>
+            </a>
+          </li>
+        </sc-for>
+      </ul>
+      <button type="button" onClick="{{reset}}" style="margin-top: 16px; width: 100%; height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; border: 1px dashed #2DD4BF; background: #0F2A2A; color: #5EEAD4; font: 600 14px Inter, sans-serif; cursor: pointer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        Add app
+      </button>
+      <p style="margin: 20px 8px 0; font-size: 13px; color: #9AA8BE">Drag to reorder. Order here = order on the home page (within “Featured”).</p>
+    </nav>
+
+    <main style="flex: 999 1 640px; min-width: 0; padding: 28px 32px 40px">
+      <ol aria-label="Steps" style="list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; font: 500 13px 'JetBrains Mono', monospace">
+        <li style="{{step1Style}}">1 · Subdomain</li>
+        <li style="{{step2Style}}">2 · Readiness</li>
+        <li style="{{step2Style}}">3 · Details</li>
+        <li style="{{step2Style}}">4 · Previews &amp; save</li>
+      </ol>
+
+      <h1 style="margin: 0 0 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.02em">Add a new app</h1>
+      <p style="margin: 0 0 24px; color: #9AA8BE">Point at a live subdomain. Studio reads its page, checks AdSense/SEO readiness and drafts the catalog entry for you.</p>
+
+      <section aria-labelledby="sub-label" style="padding: 20px; border-radius: 16px; border: 1px solid #1E293B; background: #111827">
+        <label id="sub-label" for="sub" style="display: block; margin-bottom: 8px; font-weight: 600">Subdomain</label>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch">
+          <div style="flex: 1 1 360px; display: flex; align-items: stretch; border: 1px solid #334155; border-radius: 12px; overflow: hidden; background: #0A0F1A">
+            <span style="display: flex; align-items: center; padding: 0 12px; font: 400 14px 'JetBrains Mono', monospace; color: #9AA8BE; border-right: 1px solid #1E293B">https://</span>
+            <input id="sub" type="text" value="{{sub}}" onChange="{{onSub}}" placeholder="my-new-thing" autocomplete="off" style="flex: 1 1 auto; min-width: 0; height: 48px; padding: 0 12px; border: 0; border-radius: 0; font: 400 15px 'JetBrains Mono', monospace">
+            <span style="display: flex; align-items: center; padding: 0 12px; font: 400 14px 'JetBrains Mono', monospace; color: #9AA8BE; border-left: 1px solid #1E293B">.deviloper.dev</span>
+          </div>
+          <button type="button" onClick="{{fetchIt}}" disabled="{{fetchDisabled}}" style="{{fetchStyle}}">Fetch details</button>
+        </div>
+        <sc-if value="{{dupe}}" hint-placeholder-val="{{ false }}">
+          <p role="alert" style="margin: 10px 0 0; color: #FBBF24; font-size: 14px">“{{sub}}” is already in the catalog. Edit it from the list on the left instead.</p>
+        </sc-if>
+        <sc-if value="{{showHint}}" hint-placeholder-val="{{ true }}">
+          <p style="margin: 10px 0 0; color: #9AA8BE; font-size: 13px">Lowercase letters, digits and hyphens. The site must already be live over HTTPS.</p>
+        </sc-if>
+      </section>
+
+      <sc-if value="{{fetched}}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+          <div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+            <section aria-labelledby="ready-h" style="padding: 20px; border-radius: 16px; border: 1px solid #1E293B; background: #111827">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px">
+                <h2 id="ready-h" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Readiness · {{host}}</h2>
+                <span style="font: 500 13px 'JetBrains Mono', monospace; color: #FBBF24">3/9 passing</span>
+              </div>
+              <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+                <sc-for list="{{checks}}" as="k" hint-placeholder-count="9">
+                  <li style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid #1E293B">
+                    <span style="{{k.badgeStyle}}">{{k.badge}}</span>
+                    <span style="flex: 1 1 auto; min-width: 0">
+                      <span style="display: block; font-weight: 500">{{k.label}}</span>
+                      <span style="display: block; font-size: 13px; color: #9AA8BE">{{k.detail}}</span>
+                    </span>
+                  </li>
+                </sc-for>
+              </ul>
+              <p style="margin: 12px 0 0; padding: 12px 14px; border-radius: 10px; background: #172033; font-size: 13px; color: #CBD5E1">Warnings don’t block listing — the hub detail page supplies the content. Ads won’t run <em>on the subdomain</em> until its own tags are fixed; the sitemap index skips it until a real sitemap exists.</p>
+            </section>
+
+            <section aria-labelledby="details-h" style="padding: 20px; border-radius: 16px; border: 1px solid #1E293B; background: #111827; display: flex; flex-direction: column; gap: 16px">
+              <h2 id="details-h" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Details</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+                <div><label for="f-name" style="display: block; margin-bottom: 6px; font-weight: 500">Name</label><input id="f-name" type="text" value="{{name}}" onChange="{{onName}}" style="width: 100%; height: 44px; padding: 0 12px"><span style="font: 400 12px 'JetBrains Mono', monospace; color: #9AA8BE">from &lt;title&gt;</span></div>
+                <div><label for="f-slug" style="display: block; margin-bottom: 6px; font-weight: 500">Slug</label><input id="f-slug" type="text" value="{{slug}}" readonly style="width: 100%; height: 44px; padding: 0 12px; color: #9AA8BE"><span style="font: 400 12px 'JetBrains Mono', monospace; color: #9AA8BE">/apps/{{slug}}/</span></div>
+                <div><label for="f-cat" style="display: block; margin-bottom: 6px; font-weight: 500">Category</label><select id="f-cat" style="width: 100%; height: 44px; padding: 0 10px"><option>Tool</option><option>Game</option><option selected>Simulation</option><option>App</option></select></div>
+                <div><label for="f-status" style="display: block; margin-bottom: 6px; font-weight: 500">Status</label><select id="f-status" style="width: 100%; height: 44px; padding: 0 10px"><option selected>Draft (hidden)</option><option>Beta</option><option>Live</option><option>Coming soon</option><option>Private (never public)</option></select></div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between"><label for="f-tag" style="font-weight: 500">Tagline</label><span style="{{taglineCountStyle}}">{{taglineLen}}/90</span></div>
+                <input id="f-tag" type="text" value="{{tagline}}" onChange="{{onTagline}}" placeholder="One sentence: what it does and for whom" style="width: 100%; height: 44px; padding: 0 12px; margin-top: 6px">
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between"><label for="f-desc" style="font-weight: 500">Description <span style="font-weight: 400; color: #9AA8BE">— original copy for the detail page</span></label><span style="{{wordsStyle}}">{{words}} / 150 words min</span></div>
+                <textarea id="f-desc" rows="6" value="{{desc}}" onChange="{{onDesc}}" placeholder="What it is, what you can do with it, how to use it, who it's for…" style="width: 100%; padding: 12px; margin-top: 6px; resize: vertical"></textarea>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+                <label style="display: flex; align-items: center; gap: 8px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px"> Requires sign-in</label>
+                <label style="display: flex; align-items: center; gap: 8px; min-height: 44px"><input type="checkbox" style="width: 18px; height: 18px"> Featured</label>
+                <span style="display: flex; align-items: center; gap: 8px">Accent
+                  <span style="width: 24px; height: 24px; border-radius: 50%; background: #2DD4BF; outline: 2px solid #E6EDF7; outline-offset: 2px"></span>
+                  <span style="width: 24px; height: 24px; border-radius: 50%; background: #A78BFA"></span>
+                  <span style="width: 24px; height: 24px; border-radius: 50%; background: #F472B6"></span>
+                  <span style="width: 24px; height: 24px; border-radius: 50%; background: #FBBF24"></span>
+                </span>
+              </div>
+            </section>
+          </div>
+
+          <aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+            <section aria-labelledby="prev-h" style="padding: 20px; border-radius: 16px; border: 1px solid #1E293B; background: #111827">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px">
+                <h2 id="prev-h" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Previews</h2>
+                <button type="button" style="height: 36px; padding: 0 12px; border-radius: 9px; border: 1px solid #334155; background: transparent; color: #E6EDF7; font: 500 13px Inter, sans-serif; cursor: pointer">Recapture</button>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+                <figure style="margin: 0"><div style="height: 96px; border-radius: 10px; background: #EEF1F5; border: 1px solid #334155; display: flex; align-items: center; justify-content: center; color: #4A5568; font: 500 11px 'JetBrains Mono', monospace">light.webp</div><figcaption style="margin-top: 4px; font-size: 12px; color: #9AA8BE">Light</figcaption></figure>
+                <figure style="margin: 0"><div style="height: 96px; border-radius: 10px; background: #060A12; border: 1px solid #334155; display: flex; align-items: center; justify-content: center; color: #9AA8BE; font: 500 11px 'JetBrains Mono', monospace">dark.webp</div><figcaption style="margin-top: 4px; font-size: 12px; color: #9AA8BE">Dark</figcaption></figure>
+              </div>
+              <p style="margin: 10px 0 0; font: 400 12px 'JetBrains Mono', monospace; color: #9AA8BE">1280×800 + 390×844 · ads &amp; analytics blocked</p>
+            </section>
+
+            <section aria-labelledby="card-h" style="padding: 20px; border-radius: 16px; border: 1px solid #1E293B; background: #111827">
+              <h2 id="card-h" style="margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 20px">Card preview</h2>
+              <div style="border-radius: 14px; overflow: hidden; border: 1px solid #1E293B; background: #0D1420">
+                <div style="height: 110px; background: #060A12; border-bottom: 1px solid #1E293B"></div>
+                <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 6px">
+                  <span style="font: 500 11px 'JetBrains Mono', monospace; text-transform: uppercase; color: #9AA8BE">Simulation</span>
+                  <span style="font: 600 19px 'Space Grotesk', sans-serif">{{name}}</span>
+                  <span style="font-size: 14px; color: #9AA8BE">{{taglineShown}}</span>
+                  <span style="font: 400 11px 'JetBrains Mono', monospace; color: #9AA8BE">{{host}}</span>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <div style="margin-top: 24px; padding: 16px 20px; border-radius: 16px; border: 1px solid #1E293B; background: #0D1420; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+          <p style="margin: 0; font-size: 13px; color: #9AA8BE; flex: 1 1 360px">Writes <code style="font-family: 'JetBrains Mono', monospace; color: #E6EDF7">src/data/catalog.yaml</code> and <code style="font-family: 'JetBrains Mono', monospace; color: #E6EDF7">public/previews/{{slug}}-*.webp</code>. Commit &amp; push — GitHub Actions rebuilds and deploys to GitHub Pages on merge to master. <span style="color: #CBD5E1">{{publishReason}}</span></p>
+          <div style="display: flex; gap: 10px">
+            <button type="button" style="height: 44px; padding: 0 18px; border-radius: 12px; border: 1px solid #334155; background: transparent; color: #E6EDF7; font: 600 14px Inter, sans-serif; cursor: pointer">Save as draft</button>
+            <button type="button" disabled="{{publishDisabled}}" style="{{publishStyle}}">Publish to catalog</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <section aria-labelledby="away-h" style="margin-top: 24px; padding: 18px 20px; border-radius: 16px; border: 1px dashed #334155; display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA8BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"></rect><path d="M11 18h2"></path></svg>
+        <div style="flex: 1 1 320px">
+          <h2 id="away-h" style="margin: 0; font-size: 15px; font-weight: 600">Away from your laptop?</h2>
+          <p style="margin: 2px 0 0; font-size: 13px; color: #9AA8BE">GitHub → Actions → <strong style="color: #E6EDF7">Add app to catalog</strong> → Run workflow. Same checks, opens a PR. Or from a terminal: <code style="font-family: 'JetBrains Mono', monospace; color: #E6EDF7">npm run catalog:add -- my-new-thing</code></p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var existing = ['onlineruler', 'character-counter', 'gameoflife', 'ping-pong', 'verdict', 'primordia'];
+    var entries = [
+      { name: 'Online Ruler', cat: 'tool', status: 'live', score: 9 },
+      { name: 'CharCap', cat: 'tool', status: 'live', score: 9 },
+      { name: 'Verdict', cat: 'app', status: 'private · hidden', score: 3 },
+      { name: 'Primordia', cat: 'simulation', status: 'live', score: 2 },
+      { name: 'Game of Life', cat: 'simulation', status: 'live', score: 2 },
+      { name: 'Ping Pong', cat: 'game', status: 'live', score: 2 }
+    ].map(function (e) {
+      var good = e.score >= 8;
+      return Object.assign({}, e, { scoreStyle: 'padding: 2px 8px; border-radius: 999px; font: 500 12px \'JetBrains Mono\', monospace; ' + (good ? 'color: #34D399; background: #0F2A22' : 'color: #FBBF24; background: #2A2210') });
+    });
+    var sub = (s.sub || '').trim().toLowerCase();
+    var valid = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(sub);
+    var dupe = valid && existing.indexOf(sub) !== -1;
+    var fetchDisabled = !valid || dupe;
+    var fetched = !!s.fetched && !dupe;
+    var titleCase = sub.split('-').map(function (w) { return w ? w[0].toUpperCase() + w.slice(1) : w; }).join(' ');
+    var name = s.name != null ? s.name : titleCase;
+    var tagline = s.tagline || '';
+    var desc = s.desc || '';
+    var words = desc.trim() ? desc.trim().split(/\s+/).length : 0;
+    var canPublish = name.trim() && tagline.trim() && tagline.length <= 90 && words >= 150;
+    var mk = function (state, label, detail) {
+      var map = { pass: ['PASS', 'color: #34D399; background: #0F2A22'], warn: ['WARN', 'color: #FBBF24; background: #2A2210'], fail: ['FAIL', 'color: #F87171; background: #2A1414'] };
+      return { label: label, detail: detail, badge: map[state][0], badgeStyle: 'flex: 0 0 52px; text-align: center; padding: 2px 0; border-radius: 6px; font: 500 11px \'JetBrains Mono\', monospace; ' + map[state][1] };
+    };
+    var checks = [
+      mk('pass', 'Reachable over HTTPS', '200 OK · valid certificate'),
+      mk('pass', 'Page title', '“' + (titleCase || '…') + '”'),
+      mk('pass', 'Mobile viewport', 'width=device-width set'),
+      mk('warn', 'Meta description', 'Missing — search results will show random page text'),
+      mk('warn', 'Open Graph image', 'Missing — the hub will use the captured preview instead'),
+      mk('fail', 'Sitemap', '/sitemap.xml returns the app HTML (soft 404)'),
+      mk('fail', 'AdSense tag', 'ca-pub-5076417401305199 not found'),
+      mk('fail', 'GA4 tag', 'G-PCZPZC1H5E not found'),
+      mk('fail', 'Consent (CMP)', 'No Google-certified consent message detected')
+    ];
+    var btn = function (on) { return 'height: 48px; padding: 0 20px; border-radius: 12px; border: 0; font: 600 15px Inter, sans-serif; ' + (on ? 'background: #2DD4BF; color: #042F2A; cursor: pointer' : 'background: #1E293B; color: #7C8AA0; cursor: not-allowed'); };
+    var stepOn = 'padding: 6px 12px; border-radius: 999px; background: #2DD4BF; color: #042F2A';
+    var stepOff = 'padding: 6px 12px; border-radius: 999px; border: 1px solid #334155; color: #9AA8BE';
+    return {
+      entries: entries, sub: s.sub || '', dupe: dupe, showHint: !dupe, fetched: fetched,
+      fetchDisabled: fetchDisabled, fetchStyle: btn(!fetchDisabled),
+      host: (sub || 'my-new-thing') + '.deviloper.dev', slug: sub || 'my-new-thing',
+      name: name, tagline: tagline, desc: desc, words: words,
+      taglineLen: tagline.length, taglineShown: tagline || 'Your tagline appears here',
+      taglineCountStyle: 'font: 400 12px \'JetBrains Mono\', monospace; color: ' + (tagline.length > 90 ? '#F87171' : '#9AA8BE'),
+      wordsStyle: 'font: 400 12px \'JetBrains Mono\', monospace; color: ' + (words >= 150 ? '#34D399' : '#9AA8BE'),
+      checks: checks,
+      publishDisabled: !canPublish, publishStyle: btn(canPublish),
+      publishReason: canPublish ? 'Ready to publish.' : 'Publish unlocks with a tagline (≤ 90 chars) and a 150-word description.',
+      step1Style: stepOn, step2Style: fetched ? stepOn : stepOff,
+      onSub: function (e) { self.setState({ sub: e.target.value, fetched: false, name: null }); },
+      fetchIt: function () { self.setState({ fetched: true }); },
+      onName: function (e) { self.setState({ name: e.target.value }); },
+      onTagline: function (e) { self.setState({ tagline: e.target.value }); },
+      onDesc: function (e) { self.setState({ desc: e.target.value }); },
+      reset: function () { self.setState({ sub: '', fetched: false, name: null, tagline: '', desc: '' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

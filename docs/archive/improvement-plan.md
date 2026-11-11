@@ -1,3 +1,5 @@
+> **ARCHIVED 2026-11-11.** Superseded by the catalog hub rewrite ([`../catalog-prd.md`](../catalog-prd.md), [`../catalog-implementation-plan.md`](../catalog-implementation-plan.md)). The portfolio this plan targeted is being removed. Still-relevant items (reduced motion, skip link, unused deps, error boundary, theme centralisation, focus management) are carried into the new plan.
+
 # Improvement Plan for iyogeshjoshi.github.io
 
 ## Context
