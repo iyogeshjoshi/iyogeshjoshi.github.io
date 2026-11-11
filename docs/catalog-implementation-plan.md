@@ -119,10 +119,10 @@ scripts/
 
 ## Phase 6 — App detail pages (`/apps/<slug>/`)
 
-- [ ] Page template: breadcrumb, hero with large preview, primary CTA, About, "What you can do", "How to use", privacy note, "At a glance", related apps
-- [ ] Generated only for `live`/`beta` public entries (5 pages)
-- [ ] Ping Pong: "Best on desktop (mouse)" note; Primordia: device note once confirmed
-- [ ] Cross-document View Transition: card preview → detail hero (`view-transition-name` per slug), progressive enhancement
+- [x] Page template: breadcrumb, hero with large preview, primary CTA, About, "What you can do", "How to use", privacy note, "At a glance", related apps
+- [x] Generated only for `live`/`beta` public entries (5 pages)
+- [x] Ping Pong: "Best on desktop (mouse)" note; Primordia: device note once confirmed
+- [x] Cross-document View Transition: card preview → detail hero (`view-transition-name` per slug), progressive enhancement
 - **Done when:** all 5 pages render from data with unique copy and match the `Detail` design board
 
 ## Phase 7 — Site pages (URLs preserved)
@@ -132,7 +132,7 @@ scripts/
 - [x] `/contact/`: email only (no form; no backend on Pages)
 - [x] `/about/`: "About this site" (what it is, who builds it, how it's funded). Recommended for AdSense.
 - [x] `/terms.html`: terms of use (owner approved)
-- [ ] Owner review of legal copy: governing-law clause, GA4 retention period (policy says 14 months; confirm the property setting), hosting providers named (GitHub Pages, Cloudflare Pages)
+- [x] Owner legal decisions: governing law stays generic (residence-based); GA4 retention = 2 months (policy updated)
 - **Done when:** every page linked from the footer exists, there are no broken links, and the owner has approved legal copy
 
 ## Phase 8 — Prerender and SEO
@@ -233,3 +233,4 @@ scripts/
 | 2026-11-11 | 4 | ✅ SkipLink, Header (phone disclosure menu), email-only Footer with Cookie settings (googlefc), ErrorBoundary, Layout, Container, 404 content page. 15 tests green. Follow-up for no-JS phone nav added to Phase 8. |
 | 2026-11-11 | 5 | ✅ Home: hero, search (/, ⌘K, Esc, URL sync), category chips, cards with stretched link + Open CTA (full width on phone), CSS preview art, lazy framer-motion reflow, empty state, analytics events. Found the private app name leaking via an illustration's CSS class names; removed it, and added a dist leak guard to Phase 8. |
 | 2026-11-11 | 7 | ✅ ProsePage + Privacy (CMP, Consent Mode, AdSense Auto ads, GA4, hosts, rights), Terms, About, Contact (copy-email), human Sitemap, all generated from public data. Owner legal review pending. |
+| 2026-11-11 | 6 | ✅ Detail template for live/beta apps: breadcrumbs, hero + CTA, about/features/how-to, At a glance aside, desktop callout, related apps, view-transition names, meta helpers. 243 tests green. |

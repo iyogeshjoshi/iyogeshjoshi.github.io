@@ -350,9 +350,10 @@ export const PrivacyPolicyPage: React.FC = () => {
             on servers of our own.
           </li>
           <li>
-            Analytics data in Google Analytics is kept for up to 14 months under
-            Google Analytics&rsquo; data retention settings, and then deleted by
-            Google.
+            User-level analytics data in Google Analytics is kept for 2 months
+            under our Google Analytics data retention setting, and then deleted
+            by Google. Aggregated reports that don&rsquo;t identify individual
+            visitors may be kept longer.
           </li>
           <li>
             Advertising data is kept by Google according to the{' '}
