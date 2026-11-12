@@ -1,0 +1,214 @@
+/* Sections never clip their content: Auto ads may inject units between them. */
+.page {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding-block: 72px var(--space-7);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: var(--color-muted);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+.liveDot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-live);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-live) 55%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .liveDot {
+    animation: pulse 2.4s var(--ease-out) infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-live) 55%, transparent);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+.title {
+  max-width: 820px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.lede {
+  max-width: 640px;
+  margin: 22px 0 0;
+  color: var(--color-muted);
+  font-size: 19px;
+  text-wrap: pretty;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: var(--space-8);
+}
+
+/* ---------- Results ---------- */
+
+.results {
+  padding-block: var(--space-2) var(--space-8);
+  scroll-margin-top: var(--space-6);
+}
+
+.resultsHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: 18px;
+}
+
+.resultsTitle {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.count {
+  margin: 0;
+  color: var(--color-muted);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+/* ---------- Built to get out of your way ---------- */
+
+.why {
+  padding-block: var(--space-6) var(--space-11);
+}
+
+.whyTitle {
+  margin: 0 0 28px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.benefit {
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.benefitTitle {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.benefitBody {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 15px;
+}
+
+/* ---------- Phone ---------- */
+
+@media (max-width: 767px) {
+  .hero {
+    padding-block: var(--space-7) 20px;
+  }
+
+  .eyebrow {
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    font-size: 12px;
+  }
+
+  .eyebrowMore {
+    display: none;
+  }
+
+  .title {
+    font-size: 38px;
+    line-height: 1.04;
+  }
+
+  .lede {
+    margin-top: 14px;
+    font-size: 16px;
+  }
+
+  .controls {
+    gap: 14px;
+    margin-top: var(--space-6);
+  }
+
+  .results {
+    padding-bottom: var(--space-7);
+  }
+
+  .resultsHeader {
+    margin-bottom: var(--space-4);
+  }
+
+  .resultsTitle {
+    font-size: 19px;
+  }
+
+  .count {
+    font-size: 12px;
+  }
+
+  .why {
+    padding-bottom: var(--space-10);
+  }
+
+  .whyTitle {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .benefits {
+    gap: var(--space-4);
+  }
+
+  .benefit {
+    padding: 20px;
+  }
+}

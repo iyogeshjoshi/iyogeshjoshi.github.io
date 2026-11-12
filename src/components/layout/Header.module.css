@@ -1,0 +1,202 @@
+.header {
+  position: relative;
+  border-bottom: 1px solid var(--color-border);
+  z-index: var(--z-sticky);
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--tap-min);
+  text-decoration: none;
+}
+
+.mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.tld {
+  color: var(--color-accent-text);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav {
+  position: relative;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding: 0 var(--space-3);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  border-color: var(--color-border-strong);
+}
+
+.menuIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Phone: the list is a dropdown panel, hidden until opened. */
+.list {
+  display: none;
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  min-width: 200px;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  z-index: var(--z-overlay);
+}
+
+.list[data-open='true'] {
+  display: block;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.link:hover {
+  background: var(--color-chip-bg);
+}
+
+.link[aria-current='page'] {
+  color: var(--color-accent-text);
+  font-weight: 600;
+}
+
+/*
+ * No JavaScript (the inline head script sets html[data-js]): the menu button
+ * cannot open anything, so hide it and show the links inline, wrapping.
+ */
+@media (max-width: 767.98px) {
+  :global(html:not([data-js])) .menuButton {
+    display: none;
+  }
+
+  :global(html:not([data-js])) .list {
+    display: flex;
+    flex-wrap: wrap;
+    position: static;
+    min-width: 0;
+    padding: 0;
+    gap: 0 var(--space-1);
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+/* Phone: icon-only theme toggle (aria-label is kept). */
+.theme button span {
+  display: none;
+}
+
+.theme button {
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
+
+  .list,
+  .list[data-open='true'] {
+    display: flex;
+    position: static;
+    min-width: 0;
+    padding: 0;
+    gap: var(--space-2);
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .link {
+    padding: 0 var(--space-3);
+    font-size: 15px;
+  }
+
+  .actions {
+    gap: var(--space-5);
+  }
+
+  .theme button span {
+    display: inline;
+  }
+
+  .theme button {
+    padding: 0 var(--space-4);
+  }
+}
+
+/* Extends the link's accessible name without changing what is shown. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

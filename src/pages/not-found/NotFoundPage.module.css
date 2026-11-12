@@ -1,0 +1,72 @@
+.page {
+  padding-block: var(--space-10);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-3);
+}
+
+.copy {
+  color: var(--color-muted);
+  max-width: 60ch;
+  margin-bottom: var(--space-6);
+}
+
+.form {
+  margin-bottom: var(--space-8);
+  max-width: 520px;
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-input);
+}
+
+.button {
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border: 0;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sub {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+}
+
+.apps {
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+.appLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--color-accent-text);
+}

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deviloper.dev — catalog on phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:none}
+.stretch::after{content:"";position:absolute;inset:0;border-radius:16px}
+.lift{position:relative;z-index:1}
+.scroller{scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #2DD4BF;outline-offset:3px;border-radius:10px}
+.root{transition:background-color .3s ease,color .3s ease}
+@media (prefers-reduced-motion: reduce){.root{transition:none}}
+</style>
+</helmet>
+<div class="root" style="width: 390px; min-height: 3000px; background: {{c.bg}}; color: {{c.text}}; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.55">
+
+  <header style="position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid {{c.border}}; background: {{c.bg}}">
+    <a href="#" aria-label="deviloper.dev home" style="display: flex; align-items: center; gap: 8px">
+      <span style="width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: {{c.accent}}; color: {{c.onAccent}}; font: 500 14px 'JetBrains Mono', monospace">d/</span>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">deviloper<span style="color: {{c.accentText}}">.dev</span></span>
+    </a>
+    <div style="display: flex; gap: 8px">
+      <button type="button" onClick="{{cycleTheme}}" aria-label="Theme: {{modeLabel}}. Click to change." style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.text}}; cursor: pointer">
+        <sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </sc-if>
+        <sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </sc-if>
+        <sc-if value="{{isAuto}}" hint-placeholder-val="{{ false }}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"></path></svg>
+        </sc-if>
+      </button>
+      <button type="button" aria-label="Open menu" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; border: 1px solid {{c.border}}; background: {{c.surface}}; color: {{c.text}}; cursor: pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section style="padding: 32px 16px 20px">
+      <p style="margin: 0 0 12px; font: 400 12px 'JetBrains Mono', monospace; color: {{c.muted}}; display: flex; align-items: center; gap: 8px">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: {{c.live}}"></span>
+        5 live on *.deviloper.dev
+      </p>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 38px; line-height: 1.04; letter-spacing: -0.035em">Side projects, small tools &amp; games.</h1>
+      <p style="margin: 14px 0 0; font-size: 16px; color: {{c.muted}}">A growing collection of things I build in my spare time — free, no sign-up.</p>
+
+      <label for="m-search" style="position: absolute; left: -9999px">Search the catalog</label>
+      <div style="position: relative; margin-top: 24px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: {{c.muted}}"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input id="m-search" type="search" value="{{q}}" onChange="{{onSearch}}" placeholder="Search tools, games, apps…" autocomplete="off" style="width: 100%; height: 52px; padding: 0 16px 0 46px; border-radius: 14px; border: 1px solid {{c.borderStrong}}; background: {{c.surface}}; color: {{c.text}}; font: 400 16px Inter, sans-serif">
+      </div>
+    </section>
+
+    <div class="scroller" role="group" aria-label="Filter by category" style="display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 20px">
+      <sc-for list="{{chips}}" as="chip" hint-placeholder-count="4">
+        <button type="button" onClick="{{chip.pick}}" aria-pressed="{{chip.pressed}}" style="{{chip.style}}">{{chip.label}} <span style="opacity: .7; font: 500 12px 'JetBrains Mono', monospace">{{chip.count}}</span></button>
+      </sc-for>
+    </div>
+
+    <section aria-label="Catalog" style="padding: 0 16px; display: flex; flex-direction: column; gap: 16px">
+      <p aria-live="polite" style="margin: 0; font: 400 12px 'JetBrains Mono', monospace; color: {{c.muted}}">{{resultsCount}}</p>
+      <sc-for list="{{items}}" as="item" hint-placeholder-count="4">
+        <article style="{{item.cardStyle}}">
+          <div style="position: relative; height: 140px; overflow: hidden; border-bottom: 1px solid {{c.border}}; background: {{c.previewBg}}">
+            <sc-if value="{{item.isRuler}}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 0">
+                <div style="position: absolute; left: 16px; right: -30px; top: 42px; height: 56px; border-radius: 9px; border: 1px solid {{c.borderStrong}}; background-color: {{c.surface}}; background-image: linear-gradient(90deg, {{c.tick}} 0 1px, transparent 1px), linear-gradient(90deg, {{c.tick}} 0 1px, transparent 1px); background-size: 50px 26px, 10px 13px; background-repeat: repeat-x; background-position: 10px 0, 10px 0"></div>
+                <div style="position: absolute; top: 22px; bottom: 16px; left: 128px; width: 2px; background: {{c.accent}}"></div>
+                <span style="position: absolute; left: 138px; top: 106px; padding: 3px 8px; border-radius: 7px; background: {{c.accent}}; color: {{c.onAccent}}; font: 500 11px 'JetBrains Mono', monospace">12.4 cm</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{item.isCounter}}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 16px; display: flex; gap: 12px">
+                <div style="flex: 1 1 0; border-radius: 9px; border: 1px solid {{c.borderStrong}}; background: {{c.surface}}; padding: 10px; display: flex; flex-direction: column; gap: 6px">
+                  <div style="height: 6px; width: 90%; border-radius: 3px; background: {{c.ghost}}"></div>
+                  <div style="height: 6px; width: 78%; border-radius: 3px; background: {{c.ghost}}"></div>
+                  <div style="height: 6px; width: 50%; border-radius: 3px; background: {{c.ghost}}"></div>
+                  <span style="margin-top: auto; font: 500 15px 'JetBrains Mono', monospace">214</span>
+                </div>
+                <div style="flex: 1 1 0; display: flex; flex-direction: column; justify-content: center; gap: 9px; font: 500 10px 'JetBrains Mono', monospace; color: {{c.muted}}">
+                  <div><div style="display: flex; justify-content: space-between"><span>X</span><span>214/280</span></div><div style="height: 5px; border-radius: 3px; background: {{c.ghost}}; margin-top: 3px"><div style="height: 5px; width: 76%; border-radius: 3px; background: {{c.accent}}"></div></div></div>
+                  <div><div style="display: flex; justify-content: space-between"><span>SMS</span><span style="color: {{c.warn}}">214/160</span></div><div style="height: 5px; border-radius: 3px; background: {{c.warn}}; margin-top: 3px"></div></div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{item.isLife}}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 0; background-image: linear-gradient({{c.ghost}} 1px, transparent 1px), linear-gradient(90deg, {{c.ghost}} 1px, transparent 1px); background-size: 14px 14px">
+                <sc-for list="{{item.cells}}" as="cell" hint-placeholder-count="16"><div style="{{cell.style}}"></div></sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{item.isPong}}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 12px; border-radius: 9px; background: #0B1220">
+                <div style="position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; background-image: linear-gradient(#475569 50%, transparent 50%); background-size: 2px 10px"></div>
+                <div style="position: absolute; left: 12px; top: 30px; width: 5px; height: 38px; border-radius: 3px; background: #E2E8F0"></div>
+                <div style="position: absolute; right: 12px; top: 56px; width: 5px; height: 38px; border-radius: 3px; background: #E2E8F0"></div>
+                <div style="position: absolute; left: 64%; top: 50px; width: 9px; height: 9px; border-radius: 2px; background: #2DD4BF"></div>
+                <span style="position: absolute; left: 0; right: 0; top: 6px; text-align: center; font: 500 15px 'JetBrains Mono', monospace; color: #CBD5E1; letter-spacing: .5em">3 2</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{item.isPrim}}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(circle at 30% 40%, #10243A 0, #060A12 70%)">
+                <sc-for list="{{item.orgs}}" as="o" hint-placeholder-count="8"><div style="{{o.style}}"></div></sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{item.isVerdict}}" hint-placeholder-val="{{ false }}">
+              <div aria-hidden="true" style="position: absolute; inset: 14px 16px; border-radius: 9px; border: 1px solid {{c.borderStrong}}; background: {{c.surface}}; padding: 12px; display: flex; flex-direction: column; gap: 6px">
+                <div style="display: flex; justify-content: space-between; align-items: center"><span style="font: 600 13px 'Space Grotesk', sans-serif">Move stand-up to 10:00?</span><span style="padding: 2px 7px; border-radius: 999px; background: {{c.accent}}; color: {{c.onAccent}}; font: 500 9px 'JetBrains Mono', monospace">SEALED</span></div>
+                <span style="display: flex; justify-content: space-between; font-size: 11px; color: {{c.muted}}"><span>Member A</span><span style="color: {{c.live}}">Agreed</span></span>
+                <span style="display: flex; justify-content: space-between; font-size: 11px; color: {{c.muted}}"><span>Member B</span><span style="color: {{c.live}}">Agreed</span></span>
+                <span style="margin-top: auto; font: 400 9px 'JetBrains Mono', monospace; color: {{c.muted}}">record 7f3a…c91e · unchanged</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{item.isBlank}}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font: 500 11px 'JetBrains Mono', monospace; color: {{c.muted}}">[ preview captured at build ]</div>
+            </sc-if>
+          </div>
+          <div style="padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; justify-content: space-between; align-items: center">
+              <span style="font: 500 11px 'JetBrains Mono', monospace; letter-spacing: .04em; text-transform: uppercase; color: {{c.muted}}">{{item.catLabel}}</span>
+              <span style="display: flex; gap: 6px; align-items: center">
+                <sc-if value="{{item.account}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px 9px; border-radius: 999px; font: 500 11px Inter, sans-serif; color: {{c.muted}}; border: 1px solid {{c.border}}">Sign-in</span></sc-if>
+                <span style="{{item.statusStyle}}">{{item.status}}</span>
+              </span>
+            </div>
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px">
+              <sc-if value="{{item.linkable}}" hint-placeholder-val="{{ true }}"><a class="stretch" href="{{item.href}}">{{item.name}}</a></sc-if>
+              <sc-if value="{{item.placeholder}}" hint-placeholder-val="{{ false }}"><span>{{item.name}}</span></sc-if>
+            </h2>
+            <p style="margin: 0; color: {{c.muted}}; font-size: 14px">{{item.tagline}}</p>
+            <sc-if value="{{item.linkable}}" hint-placeholder-val="{{ true }}">
+              <a class="lift" href="https://{{item.host}}" aria-label="Open {{item.name}} in its own site" style="margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 6px; height: 44px; border-radius: 12px; background: {{c.accent}}; color: {{c.onAccent}}; font: 600 15px Inter, sans-serif">
+                Open {{item.name}}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+              </a>
+            </sc-if>
+          </div>
+        </article>
+      </sc-for>
+      <sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+        <div style="border: 1px dashed {{c.borderStrong}}; border-radius: 16px; padding: 32px 16px; text-align: center; background: {{c.surface}}">
+          <p style="margin: 0 0 14px; font-weight: 600">Nothing matches “{{q}}”</p>
+          <button type="button" onClick="{{clearAll}}" style="height: 44px; padding: 0 18px; border-radius: 12px; border: 0; background: {{c.accent}}; color: {{c.onAccent}}; font: 600 15px Inter, sans-serif; cursor: pointer">Clear search &amp; filters</button>
+        </div>
+      </sc-if>
+    </section>
+
+    <section aria-label="Advertisement" style="padding: 32px 16px 8px">
+      <div style="border-top: 1px solid {{c.border}}; padding-top: 20px">
+        <p style="margin: 0 0 8px; font: 500 10px 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: {{c.muted}}">Advertisement</p>
+        <div style="height: 100px; border-radius: 12px; border: 1px dashed {{c.borderStrong}}; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; color: {{c.muted}}; font-size: 13px">Reserved 320×100 slot — after AdSense approval</div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="margin-top: 32px; padding: 28px 16px 36px; border-top: 1px solid {{c.border}}; background: {{c.surface}}; font-size: 14px">
+    <p style="margin: 0 0 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px">deviloper<span style="color: {{c.accentText}}">.dev</span></p>
+    <p style="margin: 0 0 18px; color: {{c.muted}}">A collection of side projects — tools, games and simulations. Supported by ads.</p>
+    <nav aria-label="Footer" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 16px">
+      <a href="#" style="padding: 10px 0">About</a>
+      <a href="#" style="padding: 10px 0">Contact</a>
+      <a href="#" style="padding: 10px 0">Privacy policy</a>
+      <a href="#" style="padding: 10px 0">Terms of use</a>
+      <a href="#" style="padding: 10px 0">Sitemap</a>
+      <button type="button" style="padding: 10px 0; border: 0; background: none; color: inherit; font: 400 14px Inter, sans-serif; text-align: left; cursor: pointer">Cookie settings</button>
+    </nav>
+    <p style="margin: 18px 0 0; color: {{c.muted}}; font-size: 13px">© 2026 Deviloper.dev · <a href="mailto:hello@deviloper.dev" style="color: {{c.accentText}}">hello@deviloper.dev</a></p>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark","auto"],"default":"light"},"$preview":{"width":390,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var PAL = {
+      dark: { bg: '#0A0F1A', surface: '#111827', previewBg: '#0D1420', border: '#1E293B', borderStrong: '#334155', text: '#E6EDF7', muted: '#9AA8BE', accent: '#2DD4BF', accentText: '#5EEAD4', onAccent: '#042F2A', chipBg: '#172033', ghost: '#243047', tick: '#64748B', live: '#34D399', warn: '#FBBF24' },
+      light: { bg: '#F6F7F9', surface: '#FFFFFF', previewBg: '#EEF1F5', border: '#E2E7EE', borderStrong: '#C9D1DC', text: '#0E1420', muted: '#4A5568', accent: '#0F766E', accentText: '#0F766E', onAccent: '#FFFFFF', chipBg: '#EDF1F6', ghost: '#DDE3EB', tick: '#94A3B8', live: '#059669', warn: '#B45309' }
+    };
+    var self = this;
+    var mode = this.state.mode || this.props.theme || 'light';
+    var resolved = mode;
+    if (mode === 'auto') {
+      try { resolved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; } catch (e) { resolved = 'light'; }
+    }
+    var c = PAL[resolved];
+    var q = this.state.q || '';
+    var cat = this.state.cat || 'all';
+    var apps = [
+      { name: 'Online Ruler', cat: 'tool', catLabel: 'Tool', status: 'Live', tagline: 'Actual-size screen ruler in cm, inches and pixels.', tags: ['measurement'], host: 'onlineruler.deviloper.dev', href: 'Detail.dc.html', kind: 'ruler' },
+      { name: 'CharCap', cat: 'tool', catLabel: 'Tool', status: 'Live', tagline: 'Character counter with limits for 20+ platforms.', tags: ['writing', 'social', 'seo'], host: 'character-counter.deviloper.dev', href: 'https://character-counter.deviloper.dev', kind: 'counter' },
+      { name: 'Primordia', cat: 'sim', catLabel: 'Simulation', status: 'Live', tagline: 'A 3D artificial-life sandbox — watch organisms evolve.', tags: ['evolution', '3d'], host: 'primordia.deviloper.dev', href: 'https://primordia.deviloper.dev', kind: 'prim' },
+      { name: 'Game of Life', cat: 'sim', catLabel: 'Simulation', status: 'Live', tagline: 'Conway’s classic cellular automaton.', tags: ['conway', 'automaton'], host: 'gameoflife.deviloper.dev', href: 'https://gameoflife.deviloper.dev', kind: 'life' },
+      { name: 'Ping Pong', cat: 'game', catLabel: 'Game', status: 'Live', tagline: 'Single-player Pong vs the computer. Mouse controls — best on desktop.', tags: ['arcade', 'retro', 'pong', 'mouse'], host: 'ping-pong.deviloper.dev', href: 'https://ping-pong.deviloper.dev', kind: 'pong' }
+    ];
+    var cells = [[2,1],[3,2],[1,3],[2,3],[3,3],[8,2],[9,2],[10,2],[14,4],[15,4],[14,5],[15,5],[6,6],[7,6],[7,7],[8,7],[18,1],[19,2],[17,3],[18,3],[19,3],[12,7],[13,7],[14,7],[21,6],[22,6]].map(function (p) { return { style: 'position: absolute; left: ' + (p[0] * 14 + 1) + 'px; top: ' + (p[1] * 14 + 1) + 'px; width: 12px; height: 12px; border-radius: 2px; background: ' + c.accent }; });
+    var hues = ['#2DD4BF', '#F472B6', '#A78BFA', '#FBBF24', '#60A5FA'];
+    var orgs = [[24,30,14,0],[60,90,9,1],[100,50,20,2],[150,100,7,3],[190,36,11,0],[230,80,16,4],[270,40,8,1],[300,100,12,2],[50,20,6,3],[130,20,6,4]].map(function (o) { var col = hues[o[3]]; return { style: 'position: absolute; left: ' + o[0] + 'px; top: ' + o[1] + 'px; width: ' + o[2] + 'px; height: ' + o[2] + 'px; border-radius: 50%; background: ' + col + '; box-shadow: 0 0 ' + (o[2] + 6) + 'px ' + col + '66' }; });
+    var ql = q.trim().toLowerCase();
+    var matchQ = function (a) {
+      if (!ql) return true;
+      var hay = (a.name + ' ' + a.tagline + ' ' + a.tags.join(' ') + ' ' + a.catLabel).toLowerCase();
+      return ql.split(/\s+/).every(function (w) { return hay.indexOf(w) !== -1; });
+    };
+    var defs = [{ id: 'all', label: 'All' }, { id: 'tool', label: 'Tools' }, { id: 'game', label: 'Games' }, { id: 'sim', label: 'Simulations' }, { id: 'app', label: 'Apps' }].filter(function (d) { return d.id === 'all' || apps.some(function (a) { return a.cat === d.id; }); });
+    var chips = defs.map(function (d) {
+      var on = cat === d.id;
+      return {
+        label: d.label, pressed: on ? 'true' : 'false',
+        count: apps.filter(function (a) { return matchQ(a) && (d.id === 'all' || a.cat === d.id); }).length,
+        pick: function () { self.setState({ cat: d.id }); },
+        style: 'flex: 0 0 auto; height: 40px; padding: 0 14px; border-radius: 999px; cursor: pointer; font: 500 14px Inter, sans-serif; display: inline-flex; align-items: center; gap: 6px; border: 1px solid ' + (on ? c.accent : c.border) + '; background: ' + (on ? c.accent : c.surface) + '; color: ' + (on ? c.onAccent : c.text)
+      };
+    });
+    var items = apps.filter(function (a) { return matchQ(a) && (cat === 'all' || a.cat === cat); }).map(function (a) {
+      var live = a.status === 'Live';
+      return Object.assign({}, a, {
+        isRuler: a.kind === 'ruler', isCounter: a.kind === 'counter', isBlank: a.kind === 'blank',
+        isLife: a.kind === 'life', isPong: a.kind === 'pong', isPrim: a.kind === 'prim', isVerdict: a.kind === 'verdict',
+        cells: cells, orgs: orgs, account: !!a.account,
+        linkable: !a.placeholder, placeholder: !!a.placeholder,
+        cardStyle: 'position: relative; border-radius: 16px; overflow: hidden; background: ' + c.surface + '; border: 1px ' + (a.placeholder ? 'dashed ' + c.borderStrong : 'solid ' + c.border),
+        statusStyle: 'padding: 2px 9px; border-radius: 999px; font: 500 11px Inter, sans-serif; ' + (live ? 'color: ' + c.live + '; background: ' + c.chipBg : 'color: ' + c.muted + '; border: 1px dashed ' + c.borderStrong)
+      });
+    });
+    return {
+      c: c, q: q, chips: chips, items: items, isEmpty: items.length === 0,
+      resultsCount: items.length + (items.length === 1 ? ' item' : ' items'),
+      isDark: mode === 'dark', isLight: mode === 'light', isAuto: mode === 'auto',
+      modeLabel: mode === 'dark' ? 'Dark' : (mode === 'light' ? 'Light' : 'Auto'),
+      onSearch: function (e) { self.setState({ q: e.target.value }); },
+      clearAll: function () { self.setState({ q: '', cat: 'all' }); },
+      cycleTheme: function () { self.setState({ mode: { light: 'dark', dark: 'auto', auto: 'light' }[mode] }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+/* No overflow clipping here: Auto ads may inject units into the page (PRD A4/A5). */
+.grid {
+  position: relative; /* anchors exiting cards in AnimatePresence popLayout */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+}
+
+.item > * {
+  flex: 1 1 auto;
+}

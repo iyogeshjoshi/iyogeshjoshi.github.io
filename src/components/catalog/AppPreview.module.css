@@ -1,0 +1,422 @@
+/*
+ * Card previews. The illustrations are ports of the design boards
+ * (Main.dc.html at 188px tall; Mobile.dc.html at 140px for phones).
+ * Theme-aware through tokens, except the art that is fixed in the design
+ * (pong court, primordia space and organism hues).
+ */
+
+.preview {
+  position: relative;
+  height: 188px;
+  overflow: hidden; /* card-internal: clips the art, never page content */
+  background: var(--color-preview-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preview > * {
+  position: absolute;
+}
+
+/* ---------- Screenshots ---------- */
+
+.picture {
+  inset: 0;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ---------- Shared bits ---------- */
+
+.ruler,
+.life,
+.prim,
+.generic {
+  inset: 0;
+}
+
+.ruler > *,
+.life > *,
+.prim > *,
+.pong > * {
+  position: absolute;
+}
+
+/* ---------- ruler ---------- */
+
+.rulerBody {
+  left: 22px;
+  right: -40px;
+  top: 58px;
+  height: 70px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-strong);
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(90deg, var(--color-tick) 0 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-tick) 0 1px, transparent 1px);
+  background-size:
+    60px 32px,
+    12px 16px;
+  background-repeat: repeat-x;
+  background-position:
+    14px 0,
+    14px 0;
+}
+
+.rulerGuide {
+  top: 28px;
+  bottom: 20px;
+  left: 158px;
+  width: 2px;
+  background: var(--color-accent);
+}
+
+.rulerReading {
+  left: 170px;
+  top: 140px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font: 500 12px/1.4 var(--font-mono);
+}
+
+.rulerMeta {
+  left: 22px;
+  top: 22px;
+  color: var(--color-muted);
+  font: 500 11px/1.4 var(--font-mono);
+}
+
+/* ---------- counter ---------- */
+
+.counter {
+  inset: 22px;
+  display: flex;
+  gap: 16px;
+}
+
+.counterEditor {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+}
+
+.line {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--color-ghost);
+}
+
+.counterTotal {
+  margin-top: auto;
+  color: var(--color-text);
+  font: 500 18px/1.2 var(--font-mono);
+}
+
+.counterLimits {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  color: var(--color-muted);
+  font: 500 11px/1.4 var(--font-mono);
+}
+
+.limitRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.bar {
+  height: 6px;
+  margin-top: 4px;
+  border-radius: 3px;
+  background: var(--color-ghost);
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--color-accent);
+}
+
+.barOver {
+  background: var(--color-warn);
+}
+
+.over {
+  color: var(--color-warn);
+}
+
+/* ---------- life ---------- */
+
+.life {
+  background-image:
+    linear-gradient(var(--color-ghost) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-ghost) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+
+.lifeGeneration {
+  right: 12px;
+  bottom: 10px;
+  padding: 3px 8px;
+  border-radius: 7px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font: 500 11px/1.4 var(--font-mono);
+}
+
+/* ---------- pong (fixed court colours) ---------- */
+
+.pong {
+  inset: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-strong);
+  background: #0b1220;
+}
+
+.pongNet {
+  left: 50%;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  margin-left: -1px;
+  background-image: linear-gradient(#475569 50%, transparent 50%);
+  background-size: 2px 12px;
+}
+
+.paddle {
+  width: 6px;
+  height: 46px;
+  border-radius: 3px;
+  background: #e2e8f0;
+}
+
+.paddleLeft {
+  left: 14px;
+  top: 46px;
+}
+
+.paddleRight {
+  right: 14px;
+  top: 78px;
+}
+
+.ball {
+  left: 62%;
+  top: 64px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #2dd4bf;
+  box-shadow:
+    -14px 6px 0 -2px #2dd4bf55,
+    -26px 12px 0 -3px #2dd4bf33;
+}
+
+.pongScore {
+  left: 0;
+  right: 0;
+  top: 10px;
+  text-align: center;
+  color: #cbd5e1;
+  font: 500 18px/1.2 var(--font-mono);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em; /* re-centre: letter-spacing trails the last glyph */
+}
+
+/* ---------- prim (fixed space colours) ---------- */
+
+.prim {
+  background: radial-gradient(circle at 30% 40%, #10243a 0, #060a12 70%);
+}
+
+.org {
+  border-radius: 50%;
+}
+
+.primMeta {
+  left: 12px;
+  bottom: 10px;
+  color: #94a3b8;
+  font: 500 11px/1.4 var(--font-mono);
+}
+
+/* ---------- generic (PRD P5: accent tile, no placeholder image) ---------- */
+
+.generic {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(
+      circle at 25% 20%,
+      color-mix(in srgb, var(--app-accent) 35%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--app-accent) 18%, var(--color-preview-bg)),
+      var(--color-preview-bg)
+    );
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in srgb, var(--app-accent) 45%, transparent);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: 700 34px/1 var(--font-display);
+  box-shadow: 0 12px 30px -16px var(--app-accent);
+}
+
+/* ---------- Phone (Mobile.dc.html) ---------- */
+
+@media (max-width: 767px) {
+  .preview {
+    height: 140px;
+  }
+
+  .rulerBody {
+    left: 16px;
+    right: -30px;
+    top: 42px;
+    height: 56px;
+    border-radius: 9px;
+    background-size:
+      50px 26px,
+      10px 13px;
+    background-position:
+      10px 0,
+      10px 0;
+  }
+
+  .rulerGuide {
+    top: 22px;
+    bottom: 16px;
+    left: 128px;
+  }
+
+  .rulerReading {
+    left: 138px;
+    top: 106px;
+    padding: 3px 8px;
+    border-radius: 7px;
+    font-size: 11px;
+  }
+
+  .rulerMeta {
+    display: none;
+  }
+
+  .counter {
+    inset: 16px;
+    gap: 12px;
+  }
+
+  .counterEditor {
+    gap: 6px;
+    padding: 10px;
+    border-radius: 9px;
+  }
+
+  .line {
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  .counterTotal {
+    font-size: 15px;
+  }
+
+  .counterLimits {
+    gap: 9px;
+    font-size: 10px;
+  }
+
+  .bar {
+    height: 5px;
+    margin-top: 3px;
+  }
+
+  .wideOnly {
+    display: none;
+  }
+
+  .lifeGeneration {
+    display: none;
+  }
+
+  .pong {
+    inset: 12px;
+    border-radius: 9px;
+  }
+
+  .pongNet {
+    top: 6px;
+    bottom: 6px;
+    background-size: 2px 10px;
+  }
+
+  .paddle {
+    width: 5px;
+    height: 38px;
+  }
+
+  .paddleLeft {
+    left: 12px;
+    top: 30px;
+  }
+
+  .paddleRight {
+    right: 12px;
+    top: 56px;
+  }
+
+  .ball {
+    left: 64%;
+    top: 50px;
+    width: 9px;
+    height: 9px;
+  }
+
+  .pongScore {
+    top: 6px;
+    font-size: 15px;
+  }
+
+  .primMeta {
+    display: none;
+  }
+
+  .monogram {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+}

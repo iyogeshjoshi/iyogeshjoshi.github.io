@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Studio · deviloper.dev (local)</title>
+    <!--
+      Dev-only Studio UI (PRD §5.8 R4). Served by scripts/studio/vite-plugin-studio.ts
+      under `vite` (serve) only. Lives outside src/ so it can never reach the build.
+      All remote text (titles, descriptions) is inserted with textContent, never innerHTML.
+    -->
+    <style>
+      :root {
+        --bg: #060a12;
+        --panel: #0d1420;
+        --card: #111827;
+        --field: #0a0f1a;
+        --hover: #172033;
+        --line: #1e293b;
+        --line-strong: #334155;
+        --text: #e6edf7;
+        --muted: #9aa8be;
+        --faint: #7c8aa0;
+        --accent: #2dd4bf;
+        --on-accent: #042f2a;
+        --pass: #34d399;
+        --pass-bg: #0f2a22;
+        --warn: #fbbf24;
+        --warn-bg: #2a2210;
+        --fail: #f87171;
+        --fail-bg: #2a1414;
+        --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        --sans: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --display: 'Space Grotesk', var(--sans);
+        color-scheme: dark;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 400 15px/1.5 var(--sans); }
+      a { color: #5eead4; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      button, input, textarea, select { font: inherit; color: inherit; }
+      input, textarea, select {
+        width: 100%; background: var(--field); border: 1px solid var(--line-strong);
+        border-radius: 10px; padding: 10px 12px; color: var(--text);
+      }
+      textarea { resize: vertical; min-height: 88px; }
+      input::placeholder, textarea::placeholder { color: var(--faint); }
+      :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      header {
+        display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        padding: 14px 24px; border-bottom: 1px solid var(--line); background: var(--panel);
+      }
+      .logo { font: 700 18px var(--display); color: var(--accent); }
+      .crumb { font: 600 15px var(--display); }
+      .tag { font: 500 11px var(--mono); letter-spacing: .06em; color: var(--warn); background: var(--warn-bg); padding: 3px 8px; border-radius: 6px; }
+      .meta { margin-left: auto; font: 400 12px var(--mono); color: var(--muted); }
+      .layout { display: grid; grid-template-columns: 340px 1fr; min-height: calc(100vh - 56px); }
+      @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+      aside { border-right: 1px solid var(--line); background: var(--panel); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+      main { padding: 28px 32px; max-width: 980px; display: flex; flex-direction: column; gap: 22px; }
+      h1, h2, h3 { font-family: var(--display); margin: 0; }
+      h1 { font-size: 26px; }
+      h2 { font-size: 17px; }
+      .muted { color: var(--muted); }
+      .small { font-size: 13px; }
+      .mono { font-family: var(--mono); }
+      .row-head { display: flex; justify-content: space-between; align-items: baseline; }
+      ol.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+      .entry { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; }
+      .entry:hover, .entry.dragover { background: var(--hover); }
+      .entry.active { border-color: var(--line-strong); background: var(--card); }
+      .entry .grip { color: var(--faint); cursor: grab; user-select: none; }
+      .entry .body { flex: 1; min-width: 0; }
+      .entry .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .entry .sub { font: 400 12px var(--mono); color: var(--muted); }
+      .entry select { width: auto; padding: 2px 6px; font-size: 12px; border-radius: 6px; }
+      .icon-btn { background: none; border: 1px solid var(--line-strong); border-radius: 6px; color: var(--muted); padding: 0 6px; cursor: pointer; line-height: 20px; }
+      .score { padding: 2px 8px; border-radius: 999px; font: 500 12px var(--mono); white-space: nowrap; }
+      .good { color: var(--pass); background: var(--pass-bg); }
+      .meh { color: var(--warn); background: var(--warn-bg); }
+      .unknown { color: var(--faint); background: var(--line); }
+      .btn { height: 44px; padding: 0 18px; border-radius: 12px; border: 0; font-weight: 600; cursor: pointer; background: var(--accent); color: var(--on-accent); }
+      .btn.secondary { background: transparent; border: 1px solid var(--line-strong); color: var(--text); }
+      .btn:disabled { background: var(--line); color: var(--faint); cursor: not-allowed; border: 0; }
+      .panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+      .hint { border: 1px dashed var(--line-strong); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--muted); }
+      .hint strong { color: var(--text); }
+      .steps { display: flex; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+      .steps span { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); }
+      .steps span.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+      .subfield { display: flex; align-items: stretch; border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden; background: var(--field); }
+      .subfield span { padding: 10px 10px; color: var(--faint); font-family: var(--mono); font-size: 14px; }
+      .subfield input { border: 0; border-radius: 0; padding-left: 0; padding-right: 0; font-family: var(--mono); }
+      .inline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+      .checks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+      .checks li { display: flex; gap: 12px; align-items: flex-start; }
+      .badge { flex: 0 0 52px; text-align: center; padding: 2px 0; border-radius: 6px; font: 500 11px var(--mono); }
+      .badge.pass { color: var(--pass); background: var(--pass-bg); }
+      .badge.warn { color: var(--warn); background: var(--warn-bg); }
+      .badge.fail { color: var(--fail); background: var(--fail-bg); }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+      label.field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+      label.field .lab { display: flex; justify-content: space-between; }
+      .count { font-family: var(--mono); }
+      .count.bad { color: var(--fail); }
+      .count.ok { color: var(--pass); }
+      .checkbox { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; }
+      .checkbox input { width: auto; }
+      .errors { color: var(--fail); background: var(--fail-bg); border-radius: 10px; padding: 10px 14px; font-size: 13px; margin: 0; }
+      .errors:empty { display: none; }
+      .ok-msg { color: var(--pass); font-size: 13px; }
+      .previews { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .previews figure { margin: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--field); }
+      .previews img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+      .previews figcaption { font: 400 12px var(--mono); color: var(--muted); padding: 6px 10px; }
+      .card { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #eef1f5; color: #0b1220; max-width: 340px; }
+      .card .bar { height: 6px; }
+      .card .inner { padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+      .card .cat { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: #475569; }
+      .card .title { font: 700 18px var(--display); }
+      .card .host { font: 400 12px var(--mono); color: #475569; }
+      .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+      .reason { font-size: 13px; color: var(--warn); }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="logo">d/</span>
+      <span class="crumb">deviloper.dev / studio</span>
+      <span class="tag">LOCAL DEV ONLY · NOT IN PRODUCTION BUILD</span>
+      <span class="meta" id="file-meta">loading…</span>
+    </header>
+    <div class="layout">
+      <aside>
+        <div class="row-head">
+          <h2>Catalog</h2>
+          <span class="small muted">readiness</span>
+        </div>
+        <ol class="list" id="list" aria-label="Catalog entries, in home page order"></ol>
+        <button class="btn" id="new-btn" type="button">+ Add app</button>
+        <p class="small muted" style="margin: 0">
+          Drag (or use ↑ ↓) to reorder. Order here = order on the home page (within “Featured”).
+        </p>
+        <p class="errors" id="list-errors" role="alert"></p>
+        <div class="hint">
+          <strong>Away from your laptop?</strong><br />
+          GitHub → Actions → <em>Add app to catalog</em> → Run workflow. Same checks, opens a PR.
+          Or from a terminal: <span class="mono">npm run catalog:add -- my-new-thing</span>
+        </div>
+      </aside>
+
+      <main>
+        <div class="steps" aria-label="Progress">
+          <span id="step-1" class="on">1 · Subdomain</span>
+          <span id="step-2">2 · Readiness</span>
+          <span id="step-3">3 · Details</span>
+          <span id="step-4">4 · Previews &amp; save</span>
+        </div>
+
+        <section class="panel" id="sub-panel">
+          <h1 id="main-title">Add a new app</h1>
+          <p class="muted" style="margin: 0" id="main-intro">
+            Point at a live subdomain. Studio reads its page, checks AdSense/SEO readiness and drafts the
+            catalog entry for you.
+          </p>
+          <form class="inline" id="sub-form">
+            <div class="subfield" style="flex: 1; min-width: 260px">
+              <span>https://</span>
+              <input id="sub" aria-label="Subdomain" placeholder="my-new-thing" autocomplete="off" spellcheck="false" />
+              <span>.deviloper.dev</span>
+            </div>
+            <button class="btn" id="fetch-btn" type="submit" disabled>Fetch details</button>
+          </form>
+          <p class="small muted" style="margin: 0" id="sub-hint">
+            Lowercase letters, digits and hyphens. The site must already be live over HTTPS.
+          </p>
+        </section>
+
+        <section class="panel" id="readiness-panel" hidden>
+          <div class="row-head">
+            <h2 id="readiness-title">Readiness</h2>
+            <span class="score unknown" id="readiness-score"></span>
+          </div>
+          <ul class="checks" id="checks"></ul>
+          <p class="small muted" style="margin: 0">
+            Warnings don’t block listing: the hub detail page supplies the content. Ads won’t run on the
+            subdomain until its own tags are fixed; the sitemap index skips it until a real sitemap exists.
+            The consent check is a proxy: Google’s consent message is served by the AdSense tag.
+          </p>
+        </section>
+
+        <section class="panel" id="details-panel" hidden>
+          <h2>Details</h2>
+          <div class="grid">
+            <label class="field"><span class="lab">Name <span>from &lt;title&gt;</span></span><input id="f-name" /></label>
+            <label class="field"><span class="lab">Slug <span class="mono" id="slug-path"></span></span><input id="f-slug" readonly /></label>
+            <label class="field"><span class="lab">Category</span>
+              <select id="f-category">
+                <option value="tool">Tool</option><option value="game">Game</option>
+                <option value="simulation">Simulation</option><option value="app">App</option>
+              </select>
+            </label>
+            <label class="field"><span class="lab">Status when publishing</span>
+              <select id="f-status">
+                <option value="live">Live</option><option value="beta">Beta</option>
+                <option value="coming-soon">Coming soon</option>
+                <option value="draft">Draft (hidden)</option>
+                <option value="private">Private (never public)</option>
+              </select>
+            </label>
+          </div>
+          <label class="field"><span class="lab">Tagline <span class="count" id="c-tagline"></span></span><input id="f-tagline" /></label>
+          <label class="field"><span class="lab">Description: original copy for the detail page <span class="count" id="c-desc"></span></span>
+            <textarea id="f-description" rows="8"></textarea>
+          </label>
+          <div class="grid">
+            <label class="field"><span class="lab">Features (one per line) <span class="count" id="c-features"></span></span><textarea id="f-features"></textarea></label>
+            <label class="field"><span class="lab">How to use (one per line) <span class="count" id="c-howto"></span></span><textarea id="f-howto"></textarea></label>
+            <label class="field"><span class="lab">Tags (comma separated, 1–5)</span><input id="f-tags" /></label>
+            <label class="field"><span class="lab">Privacy</span><input id="f-privacy" /></label>
+            <label class="field"><span class="lab">Controls (optional)</span><input id="f-controls" /></label>
+            <label class="field"><span class="lab">Accent</span><input id="f-accent" type="color" style="height: 44px; padding: 4px" /></label>
+          </div>
+          <div class="inline">
+            <span class="small muted">Devices:</span>
+            <label class="checkbox"><input type="checkbox" name="device" value="desktop" /> Desktop</label>
+            <label class="checkbox"><input type="checkbox" name="device" value="tablet" /> Tablet</label>
+            <label class="checkbox"><input type="checkbox" name="device" value="phone" /> Phone</label>
+            <label class="checkbox"><input type="checkbox" id="f-account" /> Requires sign-in</label>
+            <label class="checkbox"><input type="checkbox" id="f-featured" /> Featured</label>
+          </div>
+        </section>
+
+        <section class="panel" id="previews-panel" hidden>
+          <div class="row-head">
+            <h2>Previews</h2>
+            <button class="btn secondary" id="capture-btn" type="button">Capture previews</button>
+          </div>
+          <div class="previews">
+            <figure><img id="p-light" alt="Light preview" /><figcaption>light.webp · Light</figcaption></figure>
+            <figure><img id="p-dark" alt="Dark preview" /><figcaption>dark.webp · Dark</figcaption></figure>
+          </div>
+          <p class="small muted" style="margin: 0" id="capture-msg">1280×800 + 390×844 · ads &amp; analytics blocked. Save the entry first.</p>
+          <h3 style="font-size: 15px">Card preview</h3>
+          <div class="card" aria-hidden="true">
+            <div class="bar" id="card-bar"></div>
+            <div class="inner">
+              <span class="cat" id="card-cat"></span>
+              <span class="title" id="card-name"></span>
+              <span id="card-tagline"></span>
+              <span class="host" id="card-host"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="save-panel" hidden>
+          <p class="small muted" style="margin: 0">
+            Writes <span class="mono" id="save-file">src/data/catalog.yaml</span> (and
+            <span class="mono">public/previews/&lt;slug&gt;-*.webp</span> when capturing). Commit &amp; push:
+            GitHub Actions rebuilds and deploys to GitHub Pages on merge to master.
+          </p>
+          <p class="errors" id="save-errors" role="alert"></p>
+          <p class="ok-msg" id="save-ok" role="status"></p>
+          <div class="actions">
+            <button class="btn secondary" id="draft-btn" type="button">Save as draft</button>
+            <button class="btn" id="publish-btn" type="button">Publish to catalog</button>
+            <span class="reason" id="publish-reason"></span>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      (() => {
+        'use strict';
+        const $ = (id) => document.getElementById(id);
+        const LABEL_RE = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/;
+        const PUBLIC = ['live', 'beta', 'coming-soon'];
+        const state = { catalog: null, current: null, busy: false };
+
+        function el(tag, props, ...children) {
+          const node = document.createElement(tag);
+          for (const [k, v] of Object.entries(props || {})) {
+            if (k === 'class') node.className = v;
+            else if (k.startsWith('on')) node.addEventListener(k.slice(2), v);
+            else if (v !== false && v != null) node.setAttribute(k, v === true ? '' : v);
+          }
+          for (const c of children) node.append(c instanceof Node ? c : document.createTextNode(String(c)));
+          return node;
+        }
+
+        async function api(name, body) {
+          const res = await fetch(`/__studio/api/${name}`, body === undefined
+            ? { headers: { accept: 'application/json' } }
+            : { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+          const data = await res.json().catch(() => ({ errors: [`HTTP ${res.status}`] }));
+          if (!res.ok) throw Object.assign(new Error((data.errors || []).join('\n')), { errors: data.errors || [] });
+          return data;
+        }
+
+        const subOf = (url) => new URL(url).hostname.replace(/\.deviloper\.dev$/, '');
+        const words = (t) => (t.trim() ? t.trim().split(/\s+/).length : 0);
+        const lines = (t) => t.split('\n').map((s) => s.trim()).filter(Boolean);
+        const scoreClass = (r) => (!r ? 'unknown' : r.score >= 8 ? 'good' : 'meh');
+
+        function showErrors(id, error) {
+          const box = $(id);
+          box.replaceChildren();
+          if (!error) return;
+          const list = error.errors && error.errors.length ? error.errors : [error.message];
+          for (const line of list) box.append(el('span', {}, line), el('br'));
+        }
+
+        // ------------------------------------------------------------ catalog list
+        async function loadCatalog() {
+          state.catalog = await api('catalog');
+          const apps = state.catalog.apps;
+          const pub = apps.filter((a) => PUBLIC.includes(a.status)).length;
+          $('file-meta').textContent = `${state.catalog.file} · ${pub} public · ${apps.length - pub} hidden`;
+          $('save-file').textContent = state.catalog.file;
+          renderList();
+          // Fill readiness lazily, one at a time, so the list renders instantly.
+          for (const app of apps) {
+            if (state.catalog.readiness[app.slug]) continue;
+            try {
+              const r = await api('probe', { sub: subOf(app.url) });
+              state.catalog.readiness[app.slug] = r.readiness;
+              renderList();
+            } catch { /* shown as "?" */ }
+          }
+        }
+
+        let dragSlug = null;
+        function renderList() {
+          const { apps, readiness } = state.catalog;
+          const list = $('list');
+          list.replaceChildren();
+          apps.forEach((app, i) => {
+            const r = readiness[app.slug];
+            const status = el('select', {
+              'aria-label': `Status of ${app.name}`,
+              onclick: (e) => e.stopPropagation(),
+              onchange: (e) => changeStatus(app.slug, e.target.value, e.target, app.status),
+            }, ...state.catalog.statuses.map((s) => el('option', { value: s, selected: s === app.status }, s)));
+            const move = (delta) => (e) => {
+              e.stopPropagation();
+              const order = apps.map((a) => a.slug);
+              const j = i + delta;
+              if (j < 0 || j >= order.length) return;
+              [order[i], order[j]] = [order[j], order[i]];
+              reorder(order);
+            };
+            const li = el('li', {
+              class: `entry${state.current && state.current.slug === app.slug ? ' active' : ''}`,
+              draggable: 'true', tabindex: '0',
+              onclick: () => editApp(app.slug),
+              onkeydown: (e) => { if (e.key === 'Enter') editApp(app.slug); },
+              ondragstart: () => { dragSlug = app.slug; },
+              ondragover: (e) => { e.preventDefault(); li.classList.add('dragover'); },
+              ondragleave: () => li.classList.remove('dragover'),
+              ondrop: (e) => {
+                e.preventDefault();
+                li.classList.remove('dragover');
+                if (!dragSlug || dragSlug === app.slug) return;
+                const order = apps.map((a) => a.slug).filter((s) => s !== dragSlug);
+                order.splice(order.indexOf(app.slug), 0, dragSlug);
+                reorder(order);
+              },
+            },
+              el('span', { class: 'grip', 'aria-hidden': 'true' }, '⋮⋮'),
+              el('div', { class: 'body' },
+                el('div', { class: 'name' }, app.name),
+                el('div', { class: 'sub' }, `${app.category} · `, status)),
+              el('button', { class: 'icon-btn', type: 'button', 'aria-label': `Move ${app.name} up`, onclick: move(-1) }, '↑'),
+              el('button', { class: 'icon-btn', type: 'button', 'aria-label': `Move ${app.name} down`, onclick: move(1) }, '↓'),
+              el('span', { class: `score ${scoreClass(r)}`, title: 'Readiness checks passing' }, r ? `${r.score}/${r.total}` : '?/9'));
+            list.append(li);
+          });
+        }
+
+        async function changeStatus(slug, status, select, previous) {
+          showErrors('list-errors', null);
+          try {
+            await api('status', { slug, status });
+            await reloadKeepingReadiness();
+          } catch (error) {
+            select.value = previous;
+            showErrors('list-errors', error);
+          }
+        }
+
+        async function reorder(slugs) {
+          showErrors('list-errors', null);
+          try {
+            await api('reorder', { slugs });
+            await reloadKeepingReadiness();
+          } catch (error) {
+            showErrors('list-errors', error);
+          }
+        }
+
+        async function reloadKeepingReadiness() {
+          const known = state.catalog ? state.catalog.readiness : {};
+          state.catalog = await api('catalog');
+          for (const [slug, r] of Object.entries(known)) if (r && !state.catalog.readiness[slug]) state.catalog.readiness[slug] = r;
+          renderList();
+        }
+
+        // ------------------------------------------------------------ add flow
+        function existingSubs() {
+          return state.catalog ? state.catalog.apps.map((a) => subOf(a.url)) : [];
+        }
+
+        function onSubInput() {
+          const sub = $('sub').value.trim().toLowerCase();
+          const valid = LABEL_RE.test(sub);
+          const dupe = valid && existingSubs().includes(sub);
+          $('fetch-btn').disabled = !valid || dupe || state.busy || (state.current && state.current.mode === 'edit');
+          $('sub-hint').textContent = dupe
+            ? `“${sub}” is already in the catalog. Edit it from the list on the left instead.`
+            : 'Lowercase letters, digits and hyphens. The site must already be live over HTTPS.';
+          $('sub-hint').style.color = dupe ? 'var(--warn)' : '';
+        }
+
+        function setSteps(n) {
+          for (let i = 1; i <= 4; i++) $(`step-${i}`).classList.toggle('on', i <= n);
+        }
+
+        function renderReadiness(sub, r) {
+          $('readiness-panel').hidden = false;
+          $('readiness-title').textContent = `Readiness · ${sub}.deviloper.dev`;
+          const score = $('readiness-score');
+          score.className = `score ${scoreClass(r)}`;
+          score.textContent = r ? `${r.score}/${r.total} passing` : 'not checked yet';
+          const list = $('checks');
+          list.replaceChildren();
+          if (!r) {
+            list.append(el('li', {}, el('button', { class: 'btn secondary', type: 'button', onclick: () => recheck(sub) }, 'Check readiness')));
+            return;
+          }
+          for (const c of r.checks) {
+            list.append(el('li', {},
+              el('span', { class: `badge ${c.level}` }, c.level.toUpperCase()),
+              el('div', {}, el('div', {}, c.label), el('div', { class: 'small muted' }, c.detail))));
+          }
+        }
+
+        async function recheck(sub) {
+          try {
+            const r = await api('probe', { sub });
+            if (state.current) state.current.readiness = r.readiness;
+            if (r.exists) state.catalog.readiness[r.exists] = r.readiness;
+            renderReadiness(sub, r.readiness);
+            renderList();
+            refreshGate();
+          } catch (error) {
+            showErrors('save-errors', error);
+          }
+        }
+
+        async function fetchDetails(e) {
+          e.preventDefault();
+          const sub = $('sub').value.trim().toLowerCase();
+          state.busy = true;
+          $('fetch-btn').textContent = 'Fetching…';
+          onSubInput();
+          try {
+            const r = await api('probe', { sub });
+            state.current = { mode: 'new', slug: r.draft.slug, sub, app: r.draft, readiness: r.readiness, saved: false };
+            renderReadiness(sub, r.readiness);
+            fillForm(r.draft);
+            setSteps(3);
+          } catch (error) {
+            showErrors('save-errors', error);
+            $('save-panel').hidden = false;
+          } finally {
+            state.busy = false;
+            $('fetch-btn').textContent = 'Fetch details';
+            onSubInput();
+          }
+        }
+
+        function newApp() {
+          state.current = null;
+          $('main-title').textContent = 'Add a new app';
+          $('main-intro').hidden = false;
+          $('sub').value = '';
+          $('sub').readOnly = false;
+          for (const id of ['readiness-panel', 'details-panel', 'previews-panel', 'save-panel']) $(id).hidden = true;
+          showErrors('save-errors', null);
+          $('save-ok').textContent = '';
+          setSteps(1);
+          onSubInput();
+          renderList();
+          $('sub').focus();
+        }
+
+        function editApp(slug) {
+          const app = state.catalog.apps.find((a) => a.slug === slug);
+          if (!app) return;
+          const sub = subOf(app.url);
+          state.current = { mode: 'edit', slug, sub, app, readiness: state.catalog.readiness[slug], saved: true };
+          $('main-title').textContent = `Edit ${app.name}`;
+          $('main-intro').hidden = true;
+          $('sub').value = sub;
+          $('sub').readOnly = true;
+          onSubInput();
+          renderReadiness(sub, state.current.readiness);
+          fillForm(app);
+          setSteps(4);
+          renderList();
+        }
+
+        // ------------------------------------------------------------ details form
+        function fillForm(app) {
+          for (const id of ['details-panel', 'previews-panel', 'save-panel']) $(id).hidden = false;
+          showErrors('save-errors', null);
+          $('save-ok').textContent = '';
+          $('f-name').value = app.name || '';
+          $('f-slug').value = app.slug;
+          $('slug-path').textContent = `/apps/${app.slug}/`;
+          $('f-category').value = app.category;
+          $('f-status').value = app.status === 'draft' ? 'live' : app.status;
+          $('f-tagline').value = app.tagline || '';
+          $('f-description').value = app.description || '';
+          $('f-features').value = (app.features || []).join('\n');
+          $('f-howto').value = (app.howTo || []).join('\n');
+          $('f-tags').value = (app.tags || []).join(', ');
+          $('f-privacy').value = app.privacy || '';
+          $('f-controls').value = app.controls || '';
+          $('f-accent').value = /^#[0-9a-f]{6}$/i.test(app.accent) ? app.accent : '#2dd4bf';
+          document.querySelectorAll('input[name=device]').forEach((box) => { box.checked = (app.devices || []).includes(box.value); });
+          $('f-account').checked = !!app.requiresAccount;
+          $('f-featured').checked = !!app.featured;
+          showPreviews(app);
+          refreshGate();
+        }
+
+        function formApp(status) {
+          const base = state.current.app;
+          const app = {
+            ...base,
+            name: $('f-name').value.trim(),
+            category: $('f-category').value,
+            status,
+            tagline: $('f-tagline').value.trim(),
+            description: $('f-description').value.trim(),
+            features: lines($('f-features').value),
+            howTo: lines($('f-howto').value),
+            tags: $('f-tags').value.split(',').map((s) => s.trim()).filter(Boolean),
+            privacy: $('f-privacy').value.trim(),
+            devices: [...document.querySelectorAll('input[name=device]:checked')].map((b) => b.value),
+            accent: $('f-accent').value.toUpperCase(),
+            requiresAccount: $('f-account').checked,
+            featured: $('f-featured').checked,
+          };
+          const controls = $('f-controls').value.trim();
+          if (controls) app.controls = controls; else delete app.controls;
+          return app;
+        }
+
+        function gateReasons(app) {
+          const L = state.catalog.limits;
+          const reasons = [];
+          if (!app.name) reasons.push('name is empty');
+          if (!app.tagline || app.tagline.startsWith('TODO')) reasons.push('tagline needs writing');
+          if (app.tagline.length > L.taglineMax) reasons.push(`tagline is over ${L.taglineMax} characters`);
+          if (words(app.description) < L.descriptionMinWords || app.description.startsWith('TODO')) {
+            reasons.push(`description needs ${L.descriptionMinWords}+ words of original copy`);
+          }
+          if (app.features.length < L.listMinItems) reasons.push(`${L.listMinItems}+ features needed`);
+          if (app.howTo.length < L.listMinItems) reasons.push(`${L.listMinItems}+ how-to steps needed`);
+          if (!app.privacy || app.privacy.startsWith('TODO')) reasons.push('privacy note needed');
+          if (app.devices.length === 0) reasons.push('pick at least one device');
+          if (app.tags.length < 1 || app.tags.length > 5) reasons.push('1–5 tags needed');
+          if (['live', 'beta'].includes(app.status) && !(app.preview && (app.preview.light || app.preview.dark))) {
+            reasons.push('capture previews first');
+          }
+          const https = state.current.readiness && state.current.readiness.checks.find((c) => c.id === 'https');
+          if (https && https.level === 'fail') reasons.push('the site is not reachable over HTTPS');
+          return reasons;
+        }
+
+        function counter(id, text, ok) {
+          const node = $(id);
+          node.textContent = text;
+          node.className = `count ${ok ? 'ok' : 'bad'}`;
+        }
+
+        function refreshGate() {
+          if (!state.current || !state.catalog) return;
+          const L = state.catalog.limits;
+          const publishStatus = $('f-status').value;
+          const app = formApp(PUBLIC.includes(publishStatus) ? publishStatus : 'live');
+          counter('c-tagline', `${app.tagline.length}/${L.taglineMax}`, app.tagline.length > 0 && app.tagline.length <= L.taglineMax);
+          const w = words(app.description);
+          counter('c-desc', `${w} / ${L.descriptionMinWords} words min`, w >= L.descriptionMinWords);
+          counter('c-features', `${app.features.length}/${L.listMinItems}+`, app.features.length >= L.listMinItems);
+          counter('c-howto', `${app.howTo.length}/${L.listMinItems}+`, app.howTo.length >= L.listMinItems);
+
+          const hiddenStatus = publishStatus === 'private' ? 'private' : 'draft';
+          $('draft-btn').textContent = hiddenStatus === 'private' ? 'Save as private' : 'Save as draft';
+          const reasons = PUBLIC.includes(publishStatus) ? gateReasons(app) : ['choose Live, Beta or Coming soon to publish'];
+          $('publish-btn').disabled = reasons.length > 0;
+          $('publish-btn').textContent = PUBLIC.includes(publishStatus) ? `Publish as ${publishStatus}` : 'Publish to catalog';
+          $('publish-reason').textContent = reasons.length ? `Can’t publish yet: ${reasons.join('; ')}.` : '';
+
+          $('card-bar').style.background = app.accent;
+          $('card-cat').textContent = app.category;
+          $('card-name').textContent = app.name || 'Untitled';
+          $('card-tagline').textContent = app.tagline || 'Tagline goes here';
+          $('card-host').textContent = `${state.current.sub}.deviloper.dev`;
+        }
+
+        function showPreviews(app) {
+          const bust = `?t=${Date.now()}`;
+          for (const theme of ['light', 'dark']) {
+            const img = $(`p-${theme}`);
+            const src = app.preview && app.preview[theme];
+            if (src) { img.src = src + bust; img.hidden = false; } else { img.removeAttribute('src'); img.hidden = true; }
+          }
+        }
+
+        async function save(status) {
+          showErrors('save-errors', null);
+          $('save-ok').textContent = '';
+          const app = formApp(status);
+          try {
+            await api('save', { app });
+            await reloadKeepingReadiness();
+            const saved = state.catalog.apps.find((a) => a.slug === app.slug);
+            if (state.current.readiness) state.catalog.readiness[app.slug] = state.current.readiness;
+            state.current = { ...state.current, mode: 'edit', app: saved, saved: true };
+            $('save-ok').textContent = `Saved ${app.slug} as ${status}. Commit src/data/catalog.yaml when ready.`;
+            setSteps(4);
+            renderList();
+            onSubInput();
+            refreshGate();
+          } catch (error) {
+            showErrors('save-errors', error);
+          }
+        }
+
+        async function capture() {
+          if (!state.current || !state.current.saved) {
+            $('capture-msg').textContent = 'Save the entry first (as a draft is fine), then capture.';
+            return;
+          }
+          $('capture-btn').disabled = true;
+          $('capture-msg').textContent = 'Capturing light/dark × desktop/mobile with ads blocked… (about a minute)';
+          try {
+            const r = await api('previews', { slug: state.current.slug });
+            await reloadKeepingReadiness();
+            const app = state.catalog.apps.find((a) => a.slug === state.current.slug);
+            state.current.app = app;
+            showPreviews(app);
+            refreshGate();
+            $('capture-msg').textContent = r.failures.length
+              ? `Some shots failed: ${r.failures.join('; ')}`
+              : `Captured ${r.written.length} files.`;
+          } catch (error) {
+            $('capture-msg').textContent = `Capture failed: ${error.message}`;
+          } finally {
+            $('capture-btn').disabled = false;
+          }
+        }
+
+        $('sub').addEventListener('input', onSubInput);
+        $('sub-form').addEventListener('submit', fetchDetails);
+        $('new-btn').addEventListener('click', newApp);
+        $('details-panel').addEventListener('input', refreshGate);
+        $('details-panel').addEventListener('change', refreshGate);
+        $('draft-btn').addEventListener('click', () => save($('f-status').value === 'private' ? 'private' : 'draft'));
+        $('publish-btn').addEventListener('click', () => save($('f-status').value));
+        $('capture-btn').addEventListener('click', capture);
+
+        loadCatalog().catch((error) => {
+          $('file-meta').textContent = `Could not load the catalog: ${error.message}`;
+        });
+      })();
+    </script>
+  </body>
+</html>

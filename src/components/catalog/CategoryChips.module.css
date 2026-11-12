@@ -1,0 +1,71 @@
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.chip:hover {
+  border-color: var(--color-border-strong);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.chip[data-empty]:not([aria-pressed='true']) {
+  color: var(--color-muted);
+}
+
+/* Phones: one horizontally scrolling row that bleeds to the screen edges. */
+@media (max-width: 767px) {
+  .scroller {
+    margin-inline: calc(-1 * var(--gutter));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .group {
+    flex-wrap: nowrap;
+    gap: var(--space-2);
+    width: max-content;
+    /* Room for the 3px focus outline offset so it is never clipped. */
+    padding: 6px var(--gutter);
+  }
+}

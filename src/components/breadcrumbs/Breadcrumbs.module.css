@@ -1,0 +1,25 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-muted);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.current {
+  color: var(--color-text);
+}

@@ -1,0 +1,291 @@
+# deviloper.dev catalog: the single source of truth for every app on the hub (PRD §7).
+#
+# Validated at build time by src/catalog/schema.ts via scripts/vite-plugin-catalog.ts;
+# any error fails `vite build` with the offending path (e.g. apps[2].description).
+#
+# Status rules:
+#   live | beta | coming-soon  public. Needs a description of at least 150 words,
+#                              3+ features and 3+ howTo steps; tagline at most 90 chars.
+#   draft | private            NEVER shipped. Filtered out before the client bundle,
+#                              pages, search and sitemaps are built. Short copy is fine.
+#
+# Other rules: slug is lowercase kebab-case and unique; url is https://<sub>.deviloper.dev
+# and unique; tags 1-5; accent is a hex color; dates are YYYY-MM-DD. Set `sitemap` only
+# when the subdomain serves a real sitemap (not a soft 404).
+
+site:
+  name: deviloper.dev
+  tagline: Side projects, small tools & games.
+  description: >-
+    A growing collection of things I build in my spare time — free to use, no sign-up.
+    Each one lives on its own deviloper.dev subdomain.
+  url: https://deviloper.dev
+  email: hello@deviloper.dev
+
+apps:
+  - slug: online-ruler
+    name: Online Ruler
+    url: https://onlineruler.deviloper.dev
+    category: tool
+    status: live
+    featured: true
+    tagline: An actual-size ruler on your screen, in centimeters, inches or pixels.
+    description: >-
+      Online Ruler turns the edges of your screen into a ruler you can hold real objects
+      against. It shows markings in centimeters, inches or pixels, and you can switch units
+      at any time. Rulers can run along the top, bottom, left or right edge, in any
+      combination, so you can measure across the display or down it.
+
+      A browser has no way of knowing how large your screen physically is, so by default it
+      assumes the CSS reference density of 96 pixels per inch. Most modern displays are
+      denser than that, which is why the tool asks you to calibrate before you rely on a
+      centimeter or inch reading. There are three ways to do it: pick your phone, tablet,
+      laptop or monitor from a built-in device list; enter the screen's diagonal size; or
+      drag an on-screen card outline until it matches a standard bank card (85.6 × 54 mm).
+      The card method needs nothing more than a card from your wallet, and it works for
+      devices that are not on the list.
+
+      Your calibration is saved in the browser, so you only need to do it once on each
+      device. Crosshair guides follow the pointer, and clicking places markers that stay on
+      screen until you press Escape. There are dark and light themes, nothing to install and
+      no account to create.
+    features:
+      - Rulers in centimeters, inches and pixels, switchable at any time
+      - Three calibration methods, using a device list, the screen diagonal or a bank card
+      - Rulers on the top, bottom, left and right edges, in any combination
+      - Crosshair guides with click-to-place markers
+      - Dark and light themes, with calibration remembered in your browser
+    howTo:
+      - Open the ruler. It appears along the edges of the screen straight away.
+      - Calibrate once using the device list, your screen's diagonal, or a bank card held against the screen.
+      - Choose a unit and turn on the ruler edges you need.
+      - Line one end of the object up with the zero mark and read the length off the ticks.
+      - Turn on the crosshair guides to mark points; press Escape to clear the markers.
+    tags: [measurement, calibration, utility]
+    privacy: Runs entirely in your browser; your calibration is stored locally on your device and nothing you measure is sent to a server.
+    devices: [desktop, tablet, phone]
+    accent: '#2DD4BF'
+    updatedAt: '2026-11-11'
+    previewKind: ruler
+    preview:
+      light: /previews/online-ruler.webp
+      og: /previews/online-ruler-og.png
+    sitemap: https://onlineruler.deviloper.dev/sitemap-index.xml
+
+  - slug: charcap
+    name: CharCap
+    url: https://character-counter.deviloper.dev
+    category: tool
+    status: live
+    featured: true
+    tagline: A live character counter with the limits of 20+ platforms side by side.
+    description: >-
+      CharCap is a character counter for writing that has to fit somewhere. Type or paste a
+      draft and it counts characters, words, sentences and paragraphs as you go, along with
+      an estimated reading time. Next to the editor, a grid shows how the same text measures
+      up against more than 20 platform and field limits at once, including an X post (280),
+      an Instagram caption (2,200), a LinkedIn post (3,000), a TikTok caption, YouTube titles
+      and descriptions, a single SMS message, SEO page titles and meta descriptions, and
+      email subject lines.
+
+      Each limit has a progress bar that changes color as you approach it and again when you
+      go over, so you can see at a glance where a post would be cut off. Some platforms hide
+      text well before the hard limit, behind a "See more" link. CharCap marks those
+      recommended lengths with a tick on the bar, which helps you keep the important part of
+      a message in view. Tabs narrow the grid to social, SEO, messaging or email fields when
+      you only care about one kind of destination.
+
+      It is most useful when one piece of text is headed for several places, such as an
+      announcement, a short bio or a page's meta tags. Counting happens in your browser as
+      you type. Your text is not sent to a server, and there is no account to create.
+    features:
+      - Live counts of characters, words, sentences and paragraphs, plus reading time
+      - Limits for 20+ platforms and fields, including X, Instagram, LinkedIn, TikTok, YouTube, SMS and SEO tags
+      - Color-coded progress bars that show when you are close to or over a limit
+      - Tick marks for recommended lengths where a feed truncates text
+      - Category tabs for social, SEO, messaging and email limits
+    howTo:
+      - Type or paste your text into the editor.
+      - Watch the counts and the platform grid update as you write.
+      - Use the tabs to show only the platforms you are writing for.
+      - Trim or rework the text until every destination you need is within its limit.
+    tags: [writing, social media, utility]
+    privacy: Runs entirely in your browser; the text you type is never sent to a server or stored.
+    devices: [desktop, tablet, phone]
+    accent: '#60A5FA'
+    updatedAt: '2026-11-11'
+    previewKind: counter
+    preview:
+      light: /previews/charcap-light.webp
+      dark: /previews/charcap-dark.webp
+      og: /previews/charcap-og.png
+    sitemap: https://character-counter.deviloper.dev/sitemap-index.xml
+
+  - slug: game-of-life
+    name: Game of Life
+    url: https://gameoflife.deviloper.dev
+    category: simulation
+    status: live
+    tagline: Conway's Game of Life on a grid you can draw on, start, stop and randomize.
+    description: >-
+      Game of Life is a browser version of the cellular automaton devised by the
+      mathematician John Conway in 1970. The world is a grid of square cells, each of which
+      is either alive or dead. There is no player once it starts: you set up a starting
+      pattern and watch what the rules make of it, one generation at a time.
+
+      Each generation, every cell looks at its eight neighbors and four rules decide what
+      happens next. A live cell with fewer than two live neighbors dies, as if from
+      isolation. A live cell with two or three live neighbors survives. A live cell with more
+      than three live neighbors dies, as if from overcrowding. A dead cell with exactly three
+      live neighbors comes to life.
+
+      Those few rules are enough to produce a surprising range of behavior. In Conway's
+      game, some patterns settle into still shapes, some flip back and forth between two
+      states, and some drift across the grid. A random start often churns for a long time
+      before it calms down.
+
+      Here you can click cells to switch them on or off, fill the board with a random
+      pattern, start and stop the simulation, and reset to an empty grid. A counter shows how
+      many generations have passed. It is a simple, hands-on way to see complex behavior
+      emerge from simple local rules.
+    features:
+      - A full-window grid of cells you can toggle with a click
+      - Start, Stop, Reset and Random controls
+      - A generation counter that shows how far the simulation has run
+      - Conway's four classic rules of survival, death and birth
+    howTo:
+      - Click cells on the grid to bring them to life, or press Random to fill the board.
+      - Press Start to run the simulation and watch the generation counter climb.
+      - Press Stop to pause, then click cells to change the pattern before starting again.
+      - Press Reset to clear the grid and start from scratch.
+    tags: [cellular automata, emergence, classic]
+    privacy: Runs entirely in your browser and does not collect anything you draw or click.
+    devices: [desktop, tablet]
+    controls: Click or tap cells to toggle them; on-screen buttons for everything else
+    accent: '#34D399'
+    updatedAt: '2026-11-11'
+    previewKind: life
+    preview:
+      light: /previews/game-of-life.webp
+      og: /previews/game-of-life-og.png
+
+  - slug: ping-pong
+    name: Ping Pong
+    url: https://ping-pong.deviloper.dev
+    category: game
+    status: live
+    tagline: Classic Pong against the computer, played with your mouse.
+    description: >-
+      Ping Pong is a small take on the classic arcade game Pong, played in the browser
+      against a computer opponent. Your paddle sits on the left side of the court and the
+      computer's on the right. The ball bounces between them and off the top and bottom
+      walls, and you score a point each time it gets past the other paddle.
+
+      You steer your paddle with the mouse: move the pointer up and down over the court and
+      the paddle follows it. There are no menus to get through. The game starts as soon as
+      the page loads, and the score for each side is shown at the top of the court. After
+      every point the ball returns to the center and play carries on.
+
+      Where the ball meets your paddle matters. Hits near the middle send it back fairly
+      flat, while hits near the ends send it off at a steeper angle, which is the main way to
+      wrong-foot the computer. The ball also speeds up a little with every hit, so long
+      rallies get harder the longer they last. The computer paddle tracks the ball smoothly
+      rather than perfectly, so it can be beaten.
+
+      The court is a compact 600 by 400 pixel canvas, which makes this a quick game for a
+      short break. Because the paddle follows mouse movement, it is designed for a mouse or
+      trackpad, and a desktop or laptop is recommended.
+    features:
+      - Single-player Pong against a computer opponent
+      - Mouse control with no setup or menus
+      - Hit angle depends on where the ball meets your paddle
+      - The ball speeds up with each hit, so rallies get harder
+      - Running score for you and the computer
+    howTo:
+      - Open the game on a desktop or laptop. Play starts right away.
+      - Move your mouse up and down over the court to position your paddle on the left.
+      - Meet the ball near the ends of the paddle to send it back at a sharper angle.
+      - Get the ball past the computer's paddle to score, and keep it from getting past yours.
+    tags: [arcade, classic, single player]
+    privacy: Runs entirely in your browser and does not collect your input or scores.
+    devices: [desktop]
+    controls: Mouse
+    accent: '#F472B6'
+    updatedAt: '2026-11-11'
+    previewKind: pong
+    preview:
+      light: /previews/ping-pong.webp
+      og: /previews/ping-pong-og.png
+
+  - slug: primordia
+    name: Primordia
+    url: https://primordia.deviloper.dev
+    category: simulation
+    status: live
+    tagline: A 3D artificial-life sandbox where organisms hunt, breed and evolve.
+    description: >-
+      Primordia is an artificial-life sandbox rendered in 3D in the browser. It fills a
+      small world with simulated organisms and leaves them to get on with living. Each
+      organism carries a genome that shapes its traits, spends energy to survive and has a
+      limited lifespan. Organisms hunt, and those that last long enough reproduce, passing
+      their genome on to their offspring. Over many generations the population evolves, as
+      the traits that help organisms survive become more common.
+
+      More than one species can share the world, and live charts track how each population
+      rises and falls over time. You can pick out an individual organism to inspect it and
+      have the camera follow it around. A run ends when a single lineage has taken over the
+      world, and you can then reset and start again with a fresh world.
+
+      A control panel lets you pause the simulation, step it forward one tick at a time,
+      change its speed, and adjust settings such as the map size, water level, random seed
+      and the species in play; some of these take effect on the next reset. Keyboard
+      shortcuts cover the common actions: Space pauses and resumes, the period key steps
+      forward, R resets the world and H shows or hides the panel.
+
+      Primordia draws a full 3D scene and runs a continuous simulation, so a desktop or
+      laptop is recommended.
+    features:
+      - A 3D world of organisms with genomes, energy and lifespans
+      - Hunting, reproduction and evolution across generations
+      - Live population charts for each species
+      - Inspect an individual organism and follow it with the camera
+      - Pause, single-step and speed controls, plus settings for the next world
+    howTo:
+      - Open Primordia on a desktop or laptop and let the first world start.
+      - Drag to move the camera and watch the population charts as species compete.
+      - Select an organism to inspect it and follow it around the world.
+      - Use the control panel, or press H, to pause, step, change speed or adjust settings.
+      - Press R to reset and start a new world once a lineage has taken over.
+    tags: [artificial life, evolution, emergence]
+    privacy: Runs entirely in your browser and does not collect your input.
+    devices: [desktop]
+    controls: Mouse to move the camera and select organisms; Space to pause, period to step, R to reset, H for the control panel
+    accent: '#A78BFA'
+    updatedAt: '2026-11-11'
+    previewKind: prim
+    preview:
+      light: /previews/primordia.webp
+      og: /previews/primordia-og.png
+
+  # Private: friends only, not listed publicly, no ads. Filtered out of every public build.
+  - slug: verdict
+    name: Verdict
+    url: https://verdict.deviloper.dev
+    category: app
+    status: private
+    requiresAccount: true
+    tagline: A fixed record of what your group decided.
+    description: >-
+      A private app for small groups to record decisions. A decision is sealed once every
+      required member has weighed in and cannot be rewritten afterwards. Requires sign-in.
+    features:
+      - Group decisions sealed once all required members respond
+      - Sealed decisions cannot be edited afterwards
+    howTo:
+      - Sign in to see and record your group's decisions.
+    tags: [groups, decisions]
+    privacy: Requires an account; group decisions are stored by the app for its members.
+    devices: [desktop, phone]
+    accent: '#FBBF24'
+    updatedAt: '2026-11-11'
+    previewKind: verdict

@@ -1,0 +1,159 @@
+/* Design tokens. Colour values come from the design PAL (design/README.md). */
+
+/* Calibrated fallbacks: keep layout stable while web fonts swap in. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22.43%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Space Grotesk Fallback';
+  src: local('Arial');
+  size-adjust: 104%;
+  ascent-override: 95%;
+  descent-override: 28%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New');
+  size-adjust: 100%;
+  ascent-override: 102%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0a0f1a;
+  --color-surface: #111827;
+  --color-preview-bg: #0d1420;
+  --color-border: #1e293b;
+  --color-border-strong: #334155;
+  --color-text: #e6edf7;
+  --color-muted: #9aa8be;
+  --color-accent: #2dd4bf;
+  --color-accent-text: #5eead4;
+  --color-on-accent: #042f2a;
+  --color-chip-bg: #172033;
+  --color-ghost: #243047;
+  --color-tick: #64748b;
+  --color-live: #34d399;
+  --color-warn: #fbbf24;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  --shadow-input: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-preview-bg: #eef1f5;
+  --color-border: #e2e7ee;
+  --color-border-strong: #c9d1dc;
+  --color-text: #0e1420;
+  --color-muted: #4a5568;
+  --color-accent: #0f766e;
+  --color-accent-text: #0f766e;
+  --color-on-accent: #ffffff;
+  --color-chip-bg: #edf1f6;
+  --color-ghost: #dde3eb;
+  --color-tick: #94a3b8;
+  --color-live: #047857;
+  --color-warn: #a94f08;
+  --shadow-card: 0 6px 20px -12px rgba(15, 23, 42, 0.25);
+  --shadow-input: 0 6px 20px -12px rgba(15, 23, 42, 0.25);
+}
+
+/* No-JS users get the system theme. With JS, data-theme is always set. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --color-bg: #f6f7f9;
+    --color-surface: #ffffff;
+    --color-preview-bg: #eef1f5;
+    --color-border: #e2e7ee;
+    --color-border-strong: #c9d1dc;
+    --color-text: #0e1420;
+    --color-muted: #4a5568;
+    --color-accent: #0f766e;
+    --color-accent-text: #0f766e;
+    --color-on-accent: #ffffff;
+    --color-chip-bg: #edf1f6;
+    --color-ghost: #dde3eb;
+    --color-tick: #94a3b8;
+    --color-live: #047857;
+    --color-warn: #a94f08;
+    --shadow-card: 0 6px 20px -12px rgba(15, 23, 42, 0.25);
+    --shadow-input: 0 6px 20px -12px rgba(15, 23, 42, 0.25);
+  }
+}
+
+:root {
+  /* Typography */
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', 'Space Grotesk Fallback', 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --text-xs: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem);
+  --text-sm: clamp(0.8125rem, 0.8rem + 0.07vw, 0.875rem);
+  --text-base: 1rem;
+  --text-md: clamp(1.0625rem, 1.03rem + 0.15vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.07rem + 0.25vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --text-3xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  --text-hero: clamp(40px, 6vw, 68px);
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --container-max: 1200px;
+  --gutter: 24px;
+  --tap-min: 44px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --duration-slow: 300ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-toast: 300;
+  --z-skip-link: 1000;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --gutter: 16px;
+  }
+}

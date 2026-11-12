@@ -1,0 +1,113 @@
+# Weekly health check (PRD §5.8 R7). Probes every catalog entry; if a live app is down,
+# or lost the AdSense/GA4 tag it had last time, it opens (or updates) ONE issue labelled
+# `catalog-health`. The last-known state is stored in that issue's body, so reruns are
+# idempotent. When everything recovers, the issue is updated and closed.
+name: Catalog health check
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: catalog-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Probe every entry
+        run: npx tsx scripts/catalog/cli.ts check --json > "$RUNNER_TEMP/health.json"
+
+      - name: Open, update or close the health issue
+        uses: actions/github-script@v7
+        env:
+          REPORT: ${{ runner.temp }}/health.json
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync(process.env.REPORT, 'utf8'));
+            const LABEL = 'catalog-health';
+            const TITLE = 'Catalog health check: a live app needs attention';
+            const STATE_RE = /<!-- health-state: (.*?) -->/s;
+            const { owner, repo } = context.repo;
+
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, labels: LABEL, state: 'all', per_page: 100,
+            });
+            const issue = issues.filter((i) => !i.pull_request)
+              .sort((a, b) => b.number - a.number)[0];
+            let previous = {};
+            const match = issue && issue.body && issue.body.match(STATE_RE);
+            if (match) { try { previous = JSON.parse(match[1]); } catch {} }
+
+            const live = report.apps.filter((a) => a.status === 'live' || a.status === 'beta');
+            const state = {};
+            const problems = [];
+            for (const app of live) {
+              const before = previous[app.slug] || {};
+              // "had" sticks once seen, so a lost tag keeps being reported until it is back.
+              state[app.slug] = {
+                ok: app.ok,
+                hadAdsense: app.adsense || !!before.hadAdsense,
+                hadGa4: app.ga4 || !!before.hadGa4,
+              };
+              if (!app.ok) problems.push(`- **${app.name}** (${app.url}) is down: HTTP ${app.httpStatus || 'unreachable'}`);
+              if (before.hadAdsense && !app.adsense) problems.push(`- **${app.name}** lost its AdSense tag`);
+              if (before.hadGa4 && !app.ga4) problems.push(`- **${app.name}** lost its GA4 tag`);
+            }
+
+            const table = [
+              '| App | Status | Up | AdSense | GA4 | Score |',
+              '|---|---|---|---|---|---|',
+              ...report.apps.map((a) =>
+                `| ${a.name} | ${a.status} | ${a.ok ? 'yes' : '**no**'} | ${a.adsense ? 'yes' : 'no'} | ${a.ga4 ? 'yes' : 'no'} | ${a.score}/${a.total} |`),
+            ].join('\n');
+            const body = [
+              problems.length ? '### Problems' : '### All live apps are healthy',
+              '',
+              problems.join('\n') || 'Nothing to fix.',
+              '',
+              `Checked ${report.checkedAt} by [this run](${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}).`,
+              '',
+              table,
+              '',
+              `<!-- health-state: ${JSON.stringify(state)} -->`,
+            ].join('\n');
+
+            if (problems.length) {
+              if (issue) {
+                await github.rest.issues.update({ owner, repo, issue_number: issue.number, body, title: TITLE, state: 'open' });
+                core.notice(`Updated issue #${issue.number}`);
+              } else {
+                const created = await github.rest.issues.create({ owner, repo, title: TITLE, body, labels: [LABEL] });
+                core.notice(`Opened issue #${created.data.number}`);
+              }
+            } else if (issue) {
+              // Keep the baseline up to date; close if it was open.
+              await github.rest.issues.update({ owner, repo, issue_number: issue.number, body, state: 'closed' });
+            } else {
+              // First run and healthy: record the baseline in a closed issue so a lost tag
+              // can be detected next week.
+              const created = await github.rest.issues.create({
+                owner, repo, title: 'Catalog health check (baseline)', body, labels: [LABEL],
+              });
+              await github.rest.issues.update({ owner, repo, issue_number: created.data.number, state: 'closed' });
+            }

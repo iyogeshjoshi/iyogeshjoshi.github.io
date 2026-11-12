@@ -1,0 +1,24 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-11T10:00:00Z" },
+  "title": "Deviloper.dev Catalog Hub",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 0, "w": 1440, "h": 2140, "title": "Catalog home — desktop (interactive)", "expand": "fill", "is_interactive": true },
+    "Detail.dc.html": { "x": 1520, "y": 0, "w": 1440, "h": 2240, "title": "App detail — Online Ruler", "expand": "fill", "is_interactive": true },
+    "Mobile.dc.html": { "x": 3040, "y": 0, "w": 390, "h": 3000, "title": "Catalog home — phone, light", "is_interactive": true },
+    "Studio.dc.html": { "x": 0, "y": 3200, "w": 1440, "h": 1640, "title": "Studio — add a new subdomain (local dev only)", "expand": "fill", "is_interactive": true }
+  },
+  "order": ["Main.dc.html", "Detail.dc.html", "Mobile.dc.html", "Studio.dc.html"],
+  "notes": {
+    "title": { "x": 0, "y": -300, "text": "deviloper.dev — catalog hub (v1 design)", "kind": "title1", "maxW": 3430 },
+    "n-previews": { "x": 0, "y": 2260, "w": 420, "fill": "teal", "text": "Previews: the card art is CSS-drawn for now. The build's Playwright script (PRD §5.5) replaces it with real light/dark screenshots. Ad/analytics hosts are blocked during capture." },
+    "n-ads": { "x": 500, "y": 2260, "w": 420, "fill": "orange", "text": "Ad slots are drawn as reserved, labelled boxes. Real units are added only after AdSense approval — until then the space collapses. Never adjacent to cards or CTAs." },
+    "n-open": { "x": 1000, "y": 2260, "w": 420, "fill": "pink", "text": "5 public apps shown (docs/subdomains.md). Verdict is private (friends only) — hidden from the catalog, listed in Studio as 'private'. Empty categories (Apps) hide their chip. Tagline: 'Side projects, small tools & games.' Hosted on GitHub Pages — static only." },
+    "n-theme": { "x": 1520, "y": 2360, "w": 420, "fill": "blue", "text": "Theme: header button cycles light → dark → auto (existing behaviour). Try it in Play on the home and detail boards." },
+    "n-studio": { "x": 1520, "y": 3200, "w": 460, "fill": "purple", "text": "Adding apps (PRD §5.8): one core script, three doors —\n1. Studio (this board), only under `npm run dev`, never deployed\n2. CLI: npm run catalog:add -- <sub>\n3. GitHub Action 'Add app' → opens a PR (works from phone)\nAll write src/data/catalog.yaml + previews. Merge = deploy." },
+    "n-studio-try": { "x": 2060, "y": 3200, "w": 380, "fill": "green", "text": "Try it in Play: type a subdomain (try 'verdict' to see the duplicate check), Fetch, fill tagline + 150-word description to unlock Publish." }
+  },
+  "designSystems": []
+}

@@ -1,108 +1,74 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (claude.ai/code) in this repository.
 
 ## Project Overview
 
-A personal portfolio website (deviloper.dev) built with React, TypeScript, and Vite. It features dark/light theme toggle, smooth animations via Framer Motion, and content managed through YAML files.
+deviloper.dev is a static **catalog hub**: a directory of apps (web tools, games, simulations), each hosted on its own `*.deviloper.dev` subdomain. It is built with React 18, TypeScript and Vite 5, and hosted on **GitHub Pages** (static files only: no server, no runtime secrets, no API calls to private services).
 
-## Build Commands
+The rewrite from the old portfolio is in progress on branch `feat/catalog-hub`. Source of truth for scope and status:
+- `docs/catalog-prd.md` (requirements, data model)
+- `docs/catalog-implementation-plan.md` (phased checklist; update it when a task is done)
+- `docs/subdomains.md` (app registry), `design/` (design reference)
 
-```bash
-npm run dev          # Start development server (port 3000)
-npm run build        # Type-check and build for production (outputs to dist/)
-npm run preview      # Preview production build locally (port 4173)
-npm run lint         # Run ESLint with strict warnings
-npm run lint:fix     # Auto-fix ESLint issues
-npm run format       # Format code with Prettier
-```
+**Current state (Phase 1):** only a placeholder page exists (`src/entry-client.tsx`, `src/pages/Placeholder.tsx`). Everything below marked *(planned)* is not built yet.
 
-## Test Commands
+## Commands
 
 ```bash
-npm run test              # Run all tests
-npm run test:watch        # Run tests in watch mode
-npm run test -- --testPathPattern="Hero"    # Run specific test file
-npm run test -- --testNamePattern="renders" # Run tests matching pattern
+npm run dev            # Vite dev server (port 3000)
+npm run build          # typecheck, then vite build -> dist/
+npm run preview        # serve dist/ (port 4173)
+npm run typecheck      # tsc for src and for vite.config.ts/scripts
+npm run lint           # ESLint, zero warnings allowed
+npm run lint:fix
+npm run format         # Prettier
+npm test               # Vitest, single run
+npm run test:watch
+npm run coverage
+npm test -- src/pages/Placeholder   # one file
+npm test -- -t "renders"            # by test name
 ```
 
-## Environment Variables
-
-Create `.env` (already gitignored) before running locally:
-
-```
-VITE_GITHUB_TOKEN=<personal_access_token>
-```
-
-The GitHub token is required for the Projects section. Without it, the section silently renders empty. The token is used to call the GitHub GraphQL API (`/graphql`) to fetch pinned repos, falling back to top repos by star count. Results are cached in `localStorage` for 1 hour under the key `github_repos_cache`.
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, test and build on PRs and `feat/**` pushes. `deploy.yml` deploys `master` to GitHub Pages. No secrets or tokens are used anywhere.
 
 ## Architecture
 
-### Data Flow
-- Portfolio content (`name`, `bio`, `tagline`, `skills`, `experiences`, `contact`) is loaded at runtime from `public/data.yaml` via `src/utils/yamlLoader.ts`
-- **Projects come exclusively from GitHub API** — `src/data/projects.ts` has an empty `projects` array by design; `src/utils/github.ts` fetches and maps repos into the `Project` type at runtime
-- Experiences from `data.yaml` are sorted by end date descending in `App.tsx` before being passed to `Experiences`
-- Theme preference stored in localStorage
+- **Multi-page static site** *(prerender planned, Phase 8)*: each route becomes its own `index.html`; navigation uses plain `<a>` links, no client router. Pages hydrate via `hydrateRoot` when `#root` has prerendered markup, else `createRoot`.
+- **Data** *(planned, Phase 2)*: `src/data/catalog.yaml` is the single source of truth, validated with zod at build time (build fails on bad data). Entries with `status: draft` or `status: private` must never appear in public pages, sitemaps, search index or JSON-LD.
+- **Styling** *(planned, Phase 3)*: CSS Modules plus CSS custom properties (design tokens in `src/styles/tokens.css`, light/dark). No styled-components or other CSS-in-JS.
+- **Theme** *(planned)*: `light | dark | auto`, cycling light -> dark -> auto, persisted in localStorage, with a no-flash inline script.
+- **Animation**: framer-motion, only where needed, respecting `prefers-reduced-motion`.
+- **Studio / add-app tooling** *(planned, Phases 6-11)*: dev-only Vite plugin (`apply: 'serve'`), never part of `dist/`.
+- **Ads/analytics**: the AdSense meta tag and script and GA4 (`G-PCZPZC1H5E`) live in `index.html`; keep them intact. Consent handling is planned (Phase 9).
 
-### data.yaml Contracts
-- Experience `duration` field must follow the format: `"MONTH YEAR - MONTH YEAR"` or `"MONTH YEAR - PRESENT"` (e.g., `"JANUARY 2022 - PRESENT"`). This is parsed by `parseDate()` in `App.tsx` — deviating from this format will cause incorrect sort order.
+Path alias: `@/` maps to `src/`.
 
-### Key Files
-- `src/index.tsx` - Entry point with global styles and CSS variables
-- `src/App.tsx` - Main app component; also houses `useTheme` and `useSystemTheme` hooks
-- `src/theme.ts` - Theme definitions (light/dark/auto) with color palettes and spacing
-- `src/components/` - React components (Hero, About, Skills, Projects, Contact, etc.)
-- `src/utils/github.ts` - GitHub GraphQL fetcher with localStorage cache
-- `src/utils/yamlLoader.ts` - Fetches and parses `public/data.yaml`
-- `public/data.yaml` - Portfolio content (name, bio, skills, experience, contact)
+### Key files
+- `index.html`: shell with SEO meta, AdSense, GA4
+- `src/entry-client.tsx`: client entry
+- `src/test/setup.ts`: Vitest setup (jest-dom, cleanup)
+- `vite.config.ts`: Vite and Vitest config (single file)
+- `public/`: static assets copied as is (CNAME, ads.txt, robots.txt, sitemaps, legal pages, resumes). `public/CNAME` is the only CNAME.
 
-### Theme System
-- Three theme types: `'light' | 'dark' | 'auto'` (auto follows system preference)
-- Toggle cycles in order: `light → dark → auto → light` (not a binary toggle)
-- CSS custom properties in `:root` and `[data-theme='light']` for theming
-- Styled-components ThemeProvider wraps the app
-- Theme toggle persists to localStorage
+## Code Style
 
-## Code Style Guidelines
+- TypeScript strict. Interfaces for object shapes, `type` for unions/primitives.
+- Functional components typed with `React.FC`; import React explicitly (`import React, { useState } from 'react'`).
+- `useCallback` for callbacks passed as props.
+- Import order: React, third-party, internal utils, internal components, types.
+- Naming: components PascalCase, hooks `useX`, config constants SCREAMING_SNAKE_CASE, interfaces without an `I` prefix.
+- Prettier: single quotes, semicolons, ES5 trailing commas, width 80.
+- Responsive: mobile first, one breakpoint at `768px`.
+- Accessibility is a requirement: semantic landmarks, visible focus, keyboard support, adequate contrast.
 
-### TypeScript
-- Strict mode enabled
-- Use interfaces for object types, types for unions/primitives
-- Use `React.FC` for component types
-- Prefix transient styled-component props with `$` (e.g., `$variant`)
+## Testing
 
-### Component Patterns
-- Functional components with hooks
-- Use `useCallback` for callbacks passed as props
-- Import React explicitly: `import React, { useState, useEffect } from 'react'`
+Vitest + React Testing Library + jest-dom, jsdom environment. No globals: import `describe`, `it`, `expect`, `vi` from `vitest`. Tests live next to the code (`*.test.ts(x)`), plus `scripts/**/*.test.ts`. Playwright for previews/e2e is planned.
 
-### Imports Order
-1. React imports
-2. Third-party libraries (styled-components, framer-motion, etc.)
-3. Internal utils
-4. Internal components
-5. Types/theme
+## Workflow rules
 
-### Naming Conventions
-- Components: PascalCase (`Hero`, `ProjectGallery`)
-- Hooks: camelCase starting with `use` (`useTheme`, `useTypingEffect`)
-- Constants: SCREAMING_SNAKE_CASE for config values
-- Interfaces: PascalCase without "I" prefix (`HeroProps` not `IHeroProps`)
-
-### CSS Variables
-Core variables used throughout:
-- `--bg-color`, `--text-color`, `--secondary-color`, `--accent-color`
-- `--card-bg`, `--card-border`, `--shadow-color`
-- `--spacing-xs` through `--spacing-5xl`
-- `--duration-fast`, `--duration-normal`, `--duration-slow`
-- `--easing-ease-out`, `--easing-ease-in-out`
-
-### Responsive Breakpoints
-- Mobile: default
-- Tablet/Desktop: 768px (`@media (min-width: 768px)`)
-
-## Deployment
-
-- GitHub Pages deployment via GitHub Actions (`.github/workflows/`)
-- Push to `master` triggers automatic deploy to deviloper.dev
-- Custom domain configured via `public/CNAME`
+- Conventional commits (`feat:`, `fix:`, `docs:`, `chore:`, ...).
+- Commit each verified task (conventional commits). Never push; the owner pushes.
+- Never add secrets, tokens or `.env` values to the repo or the build output; the site is public static files.
+- Keep `docs/catalog-implementation-plan.md` checklist current.

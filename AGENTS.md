@@ -1,103 +1,56 @@
 # AGENTS.md
 
+Instructions for coding agents working in this repository. See `CLAUDE.md` for the same guidance in more detail.
+
 ## Project Overview
 
-This is a React/TypeScript portfolio website built with Vite. The project uses styled-components for styling, framer-motion for animations, and Jest with React Testing Library for tests. Data is loaded from YAML files.
+deviloper.dev is a static catalog hub listing apps hosted on `*.deviloper.dev` subdomains. Stack: React 18, TypeScript (strict), Vite 5, framer-motion, zod, Vitest. Hosted on GitHub Pages (static files only). The rewrite is in progress on `feat/catalog-hub`; only a placeholder page exists today.
 
-## Build Commands
+Scope and status live in `docs/catalog-prd.md` and `docs/catalog-implementation-plan.md` (the living checklist; update it when tasks complete). Items below marked *(planned)* do not exist yet.
 
-```bash
-npm run dev          # Start development server
-npm run build        # Type-check and build for production
-npm run preview      # Preview production build locally
-npm run lint         # Run ESLint with strict warnings
-npm run lint:fix     # Auto-fix ESLint issues
-npm run format       # Format code with Prettier
-```
-
-## Test Commands
+## Commands
 
 ```bash
-npm run test              # Run all tests
-npm run test:watch        # Run tests in watch mode
-npm run test -- --testPathPattern="Hero"    # Run specific test file
-npm run test -- --testNamePattern="renders" # Run tests matching pattern
+npm run dev          # dev server (3000)
+npm run build        # typecheck + vite build -> dist/
+npm run preview      # preview dist/ (4173)
+npm run typecheck    # tsc (src + node configs)
+npm run lint         # ESLint, max-warnings 0
+npm run lint:fix
+npm run format       # Prettier
+npm test             # Vitest single run
+npm run test:watch
+npm run coverage
 ```
 
-Coverage threshold: 70% for statements, functions, lines, and branches.
+Run `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` before declaring work done.
 
-## Code Style Guidelines
+## Architecture
 
-### TypeScript
+- Multi-page static site: one prerendered HTML file per route, plain `<a>` links, no router *(prerender planned, Phase 8)*.
+- Data: `src/data/catalog.yaml` validated by zod at build time *(planned, Phase 2)*. Entries with `status: draft` or `private` must never reach public pages, sitemaps, search or structured data.
+- Styling: CSS Modules + CSS custom properties/design tokens *(planned, Phase 3)*. No styled-components.
+- Theme: `light | dark | auto` *(planned)*.
+- Alias: `@/` -> `src/`.
+- Keep the AdSense and GA4 tags in `index.html` intact.
 
-- Use strict mode enabled (`noImplicitAny` is off for `any` types)
-- Interfaces for object types, types for unions/primitives
-- Use `React.FC` for component types
-- Prefix transient styled-component props with `$` (e.g., `$variant`)
+## Code Style
 
-### React Components
+- Strict TypeScript; interfaces for object shapes, `type` for unions.
+- Functional components with `React.FC`; `import React from 'react'` explicitly.
+- Import order: React, third-party, utils, components, types.
+- Naming: PascalCase components, `useX` hooks, SCREAMING_SNAKE_CASE config constants, no `I` prefix on interfaces.
+- Prettier: single quotes, semicolons, ES5 trailing commas, width 80, 2 spaces.
+- Mobile first with a `768px` breakpoint; use `clamp()` for fluid type.
+- Errors: try/catch around async work, return fallbacks for recoverable failures, log with descriptive messages.
+- Accessibility: semantic HTML, keyboard support, visible focus, respect `prefers-reduced-motion`.
 
-- Use functional components with hooks
-- Use `useCallback` for callbacks passed as props
-- Use `useEffect` with proper cleanup
-- Import React explicitly: `import React, { useState, useEffect } from 'react'`
+## Testing
 
-### Imports Order
+Vitest + React Testing Library + jest-dom (jsdom). No globals: import from `vitest`. Co-locate `*.test.ts(x)` with source; script tests go in `scripts/**/*.test.ts`. Setup file: `src/test/setup.ts`.
 
-1. React imports
-2. Third-party libraries (styled-components, framer-motion, etc.)
-3. Internal utils
-4. Internal components
-5. Types/theme
+## Rules
 
-### Naming Conventions
-
-- Components: PascalCase (e.g., `Hero`, `ProjectGallery`)
-- Hooks: camelCase starting with `use` (e.g., `useTheme`, `useTypingEffect`)
-- Variables/functions: camelCase (e.g., `handleDownload`, `parseDate`)
-- Constants: SCREAMING_SNAKE_CASE for config values
-- Interfaces: PascalCase without "I" prefix (e.g., `HeroProps` not `IHeroProps`)
-- Types: PascalCase (e.g., `ThemeType = 'light' | 'dark' | 'auto'`)
-
-### Styling
-
-- Use CSS custom properties from `:root` (e.g., `var(--spacing-md)`, `var(--accent-color)`)
-- Styled-components for component-scoped styles
-- Responsive design with media queries (breakpoint: 768px)
-- Use `clamp()` for fluid typography
-
-### Formatting (Prettier)
-
-- Single quotes (`'string'`)
-- Semicolons at end of statements
-- Trailing commas (ES5 compatible)
-- Print width: 80, tab width: 2
-
-### Error Handling
-
-- Use try/catch for async operations
-- Return fallback data rather than throwing for recoverable errors
-- Log errors with descriptive messages: `console.error('Failed to load portfolio data:', error)`
-
-### File Structure
-
-```
-src/
-  components/     # React components
-  utils/          # Helper functions
-  types/          # TypeScript definitions
-  setupTests.ts   # Jest setup
-  App.tsx         # Main app component
-  index.tsx       # Entry point
-```
-
-### Testing
-
-- Use React Testing Library with jest-dom matchers
-- Mock framer-motion and other external dependencies
-- Helper function `renderWithTheme` for styled-components theme provider
-- Use `async/await` with `waitFor` for async assertions
-
-### CSS Variables
-
-Available variables: `--bg-color`, `--text-color`, `--accent-color`, `--secondary-color`, `--spacing-xs` through `--spacing-xl`, `--duration-normal`, `--easing-ease-out`
+- Conventional commits; commit each verified task. Never push.
+- No secrets or tokens in the repo, workflows or build output.
+- CI (`ci.yml`) runs lint, typecheck, test, build; `deploy.yml` deploys `master` only.
