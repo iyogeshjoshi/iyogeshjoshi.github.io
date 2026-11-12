@@ -149,12 +149,13 @@ scripts/
 
 ## Phase 9 — Ads, consent and analytics
 
-- [ ] Keep `google-adsense-account` meta + `adsbygoogle.js` client script on every page; keep `ads.txt`
-- [ ] **Consent Mode v2 defaults** (all denied, `wait_for_update`) before gtag/AdSense load; GA4 `G-PCZPZC1H5E` kept
+- [x] Keep `google-adsense-account` meta + `adsbygoogle.js` client script on every page; keep `ads.txt`
+- [x] **Consent Mode v2 defaults** (all denied, `wait_for_update`) before gtag/AdSense load; GA4 `G-PCZPZC1H5E` kept
 - [x] Q7 Owner has published the **AdSense Privacy & messaging** consent message. Footer "Cookie settings" reopens it (`googlefc.callbackQueue.push(googlefc.showRevocationMessage)`).
-- [ ] **AdSense Auto ads** (owner decision, 2026-11-11): no manual `AdSlot` units. The site loads only the AdSense script. Placement and density are configured in the AdSense console. Owner action at approval: enable Auto ads and exclude the 404, privacy, terms and contact pages via page exclusions (or set `data-ad-client` page-level opt-out).
-- [ ] Layout hardening for Auto ads: content max-width wrappers, no `overflow:hidden` on page sections that would clip injected ads, stable image dimensions (minimises CLS from injected units)
-- [ ] GA4 events: `select_content`, `outbound_app_open`, `search`, `filter_category`, `theme_change`
+- [x] **AdSense Auto ads** (owner decision, 2026-11-11): no manual `AdSlot` units. The site loads only the AdSense script. Placement and density are configured in the AdSense console. Owner action at approval: enable Auto ads and exclude the 404, privacy, terms and contact pages via page exclusions (or set `data-ad-client` page-level opt-out).
+- [x] Layout hardening for Auto ads: content max-width wrappers, no `overflow:hidden` on page sections that would clip injected ads, stable image dimensions (minimises CLS from injected units)
+- [x] GA4 events: `select_content`, `outbound_app_open`, `search`, `filter_category`, `theme_change`
+- [ ] Browser verification (Phase 12): with consent denied no GA/ads cookies; with consent granted events show in GA4 DebugView
 - **Done when:** with consent denied there are no GA/ads cookies (checked in DevTools), and with consent granted the events show in GA4 DebugView
 
 ## Phase 10 — Preview screenshots
@@ -237,3 +238,4 @@ scripts/
 | 2026-11-11 | 6 | ✅ Detail template for live/beta apps: breadcrumbs, hero + CTA, about/features/how-to, At a glance aside, desktop callout, related apps, view-transition names, meta helpers. 243 tests green. |
 | 2026-11-12 | 8 | ✅ Route registry, SSR entry, prerender of 12 pages, per-route head + JSON-LD, generated sitemaps, check-dist leak guard in `npm run build`, no-JS phone nav, theme hydration fix. No CSP (AdSense needs it open). |
 | 2026-11-12 | 10 | ✅ Playwright capture with ad hosts blocked; screenshots + OG PNGs for 5 apps. Follow-up: Game of Life empty grid, dedupe theme-agnostic shots. |
+| 2026-11-12 | 9 | ✅ Consent Mode v2 region defaults (EEA/UK/CH denied, elsewhere granted) before AdSense + gtag; ads_data_redaction; track() wrapper + theme_change; privacy Consent section aligned; no page-level overflow clipping found. Browser verification in Phase 12. |

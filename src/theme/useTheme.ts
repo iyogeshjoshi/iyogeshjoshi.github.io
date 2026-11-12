@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
+import { track } from '../analytics/gtag';
+
 import {
   LIGHT_QUERY,
   applyTheme,
@@ -81,6 +83,7 @@ export const useTheme = (): UseTheme => {
       setResolved(applyTheme(next));
     };
     writeMode(next);
+    track('theme_change', { theme_mode: next });
     const doc = document as ViewTransitionDocument;
     if (
       typeof doc.startViewTransition === 'function' &&

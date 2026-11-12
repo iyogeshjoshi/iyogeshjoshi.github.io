@@ -230,24 +230,25 @@ export const PrivacyPolicyPage: React.FC = () => {
         <ul>
           <li>
             Visitors in the European Economic Area (EEA), the United Kingdom and
-            Switzerland are shown a consent message before advertising and
-            analytics cookies are used.
+            Switzerland: advertising and analytics storage is denied by default
+            and stays off until you make a choice in the consent message.
           </li>
           <li>
-            Where applicable, visitors in US states with consumer privacy laws
-            are shown a US state privacy message that lets them opt out of the
-            sale or sharing of their personal information for targeted
-            advertising.
+            Visitors elsewhere: advertising and analytics storage is enabled by
+            default. Visitors in US states with consumer privacy laws are shown
+            a US state privacy message that lets them opt out of the sale or
+            sharing of their personal information for targeted advertising.
           </li>
         </ul>
         <p>
           We use Google Consent Mode v2. On {siteHost}, the consent signals for
-          ad storage, ad user data, ad personalisation and analytics storage
-          default to &ldquo;denied&rdquo; before Google&rsquo;s tags load, and
-          your choices in the consent message update them. When a signal is
-          denied, Google&rsquo;s tags don&rsquo;t use cookies for that purpose,
-          but they may still send limited, cookieless requests, for example to
-          count a page view or to serve non-personalised ads.
+          ad storage, ad user data, ad personalisation and analytics storage are
+          set before Google&rsquo;s tags load: &ldquo;denied&rdquo; in the EEA,
+          the United Kingdom and Switzerland, and &ldquo;granted&rdquo;
+          elsewhere. Your choices in the consent message update them. When a
+          signal is denied, Google&rsquo;s tags don&rsquo;t use cookies for that
+          purpose, but they may still send limited, cookieless requests, for
+          example to count a page view or to serve non-personalised ads.
         </p>
         <p>
           <strong>Changing your choices:</strong> use the &ldquo;Cookie
