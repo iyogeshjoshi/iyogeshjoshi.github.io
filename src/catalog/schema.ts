@@ -124,6 +124,8 @@ export const appSchema = z
       .object({
         light: nonEmpty.optional(),
         dark: nonEmpty.optional(),
+        /** 1200×630 PNG for og:image / twitter:image (many crawlers skip WebP). */
+        og: nonEmpty.optional(),
       })
       .strict()
       .optional(),

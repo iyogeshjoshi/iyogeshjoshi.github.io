@@ -67,6 +67,10 @@ apps:
     accent: '#2DD4BF'
     updatedAt: '2026-11-11'
     previewKind: ruler
+    preview:
+      light: /previews/online-ruler-light.webp
+      dark: /previews/online-ruler-dark.webp
+      og: /previews/online-ruler-og.png
     sitemap: https://onlineruler.deviloper.dev/sitemap-index.xml
 
   - slug: charcap
@@ -112,6 +116,10 @@ apps:
     accent: '#60A5FA'
     updatedAt: '2026-11-11'
     previewKind: counter
+    preview:
+      light: /previews/charcap-light.webp
+      dark: /previews/charcap-dark.webp
+      og: /previews/charcap-og.png
     sitemap: https://character-counter.deviloper.dev/sitemap-index.xml
 
   - slug: game-of-life
@@ -158,6 +166,10 @@ apps:
     accent: '#34D399'
     updatedAt: '2026-11-11'
     previewKind: life
+    preview:
+      light: /previews/game-of-life-light.webp
+      dark: /previews/game-of-life-dark.webp
+      og: /previews/game-of-life-og.png
 
   - slug: ping-pong
     name: Ping Pong
@@ -203,6 +215,10 @@ apps:
     accent: '#F472B6'
     updatedAt: '2026-11-11'
     previewKind: pong
+    preview:
+      light: /previews/ping-pong-light.webp
+      dark: /previews/ping-pong-dark.webp
+      og: /previews/ping-pong-og.png
 
   - slug: primordia
     name: Primordia
@@ -250,6 +266,10 @@ apps:
     accent: '#A78BFA'
     updatedAt: '2026-11-11'
     previewKind: prim
+    preview:
+      light: /previews/primordia-light.webp
+      dark: /previews/primordia-dark.webp
+      og: /previews/primordia-og.png
 
   # Private: friends only, not listed publicly, no ads. Filtered out of every public build.
   - slug: verdict

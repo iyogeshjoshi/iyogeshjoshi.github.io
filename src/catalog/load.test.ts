@@ -219,6 +219,15 @@ describe('parseCatalog: validation', () => {
     expect(message).toMatch(/apps\[0\]: Unrecognized key/);
   });
 
+  it('accepts preview light/dark/og paths and rejects unknown preview keys', () => {
+    const preview = { light: '/p/a.webp', dark: '/p/b.webp', og: '/p/o.png' };
+    const ok = parseCatalog(makeCatalogYaml([makeApp({ preview })]));
+    expect(ok.apps[0].preview).toEqual(preview);
+    expect(parseError([makeApp({ preview: { nope: 'x' } })])).toContain(
+      'apps[0].preview'
+    );
+  });
+
   it('rejects more than 5 tags', () => {
     expect(
       parseError([makeApp({ tags: ['a', 'b', 'c', 'd', 'e', 'f'] })])
