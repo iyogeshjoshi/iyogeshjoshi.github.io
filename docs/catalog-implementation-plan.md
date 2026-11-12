@@ -137,14 +137,14 @@ scripts/
 
 ## Phase 8 — Prerender and SEO
 
-- [ ] `entry-server.tsx` + `scripts/prerender.ts`: render every route → `dist/<route>/index.html` (+ `privacy-policy.html`, `sitemap.html`, `404.html`), hydrate on client
-- [ ] `Seo` per route: title, description, canonical, OG/Twitter (OG image = the app's desktop light preview at 1200×630)
-- [ ] JSON-LD: `WebSite` (+ `SearchAction` → `/?q=`), `ItemList` on home; `WebApplication`/`VideoGame` + `BreadcrumbList` on detail pages; `Person` publisher
-- [ ] Generate `sitemap-main.xml` (public routes + `lastmod` from `updatedAt`) and `sitemap.xml` index (root + **only subdomains with a real sitemap**: onlineruler, character-counter)
-- [ ] **Leak guard:** `scripts/check-dist.ts` run after build (and in CI) fails if `dist/` contains any private/draft slug or name from catalog.yaml (case-insensitive), covering code, CSS class names and HTML
-- [ ] No-JS phone nav: when JS is absent, show the header nav links inline (e.g. `html:not([data-js])` rule + set `data-js` in the inline head script) so the prerendered menu works without JavaScript
-- [ ] `robots.txt` kept; CSP + referrer policy as `<meta>` (PRD H3)
-- [ ] Test: built HTML contains content without JS; **no "verdict" string in `dist/`** (private-leak test); hydration has no mismatch warnings
+- [x] `entry-server.tsx` + `scripts/prerender.ts`: render every route → `dist/<route>/index.html` (+ `privacy-policy.html`, `sitemap.html`, `404.html`), hydrate on client
+- [x] `Seo` per route: title, description, canonical, OG/Twitter (OG image = the app's desktop light preview at 1200×630)
+- [x] JSON-LD: `WebSite` (+ `SearchAction` → `/?q=`), `ItemList` on home; `WebApplication`/`VideoGame` + `BreadcrumbList` on detail pages; `Person` publisher
+- [x] Generate `sitemap-main.xml` (public routes + `lastmod` from `updatedAt`) and `sitemap.xml` index (root + **only subdomains with a real sitemap**: onlineruler, character-counter)
+- [x] **Leak guard:** `scripts/check-dist.ts` run after build (and in CI) fails if `dist/` contains any private/draft slug or name from catalog.yaml (case-insensitive), covering code, CSS class names and HTML
+- [x] No-JS phone nav: when JS is absent, show the header nav links inline (e.g. `html:not([data-js])` rule + set `data-js` in the inline head script) so the prerendered menu works without JavaScript
+- [x] `robots.txt` kept; CSP + referrer policy as `<meta>` (PRD H3)
+- [x] Test: built HTML contains content without JS; **no "verdict" string in `dist/`** (private-leak test); hydration has no mismatch warnings
 - **Done when:** `view-source` of every route shows full content, and the sitemaps validate
 
 ## Phase 9 — Ads, consent and analytics
@@ -159,11 +159,12 @@ scripts/
 
 ## Phase 10 — Preview screenshots
 
-- [ ] `scripts/previews/capture.ts` (`npm run previews [-- <slug>]`): Playwright, light + dark × desktop 1280×800 + mobile 390×844
-- [ ] **Block** `googlesyndication|doubleclick|googletagmanager|google-analytics|fundingchoicesmessages` and hide consent banners during capture (no invalid ad traffic)
-- [ ] Theme forcing: `colorScheme` emulation, plus a per-app localStorage/query override in YAML when an app ignores `prefers-color-scheme`
-- [ ] Convert with sharp → WebP (q≈80) in `public/previews/`, plus 1200×630 OG crops; commit the outputs
-- [ ] Capture all 5 public apps; review the images
+- [x] `scripts/previews/capture.ts` (`npm run previews [-- <slug>]`): Playwright, light + dark × desktop 1280×800 + mobile 390×844
+- [x] **Block** `googlesyndication|doubleclick|googletagmanager|google-analytics|fundingchoicesmessages` and hide consent banners during capture (no invalid ad traffic)
+- [x] Theme forcing: `colorScheme` emulation, plus a per-app localStorage/query override in YAML when an app ignores `prefers-color-scheme`
+- [x] Convert with sharp → WebP (q≈80) in `public/previews/`, plus 1200×630 OG crops; commit the outputs
+- [x] Capture all 5 public apps; review the images
+- [ ] Follow-up: per-app capture actions (Game of Life: Random + Start before shooting, so the card isn't an empty grid); store a single image when an app ignores color-scheme (ruler, Game of Life, Ping Pong, Primordia) instead of identical light/dark files
 - **Done when:** every public card shows real screenshots in both themes, each under 80 KB
 
 ## Phase 11 — Add-app tooling (PRD §5.8)
@@ -234,3 +235,5 @@ scripts/
 | 2026-11-11 | 5 | ✅ Home: hero, search (/, ⌘K, Esc, URL sync), category chips, cards with stretched link + Open CTA (full width on phone), CSS preview art, lazy framer-motion reflow, empty state, analytics events. Found the private app name leaking via an illustration's CSS class names; removed it, and added a dist leak guard to Phase 8. |
 | 2026-11-11 | 7 | ✅ ProsePage + Privacy (CMP, Consent Mode, AdSense Auto ads, GA4, hosts, rights), Terms, About, Contact (copy-email), human Sitemap, all generated from public data. Owner legal review pending. |
 | 2026-11-11 | 6 | ✅ Detail template for live/beta apps: breadcrumbs, hero + CTA, about/features/how-to, At a glance aside, desktop callout, related apps, view-transition names, meta helpers. 243 tests green. |
+| 2026-11-12 | 8 | ✅ Route registry, SSR entry, prerender of 12 pages, per-route head + JSON-LD, generated sitemaps, check-dist leak guard in `npm run build`, no-JS phone nav, theme hydration fix. No CSP (AdSense needs it open). |
+| 2026-11-12 | 10 | ✅ Playwright capture with ad hosts blocked; screenshots + OG PNGs for 5 apps. Follow-up: Game of Life empty grid, dedupe theme-agnostic shots. |
