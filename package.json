@@ -25,7 +25,9 @@
     "lint:fix": "eslint src scripts --ext ts,tsx --fix --no-error-on-unmatched-pattern",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.ts\"",
     "previews": "tsx scripts/previews/capture.ts",
-    "check:dist": "tsx scripts/check-dist.ts"
+    "check:dist": "tsx scripts/check-dist.ts",
+    "catalog:add": "tsx scripts/catalog/cli.ts add",
+    "catalog:check": "tsx scripts/catalog/cli.ts check"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",

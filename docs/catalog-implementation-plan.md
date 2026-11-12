@@ -170,12 +170,12 @@ scripts/
 
 ## Phase 11 — Add-app tooling (PRD §5.8)
 
-- [ ] Core `scripts/catalog/add-app.ts`: probe, 9 readiness checks, draft entry written with comments preserved (`yaml` Document API), schema validation
-- [ ] CLI: `npm run catalog:add -- <sub>` (prompts) and `npm run catalog:check` (readiness table for all entries)
-- [ ] Studio: `vite-plugin-studio.ts` (`apply: 'serve'`) serving `/__studio` per the `Studio` design board: list/reorder/status, add flow, capture previews, publish gate (R6)
-- [ ] `.github/workflows/add-app.yml` (`workflow_dispatch` inputs → run the core → `peter-evans/create-pull-request` with the readiness report in the PR body)
-- [ ] (P2) `.github/workflows/health-check.yml`: weekly; issue on downtime or a lost tag
-- [ ] Test: Studio code absent from `dist/`; core script tested against a recorded HTML fixture
+- [x] Core `scripts/catalog/add-app.ts`: probe, 9 readiness checks, draft entry written with comments preserved (`yaml` Document API), schema validation
+- [x] CLI: `npm run catalog:add -- <sub>` (prompts) and `npm run catalog:check` (readiness table for all entries)
+- [x] Studio: `vite-plugin-studio.ts` (`apply: 'serve'`) serving `/__studio` per the `Studio` design board: list/reorder/status, add flow, capture previews, publish gate (R6)
+- [x] `.github/workflows/add-app.yml` (`workflow_dispatch` inputs → run the core → `peter-evans/create-pull-request` with the readiness report in the PR body)
+- [x] (P2) `.github/workflows/health-check.yml`: weekly; issue on downtime or a lost tag
+- [x] Test: Studio code absent from `dist/`; core script tested against a recorded HTML fixture
 - **Done when:** adding a dummy subdomain through each of the 3 routes produces the same YAML diff
 
 ## Phase 12 — QA, launch and merge

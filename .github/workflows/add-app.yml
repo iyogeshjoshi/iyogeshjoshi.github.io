@@ -1,0 +1,99 @@
+# Add an app from anywhere (GitHub mobile included): Actions → "Add app to catalog" →
+# Run workflow. Probes the subdomain, writes a `status: draft` entry, optionally captures
+# previews, validates with tests + build, then opens a PR. It never deploys: merging does.
+name: Add app to catalog
+
+on:
+  workflow_dispatch:
+    inputs:
+      subdomain:
+        description: 'Subdomain (e.g. my-new-thing or https://my-new-thing.deviloper.dev)'
+        required: true
+        type: string
+      category:
+        description: Category
+        required: true
+        type: choice
+        default: app
+        options:
+          - tool
+          - game
+          - simulation
+          - app
+      name:
+        description: 'Name (optional: defaults to the page <title>)'
+        required: false
+        type: string
+      tagline:
+        description: 'Tagline, at most 90 characters (optional: defaults to the meta description)'
+        required: false
+        type: string
+      capture_previews:
+        description: Capture light/dark previews (ads and analytics blocked)
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: add-app-${{ inputs.subdomain }}
+  cancel-in-progress: false
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium for previews
+        if: ${{ inputs.capture_previews }}
+        run: npx playwright install --with-deps chromium
+
+      # Inputs go through env vars, never interpolated into the script (no injection).
+      - name: Add the app (non-interactive)
+        id: add
+        env:
+          SUBDOMAIN: ${{ inputs.subdomain }}
+          CATEGORY: ${{ inputs.category }}
+          APP_NAME: ${{ inputs.name }}
+          TAGLINE: ${{ inputs.tagline }}
+          CAPTURE: ${{ inputs.capture_previews }}
+        run: |
+          args=(add "$SUBDOMAIN" --category "$CATEGORY" --yes --report-md "$RUNNER_TEMP/pr-body.md")
+          if [ -n "$APP_NAME" ]; then args+=(--name "$APP_NAME"); fi
+          if [ -n "$TAGLINE" ]; then args+=(--tagline "$TAGLINE"); fi
+          if [ "$CAPTURE" != "true" ]; then args+=(--no-previews); fi
+          npx tsx scripts/catalog/cli.ts "${args[@]}"
+
+      - name: Test
+        run: npm test
+
+      - name: Build (validates the catalog and prerender)
+        run: npm run build
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: catalog/add-${{ steps.add.outputs.sub }}
+          base: ${{ github.ref_name }}
+          commit-message: 'feat(catalog): add ${{ steps.add.outputs.slug }} as a draft'
+          title: 'Catalog: add ${{ steps.add.outputs.slug }} (draft)'
+          body-path: ${{ runner.temp }}/pr-body.md
+          add-paths: |
+            src/data/catalog.yaml
+            public/previews/${{ steps.add.outputs.slug }}-*
+          labels: catalog
+          delete-branch: true

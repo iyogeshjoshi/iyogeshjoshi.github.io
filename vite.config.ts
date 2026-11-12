@@ -3,6 +3,7 @@ import type { Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
 import { catalogPlugin } from './scripts/vite-plugin-catalog';
+import { studioPlugin } from './scripts/studio/vite-plugin-studio';
 
 /**
  * Dev only: `index.html` is the prerender template, with `<!--app-head-->` in
@@ -24,7 +25,8 @@ function devHeadPlugin(): Plugin {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ isSsrBuild }) => ({
-  plugins: [react(), catalogPlugin(), devHeadPlugin()],
+  // studioPlugin has `apply: 'serve'`: it never runs during `vite build`.
+  plugins: [react(), catalogPlugin(), devHeadPlugin(), studioPlugin()],
   base: '/',
   resolve: {
     alias: {
