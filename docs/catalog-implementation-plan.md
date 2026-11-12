@@ -180,14 +180,14 @@ scripts/
 
 ## Phase 12 — QA, launch and merge
 
-- [x] Lighthouse mobile (home + one detail): ≥ 95 / 100 / 100 / 100; LCP < 2.0s, CLS < 0.05
-- [x] axe a11y scan: 0 violations; keyboard and screen-reader pass (VoiceOver)
+- [x] Lighthouse (home, desktop + mobile): Accessibility / Best Practices / SEO = 100; CLS 0. LCP 2.23 s on Slow 4G + 4× CPU: passes the 2.5 s "good" bar, **misses the 2.0 s stretch goal** (optional follow-up: preload the first card image / inline critical CSS)
+- [x] axe a11y scan: 0 violations (all pages, both themes); keyboard pass. [ ] Manual VoiceOver pass: owner
 - [ ] Cross-browser (Chromium verified by automated QA; owner to spot-check Safari/iOS and Firefox): Chrome, Safari, Firefox, Edge, iOS Safari, Android Chrome
 - [x] Link checker over `dist/` (internal + subdomain links)
-- [ ] AdSense readiness checklist (PRD §5.6 A6): original content, nav, privacy, contact, about, no thin pages
+- [x] AdSense readiness checklist (PRD §5.6 A6): original content (150+ word app pages), nav, privacy, terms, contact, about, no thin or coming-soon pages, ads.txt, consent message
 - [ ] Owner: final review on a local `npm run preview`
 - [ ] Merge `feat/catalog-hub` → `master` (owner approval), watch the deploy, smoke-test https://deviloper.dev
-- [ ] Post-launch: submit the sitemap in Search Console; request AdSense review (once the CMP is live); enable `ADS_ENABLED` after approval
+- [ ] Post-launch (owner): submit `https://deviloper.dev/sitemap.xml` in Search Console; request AdSense site review; after approval turn on **Auto ads** and add page exclusions for /404.html, /privacy-policy.html, /terms.html, /contact/
 - **Done when:** the site is live on deviloper.dev and the AdSense review has been requested
 
 ---
