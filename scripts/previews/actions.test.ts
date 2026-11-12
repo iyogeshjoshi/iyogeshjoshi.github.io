@@ -4,6 +4,7 @@ import {
   CHARCAP_SAMPLE_TEXT,
   PREVIEW_ACTIONS,
   getPreviewAction,
+  getPreviewFraming,
   runPreviewAction,
 } from './actions';
 import type { ActionPage } from './actions';
@@ -76,5 +77,19 @@ describe('preview actions', () => {
     const f = fakePage();
     await runPreviewAction('online-ruler', f.page);
     expect(f.locator).not.toHaveBeenCalled();
+  });
+});
+
+describe('preview framing', () => {
+  it('frames ping-pong on its canvas over black', () => {
+    expect(getPreviewFraming('ping-pong')).toEqual({
+      selector: '#canvas',
+      background: '#000',
+    });
+  });
+
+  it('has no framing for other apps or prototype keys', () => {
+    expect(getPreviewFraming('charcap')).toBeUndefined();
+    expect(getPreviewFraming('toString')).toBeUndefined();
   });
 });

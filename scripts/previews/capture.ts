@@ -20,7 +20,7 @@ import type { Browser } from 'playwright';
 import sharp from 'sharp';
 
 import { parseCatalog } from '../../src/catalog/load';
-import { runPreviewAction } from './actions';
+import { getPreviewFraming, runPreviewAction } from './actions';
 import {
   HIDE_BANNERS_CSS,
   DEDUPE_THUMB_HEIGHT,
@@ -48,11 +48,22 @@ const ATTEMPTS = 2;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function toWebp(png: Buffer, vp: ViewportSpec): Promise<Buffer> {
+async function toWebp(
+  png: Buffer,
+  vp: ViewportSpec,
+  slug: string
+): Promise<Buffer> {
+  const framing = getPreviewFraming(slug);
   let out = Buffer.alloc(0);
   for (const quality of QUALITY_STEPS) {
     out = await sharp(png)
-      .resize(vp.outWidth, vp.outHeight, { fit: 'cover', position: 'top' })
+      .resize(
+        vp.outWidth,
+        vp.outHeight,
+        framing
+          ? { fit: 'contain', background: framing.background }
+          : { fit: 'cover', position: 'top' }
+      )
       .webp({ quality })
       .toBuffer();
     if (out.length <= MAX_WEBP_BYTES) break;
@@ -99,7 +110,21 @@ async function screenshot(
         }
       }
     })()`);
-    return await page.screenshot({ type: 'png' });
+    const framing = getPreviewFraming(slug);
+    const box = framing
+      ? await page
+          .locator(framing.selector)
+          .first()
+          .boundingBox()
+          .catch(() => null)
+      : null;
+    if (framing && !box) {
+      console.warn(`warn ${slug}: ${framing.selector} not found; full page`);
+    }
+    return await page.screenshot({
+      type: 'png',
+      ...(box ? { clip: box } : {}),
+    });
   } finally {
     await context.close();
   }
@@ -212,13 +237,22 @@ async function main(): Promise<void> {
           removeIfExists(agnosticPath(app.slug, vp.name));
         }
         for (const [rel, png] of outputs) {
-          const webp = await toWebp(png, vp);
+          const webp = await toWebp(png, vp, app.slug);
           writeFileSync(resolve(PUBLIC_DIR, `.${rel}`), webp);
           console.log(`ok   ${rel} ${(webp.length / 1024).toFixed(1)} KB`);
         }
         if (vp.name === 'desktop') {
           const og = await sharp(light)
-            .resize(OG_WIDTH, OG_HEIGHT, { fit: 'cover', position: 'top' })
+            .resize(
+              OG_WIDTH,
+              OG_HEIGHT,
+              getPreviewFraming(app.slug)
+                ? {
+                    fit: 'contain',
+                    background: getPreviewFraming(app.slug)!.background,
+                  }
+                : { fit: 'cover', position: 'top' }
+            )
             .png({ compressionLevel: 9, palette: true, quality: 80 })
             .toBuffer();
           writeFileSync(resolve(PUBLIC_DIR, `.${ogPath(app.slug)}`), og);

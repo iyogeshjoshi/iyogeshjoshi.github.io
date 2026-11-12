@@ -76,3 +76,21 @@ export async function runPreviewAction(
   if (!action) return;
   await tolerant(`${slug} action`, () => action(page));
 }
+
+/** Optional framing: clip the screenshot to an element, then letterbox onto a solid colour. */
+export interface PreviewFraming {
+  /** Element whose bounding box is captured. */
+  selector: string;
+  /** Letterbox background (matches the element's own backdrop). */
+  background: string;
+}
+
+export const PREVIEW_FRAMING: Readonly<Record<string, PreviewFraming>> = {
+  'ping-pong': { selector: '#canvas', background: '#000' },
+};
+
+export function getPreviewFraming(slug: string): PreviewFraming | undefined {
+  return Object.prototype.hasOwnProperty.call(PREVIEW_FRAMING, slug)
+    ? PREVIEW_FRAMING[slug]
+    : undefined;
+}
