@@ -74,6 +74,7 @@ export const HomePage: React.FC = () => {
     hydrated,
     setQuery,
     setCategory,
+    apply,
     reset,
   } = useCatalogFilters(apps, CATEGORIES);
 
@@ -93,11 +94,10 @@ export const HomePage: React.FC = () => {
 
   const handleSuggestion = useCallback(
     (term: string) => {
-      setCategory(null);
-      setQuery(term);
+      apply({ query: term, category: null });
       searchRef.current?.focus();
     },
-    [setCategory, setQuery]
+    [apply]
   );
 
   const isEmpty = results.length === 0;

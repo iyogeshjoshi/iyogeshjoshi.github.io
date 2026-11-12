@@ -30,29 +30,6 @@
   object-position: top center;
 }
 
-/* Show the screenshot that matches the active theme (manual override wins). */
-.light {
-  display: none;
-}
-
-:global(:root[data-theme='light']) .light {
-  display: block;
-}
-
-:global(:root[data-theme='light']) .dark {
-  display: none;
-}
-
-@media (prefers-color-scheme: light) {
-  :global(:root:not([data-theme])) .light {
-    display: block;
-  }
-
-  :global(:root:not([data-theme])) .dark {
-    display: none;
-  }
-}
-
 /* ---------- Shared bits ---------- */
 
 .ruler,

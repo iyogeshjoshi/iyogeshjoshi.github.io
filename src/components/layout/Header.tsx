@@ -54,13 +54,14 @@ export const Header: React.FC<HeaderProps> = ({ currentPath }) => {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.brand} href="/" aria-label="deviloper.dev home">
+        <a className={styles.brand} href="/">
           <span className={styles.mark} aria-hidden="true">
             d/
           </span>
           <span className={styles.wordmark}>
             deviloper<span className={styles.tld}>.dev</span>
           </span>
+          <span className={styles.srOnly}> — home</span>
         </a>
         <div className={styles.actions}>
           <nav ref={navRef} className={styles.nav} aria-label="Primary">

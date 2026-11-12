@@ -277,6 +277,83 @@ describe('HomePage', () => {
       await waitFor(() => expect(cardNames()).toEqual(['Ping Pong']));
     });
 
+    it('pushes a history entry per chip change, none for a repeat', async () => {
+      const user = userEvent.setup();
+      render(<HomePage />);
+      await waitFor(() => expect(cardNames()).toHaveLength(apps.length));
+      const push = vi.spyOn(window.history, 'pushState');
+      const replace = vi.spyOn(window.history, 'replaceState');
+
+      await user.click(chip('Games'));
+      expect(push).toHaveBeenCalledTimes(1);
+      expect(window.location.search).toBe('?category=games');
+      await user.click(chip('Games'));
+      expect(push).toHaveBeenCalledTimes(1);
+      await user.click(chip('Tools'));
+      expect(push).toHaveBeenCalledTimes(2);
+      expect(replace).not.toHaveBeenCalled();
+      push.mockRestore();
+      replace.mockRestore();
+    });
+
+    it('replaces (never pushes) while typing, even right after a chip push', async () => {
+      vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      render(<HomePage />);
+      await user.click(chip('Tools'));
+      const before = window.history.length;
+      const push = vi.spyOn(window.history, 'pushState');
+      await user.type(search(), 'ruler');
+      act(() => {
+        vi.advanceTimersByTime(URL_SYNC_DELAY_MS);
+      });
+      expect(push).not.toHaveBeenCalled();
+      expect(window.location.search).toBe('?category=tools&q=ruler');
+      expect(window.history.length).toBe(before);
+      push.mockRestore();
+    });
+
+    it('pushes for Clear search & filters', async () => {
+      const user = userEvent.setup();
+      window.history.replaceState(null, '', '/?q=zzzz');
+      render(<HomePage />);
+      await user.click(
+        await screen.findByRole('button', { name: /clear search/i })
+      );
+      expect(window.location.search).toBe('');
+      expect(search()).toHaveValue('');
+    });
+
+    it('restores the previous category and query on popstate without pushing', async () => {
+      const user = userEvent.setup();
+      render(<HomePage />);
+      await waitFor(() => expect(cardNames()).toHaveLength(apps.length));
+      await user.click(chip('Games'));
+      await user.click(chip('Tools'));
+      const push = vi.spyOn(window.history, 'pushState');
+      const length = window.history.length;
+
+      await act(async () => {
+        window.history.back();
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      });
+      expect(window.location.search).toBe('?category=games');
+      expect(chip('Games')).toHaveAttribute('aria-pressed', 'true');
+      await new Promise((resolve) =>
+        setTimeout(resolve, URL_SYNC_DELAY_MS + 50)
+      );
+      expect(push).not.toHaveBeenCalled();
+      expect(window.history.length).toBe(length);
+
+      await act(async () => {
+        window.history.back();
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      });
+      expect(window.location.search).toBe('');
+      expect(chip('All')).toHaveAttribute('aria-pressed', 'true');
+      push.mockRestore();
+    });
+
     it('applies the URL on popstate', async () => {
       render(<HomePage />);
       await waitFor(() => expect(cardNames()).toHaveLength(apps.length));

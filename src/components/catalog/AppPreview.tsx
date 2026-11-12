@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { PreviewKind, PublicApp } from '@/catalog';
 import styles from './AppPreview.module.css';
@@ -191,32 +191,85 @@ const ART: Partial<Record<PreviewKind, React.FC>> = {
 
 /* ---------- Screenshots ---------- */
 
+type Theme = 'light' | 'dark';
+
+const DARK_QUERY = '(prefers-color-scheme: dark)';
+
 interface ShotProps {
-  src: string;
-  variant?: 'light' | 'dark';
+  light: string;
+  dark?: string;
   priority: boolean;
 }
 
-const Shot: React.FC<ShotProps> = ({ src, variant, priority }) => (
-  <picture className={`${styles.picture} ${variant ? styles[variant] : ''}`}>
-    <img
-      className={styles.img}
-      src={src}
-      alt=""
-      width={PREVIEW_WIDTH}
-      height={PREVIEW_HEIGHT}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
-      // React 18 only knows the lowercase DOM attribute.
-      {...{ fetchpriority: priority ? 'high' : 'auto' }}
-    />
-  </picture>
-);
+/** The theme the `<picture>` media query picks on its own, if it can be told. */
+function naturalTheme(): Theme {
+  try {
+    return window.matchMedia(DARK_QUERY).matches ? 'dark' : 'light';
+  } catch {
+    return 'light';
+  }
+}
+
+/**
+ * One `<picture>` / one `<img>`. Server and first client render are identical
+ * (`<source media=dark>` + light `src`), so the browser fetches only the
+ * image for the OS scheme. A manual theme (`data-theme`) that disagrees with
+ * the OS scheme is applied after mount by dropping the `<source>` and pointing
+ * `src` at the right file; same box, so no layout shift.
+ */
+const Shot: React.FC<ShotProps> = ({ light, dark, priority }) => {
+  const [forced, setForced] = useState<Theme | null>(null);
+
+  useEffect(() => {
+    if (!dark) return undefined;
+    const root = document.documentElement;
+    const sync = (): void => {
+      const theme = root.dataset.theme;
+      const manual = theme === 'light' || theme === 'dark' ? theme : null;
+      setForced(manual && manual !== naturalTheme() ? manual : null);
+    };
+    sync();
+    const observer = new MutationObserver(sync);
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    let media: MediaQueryList | null = null;
+    try {
+      media = window.matchMedia(DARK_QUERY);
+      media.addEventListener?.('change', sync);
+    } catch {
+      media = null;
+    }
+    return () => {
+      observer.disconnect();
+      media?.removeEventListener?.('change', sync);
+    };
+  }, [dark]);
+
+  const src = forced === 'dark' && dark ? dark : light;
+  return (
+    <picture className={styles.picture}>
+      {dark && forced === null && <source media={DARK_QUERY} srcSet={dark} />}
+      <img
+        className={styles.img}
+        src={src}
+        alt=""
+        width={PREVIEW_WIDTH}
+        height={PREVIEW_HEIGHT}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        // React 18 only knows the lowercase DOM attribute.
+        {...{ fetchpriority: priority ? 'high' : 'auto' }}
+      />
+    </picture>
+  );
+};
 
 /**
  * Card / hero preview. Uses the captured screenshots when the catalog has
- * them (both themes are rendered and CSS shows the one matching
- * `[data-theme]`, so a manual theme override is respected); otherwise draws
+ * them (a single image is requested: the OS-scheme one via `<source media>`,
+ * or the manual `[data-theme]` one after mount); otherwise draws
  * the app's CSS illustration. Decorative either way: the card names the app.
  */
 export const AppPreview: React.FC<AppPreviewProps> = ({
@@ -240,12 +293,9 @@ export const AppPreview: React.FC<AppPreviewProps> = ({
       data-preview={light || dark ? 'image' : Art ? app.previewKind : 'generic'}
     >
       {light && dark ? (
-        <>
-          <Shot src={light} variant="light" priority={priority} />
-          <Shot src={dark} variant="dark" priority={priority} />
-        </>
+        <Shot light={light} dark={dark} priority={priority} />
       ) : light || dark ? (
-        <Shot src={(light ?? dark) as string} priority={priority} />
+        <Shot light={(light ?? dark) as string} priority={priority} />
       ) : Art ? (
         <Art />
       ) : (

@@ -7,9 +7,13 @@ import { Header } from './Header';
 describe('Header', () => {
   it('renders the home link and primary nav links', () => {
     render(<Header />);
-    expect(
-      screen.getByRole('link', { name: 'deviloper.dev home' })
-    ).toHaveAttribute('href', '/');
+    const brand = screen.getByRole('link', {
+      name: /^deviloper\s?\.dev — home$/,
+    });
+    expect(brand).toHaveAttribute('href', '/');
+    // Label-in-name: no aria-label, name starts with the visible wordmark.
+    expect(brand).not.toHaveAttribute('aria-label');
+    expect(brand.querySelector('[aria-hidden="true"]')).toHaveTextContent('d/');
     const nav = screen.getByRole('navigation', { name: 'Primary' });
     expect(nav.querySelector('a[href="/"]')).toHaveTextContent('Catalog');
     expect(nav.querySelector('a[href="/about/"]')).toHaveTextContent('About');
