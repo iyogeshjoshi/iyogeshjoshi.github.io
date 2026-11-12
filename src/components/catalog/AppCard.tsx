@@ -169,12 +169,12 @@ export const AppCard: React.FC<AppCardProps> = ({
               className={styles.open}
               href={app.url}
               rel="noopener"
-              aria-label={`Open ${app.name} (opens ${host})`}
               onClick={handleOpen}
             >
               Open
               <span className={styles.openName}> {app.name}</span>
               <OpenIcon />
+              <span className="visually-hidden"> (opens {host})</span>
             </a>
           )}
         </div>

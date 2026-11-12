@@ -208,9 +208,20 @@
   filter: brightness(1.08);
 }
 
-/* Phone only: "Open {name}" label; hidden (not removed) at >=768px. */
+/*
+ * "Open {name}" label. At >=768px it is visually hidden (not display:none) so
+ * screen readers still hear the full accessible name; below 768px it shows.
+ */
 .openName {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .openIcon {
@@ -238,7 +249,13 @@
   }
 
   .openName {
-    display: inline;
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
   }
 
   .body {

@@ -31,9 +31,22 @@ describe('AppCard', () => {
     });
     expect(open).toHaveAttribute('href', ruler.url);
     expect(open).toHaveAttribute('rel', 'noopener');
+    expect(open).not.toHaveAttribute('aria-label');
     expect(screen.getAllByRole('link')).toHaveLength(2);
     expect(container.querySelectorAll('a a')).toHaveLength(0);
     expect(container.querySelectorAll('a button, button a')).toHaveLength(0);
+  });
+
+  it('builds the Open link name from content, starting with visible text', () => {
+    const charcap = app('charcap');
+    render(<AppCard app={charcap} />);
+
+    const open = screen.getByRole('link', { name: /^Open CharCap/ });
+    expect(open).toHaveAccessibleName(
+      'Open CharCap (opens character-counter.deviloper.dev)'
+    );
+    expect(open).toHaveAttribute('href', charcap.url);
+    expect(open).not.toHaveAttribute('aria-label');
   });
 
   it('shows category, status, host and at most 3 tags', () => {
