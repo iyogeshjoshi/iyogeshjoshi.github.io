@@ -165,7 +165,7 @@ scripts/
 - [x] Theme forcing: `colorScheme` emulation, plus a per-app localStorage/query override in YAML when an app ignores `prefers-color-scheme`
 - [x] Convert with sharp → WebP (q≈80) in `public/previews/`, plus 1200×630 OG crops; commit the outputs
 - [x] Capture all 5 public apps; review the images
-- [ ] Follow-up: per-app capture actions (Game of Life: Random + Start before shooting, so the card isn't an empty grid); store a single image when an app ignores color-scheme (ruler, Game of Life, Ping Pong, Primordia) instead of identical light/dark files
+- [x] Follow-up: per-app capture actions (Game of Life: Random + Start before shooting, so the card isn't an empty grid); store a single image when an app ignores color-scheme (ruler, Game of Life, Ping Pong, Primordia) instead of identical light/dark files
 - **Done when:** every public card shows real screenshots in both themes, each under 80 KB
 
 ## Phase 11 — Add-app tooling (PRD §5.8)
@@ -239,3 +239,4 @@ scripts/
 | 2026-11-12 | 8 | ✅ Route registry, SSR entry, prerender of 12 pages, per-route head + JSON-LD, generated sitemaps, check-dist leak guard in `npm run build`, no-JS phone nav, theme hydration fix. No CSP (AdSense needs it open). |
 | 2026-11-12 | 10 | ✅ Playwright capture with ad hosts blocked; screenshots + OG PNGs for 5 apps. Follow-up: Game of Life empty grid, dedupe theme-agnostic shots. |
 | 2026-11-12 | 9 | ✅ Consent Mode v2 region defaults (EEA/UK/CH denied, elsewhere granted) before AdSense + gtag; ads_data_redaction; track() wrapper + theme_change; privacy Consent section aligned; no page-level overflow clipping found. Browser verification in Phase 12. |
+| 2026-11-12 | 10 | ✅ Follow-up: Game of Life seeded and running, CharCap sample text, Ping Pong cropped to the court on black; single image for theme-agnostic apps. |
