@@ -68,8 +68,7 @@ apps:
     updatedAt: '2026-11-11'
     previewKind: ruler
     preview:
-      light: /previews/online-ruler-light.webp
-      dark: /previews/online-ruler-dark.webp
+      light: /previews/online-ruler.webp
       og: /previews/online-ruler-og.png
     sitemap: https://onlineruler.deviloper.dev/sitemap-index.xml
 
@@ -167,8 +166,7 @@ apps:
     updatedAt: '2026-11-11'
     previewKind: life
     preview:
-      light: /previews/game-of-life-light.webp
-      dark: /previews/game-of-life-dark.webp
+      light: /previews/game-of-life.webp
       og: /previews/game-of-life-og.png
 
   - slug: ping-pong
@@ -216,8 +214,7 @@ apps:
     updatedAt: '2026-11-11'
     previewKind: pong
     preview:
-      light: /previews/ping-pong-light.webp
-      dark: /previews/ping-pong-dark.webp
+      light: /previews/ping-pong.webp
       og: /previews/ping-pong-og.png
 
   - slug: primordia
@@ -267,8 +264,7 @@ apps:
     updatedAt: '2026-11-11'
     previewKind: prim
     preview:
-      light: /previews/primordia-light.webp
-      dark: /previews/primordia-dark.webp
+      light: /previews/primordia.webp
       og: /previews/primordia-og.png
 
   # Private: friends only, not listed publicly, no ads. Filtered out of every public build.

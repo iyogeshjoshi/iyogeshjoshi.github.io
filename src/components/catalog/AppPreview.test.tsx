@@ -58,6 +58,23 @@ describe('AppPreview', () => {
     expect(container.querySelectorAll('img')).toHaveLength(1);
   });
 
+  it('renders one theme-agnostic picture when only light exists', () => {
+    const { container } = render(
+      <AppPreview app={{ ...base, preview: { light: '/previews/x.webp' } }} />
+    );
+    const pictures = container.querySelectorAll('picture');
+    expect(pictures).toHaveLength(1);
+    expect(pictures[0].className).not.toMatch(/light|dark/);
+    expect(container.querySelector('img')).toHaveAttribute(
+      'src',
+      '/previews/x.webp'
+    );
+    expect(container.firstElementChild).toHaveAttribute(
+      'data-preview',
+      'image'
+    );
+  });
+
   it.each(['ruler', 'counter', 'life', 'pong', 'prim'] as const)(
     'draws the %s illustration when there is no screenshot',
     (kind) => {

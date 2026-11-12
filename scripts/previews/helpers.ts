@@ -65,6 +65,40 @@ export function previewPath(
   return `/previews/${slug}-${theme}${viewport === 'mobile' ? '-mobile' : ''}.webp`;
 }
 
+/** Web path of a theme-agnostic screenshot (both themes rendered identically). */
+export function agnosticPath(
+  slug: string,
+  viewport: ViewportName = 'desktop'
+): string {
+  return `/previews/${slug}${viewport === 'mobile' ? '-mobile' : ''}.webp`;
+}
+
+/** Mean absolute difference (0-255) of two equally sized 8-bit buffers. */
+export function meanAbsDiff(a: Uint8Array, b: Uint8Array): number {
+  if (a.length !== b.length || a.length === 0) return Infinity;
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) sum += Math.abs(a[i] - b[i]);
+  return sum / a.length;
+}
+
+/**
+ * Thumbnails are tiny (8x5) because animated/random apps (Game of Life, Primordia)
+ * differ pixel-by-pixel between captures; measured noise is <= ~6.5/255 while a real
+ * light-vs-dark difference is > 200/255.
+ */
+export const DEDUPE_THUMB_WIDTH = 8;
+export const DEDUPE_THUMB_HEIGHT = 5;
+export const DEDUPE_THRESHOLD = 12;
+
+/** True when two thumbnails are visually the same (theme-agnostic app). */
+export function isThemeAgnostic(
+  a: Uint8Array,
+  b: Uint8Array,
+  threshold: number = DEDUPE_THRESHOLD
+): boolean {
+  return meanAbsDiff(a, b) < threshold;
+}
+
 export function ogPath(slug: string): string {
   return `/previews/${slug}-og.png`;
 }
@@ -88,7 +122,9 @@ export function selectCapturable<T extends Pick<App, 'slug' | 'status'>>(
  */
 export function applyPreviewFields(
   yamlText: string,
-  slugs: readonly string[]
+  slugs: readonly string[],
+  /** Slugs whose light/dark shots were identical: single `<slug>.webp`, no `dark`. */
+  agnostic: ReadonlySet<string> = new Set()
 ): string {
   const lines = yamlText.split('\n');
   const out: string[] = [];
@@ -118,8 +154,12 @@ export function applyPreviewFields(
       at + 1,
       0,
       '    preview:',
-      `      light: ${previewPath(slug, 'light')}`,
-      `      dark: ${previewPath(slug, 'dark')}`,
+      ...(agnostic.has(slug)
+        ? [`      light: ${agnosticPath(slug)}`]
+        : [
+            `      light: ${previewPath(slug, 'light')}`,
+            `      dark: ${previewPath(slug, 'dark')}`,
+          ]),
       `      og: ${ogPath(slug)}`
     );
     out.push(...block);

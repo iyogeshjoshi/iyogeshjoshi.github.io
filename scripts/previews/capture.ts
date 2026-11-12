@@ -6,7 +6,13 @@
  * Ad, analytics and consent traffic is blocked so captures never create invalid
  * ad impressions (PRD §5.6).
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -14,8 +20,13 @@ import type { Browser } from 'playwright';
 import sharp from 'sharp';
 
 import { parseCatalog } from '../../src/catalog/load';
+import { runPreviewAction } from './actions';
 import {
   HIDE_BANNERS_CSS,
+  DEDUPE_THUMB_HEIGHT,
+  DEDUPE_THUMB_WIDTH,
+  agnosticPath,
+  isThemeAgnostic,
   MAX_WEBP_BYTES,
   OG_HEIGHT,
   OG_WIDTH,
@@ -51,6 +62,7 @@ async function toWebp(png: Buffer, vp: ViewportSpec): Promise<Buffer> {
 
 async function screenshot(
   browser: Browser,
+  slug: string,
   url: string,
   theme: Theme,
   vp: ViewportSpec
@@ -72,6 +84,7 @@ async function screenshot(
       .waitForLoadState('networkidle', { timeout: 20_000 })
       .catch(() => undefined);
     await sleep(1500);
+    await runPreviewAction(slug, page);
     await page.addStyleTag({ content: HIDE_BANNERS_CSS });
     // Fallback for banners with no recognisable class/id: fixed overlays that say "cookies".
     await page.evaluate(`(() => {
@@ -104,13 +117,32 @@ async function withRetries<T>(fn: () => Promise<T>): Promise<T> {
   throw last;
 }
 
-function updateYaml(captured: Map<string, boolean>): void {
+async function thumb(png: Buffer): Promise<Uint8Array> {
+  return new Uint8Array(
+    await sharp(png)
+      .resize(DEDUPE_THUMB_WIDTH, DEDUPE_THUMB_HEIGHT, { fit: 'fill' })
+      .greyscale()
+      .raw()
+      .toBuffer()
+  );
+}
+
+function removeIfExists(rel: string): void {
+  const file = resolve(PUBLIC_DIR, `.${rel}`);
+  if (existsSync(file)) unlinkSync(file);
+}
+
+function updateYaml(
+  captured: Map<string, boolean>,
+  agnostic: Set<string>
+): void {
   const text = readFileSync(CATALOG_PATH, 'utf8');
   const next = applyPreviewFields(
     text,
     Array.from(captured)
       .filter(([, ok]) => ok)
-      .map(([slug]) => slug)
+      .map(([slug]) => slug),
+    agnostic
   );
   if (next !== text) writeFileSync(CATALOG_PATH, next);
   // Re-validate what we wrote.
@@ -132,32 +164,25 @@ async function main(): Promise<void> {
   const browser = await chromium.launch();
   const failures: string[] = [];
   const fullyCaptured = new Map<string, boolean>();
+  const agnostic = new Set<string>();
 
   try {
     for (const app of apps) {
       let okShots = 0;
       let total = 0;
-      for (const theme of THEMES) {
-        for (const vp of VIEWPORTS) {
-          total++;
+      const unthemed: boolean[] = [];
+      for (const vp of VIEWPORTS) {
+        total += THEMES.length;
+        const shots = new Map<Theme, Buffer>();
+        for (const theme of THEMES) {
           const rel = previewPath(app.slug, theme, vp.name);
           try {
-            const png = await withRetries(() =>
-              screenshot(browser, app.url, theme, vp)
+            shots.set(
+              theme,
+              await withRetries(() =>
+                screenshot(browser, app.slug, app.url, theme, vp)
+              )
             );
-            const webp = await toWebp(png, vp);
-            writeFileSync(resolve(PUBLIC_DIR, `.${rel}`), webp);
-            console.log(`ok   ${rel} ${(webp.length / 1024).toFixed(1)} KB`);
-            if (theme === 'light' && vp.name === 'desktop') {
-              const og = await sharp(png)
-                .resize(OG_WIDTH, OG_HEIGHT, { fit: 'cover', position: 'top' })
-                .png({ compressionLevel: 9, palette: true })
-                .toBuffer();
-              writeFileSync(resolve(PUBLIC_DIR, `.${ogPath(app.slug)}`), og);
-              console.log(
-                `ok   ${ogPath(app.slug)} ${(og.length / 1024).toFixed(1)} KB`
-              );
-            }
             okShots++;
           } catch (error) {
             const msg = error instanceof Error ? error.message : String(error);
@@ -165,7 +190,45 @@ async function main(): Promise<void> {
             console.error(`FAIL ${rel}: ${msg.split('\n')[0]}`);
           }
         }
+        const light = shots.get('light');
+        const dark = shots.get('dark');
+        if (!light || !dark) continue;
+        // Desktop decides; mobile follows (random layouts differ on small grids).
+        const same =
+          unthemed.length > 0
+            ? unthemed[0]
+            : isThemeAgnostic(await thumb(light), await thumb(dark));
+        unthemed.push(same);
+        const outputs: [string, Buffer][] = same
+          ? [[agnosticPath(app.slug, vp.name), light]]
+          : [
+              [previewPath(app.slug, 'light', vp.name), light],
+              [previewPath(app.slug, 'dark', vp.name), dark],
+            ];
+        if (same) {
+          for (const t of THEMES)
+            removeIfExists(previewPath(app.slug, t, vp.name));
+        } else {
+          removeIfExists(agnosticPath(app.slug, vp.name));
+        }
+        for (const [rel, png] of outputs) {
+          const webp = await toWebp(png, vp);
+          writeFileSync(resolve(PUBLIC_DIR, `.${rel}`), webp);
+          console.log(`ok   ${rel} ${(webp.length / 1024).toFixed(1)} KB`);
+        }
+        if (vp.name === 'desktop') {
+          const og = await sharp(light)
+            .resize(OG_WIDTH, OG_HEIGHT, { fit: 'cover', position: 'top' })
+            .png({ compressionLevel: 9, palette: true, quality: 80 })
+            .toBuffer();
+          writeFileSync(resolve(PUBLIC_DIR, `.${ogPath(app.slug)}`), og);
+          console.log(
+            `ok   ${ogPath(app.slug)} ${(og.length / 1024).toFixed(1)} KB`
+          );
+        }
       }
+      // The catalog references the desktop shots, so desktop decides the YAML shape.
+      if (unthemed[0]) agnostic.add(app.slug);
       fullyCaptured.set(app.slug, okShots === total);
       if (okShots === 0) console.error(`App ${app.slug} failed entirely`);
     }
@@ -173,7 +236,7 @@ async function main(): Promise<void> {
     await browser.close();
   }
 
-  if (writeYaml) updateYaml(fullyCaptured);
+  if (writeYaml) updateYaml(fullyCaptured, agnostic);
 
   if (failures.length > 0) {
     console.error(

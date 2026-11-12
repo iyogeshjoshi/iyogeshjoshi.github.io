@@ -1,7 +1,10 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import {
+  agnosticPath,
   applyPreviewFields,
+  isThemeAgnostic,
+  meanAbsDiff,
   isBlockedUrl,
   ogPath,
   previewPath,
@@ -90,5 +93,41 @@ describe('applyPreviewFields', () => {
   it('is idempotent', () => {
     const once = applyPreviewFields(src, ['a', 'b']);
     expect(applyPreviewFields(once, ['a', 'b'])).toBe(once);
+  });
+});
+
+describe('theme dedupe', () => {
+  const flat = (v: number) => new Uint8Array(64 * 40).fill(v);
+
+  it('measures mean absolute difference', () => {
+    expect(meanAbsDiff(flat(10), flat(10))).toBe(0);
+    expect(meanAbsDiff(flat(0), flat(255))).toBe(255);
+    expect(meanAbsDiff(flat(0), new Uint8Array(3))).toBe(Infinity);
+  });
+
+  it('treats near-identical images as theme-agnostic', () => {
+    const a = flat(100);
+    const b = flat(100);
+    b[0] = 140; // single noisy pixel
+    expect(isThemeAgnostic(a, b)).toBe(true);
+  });
+
+  it('treats light vs dark images as different', () => {
+    expect(isThemeAgnostic(flat(245), flat(20))).toBe(false);
+  });
+
+  it('builds agnostic paths and yaml without dark', () => {
+    expect(agnosticPath('x')).toBe('/previews/x.webp');
+    expect(agnosticPath('x', 'mobile')).toBe('/previews/x-mobile.webp');
+    const yaml = [
+      '  - slug: x',
+      '    previewKind: ruler',
+      '    sitemap: s',
+      '',
+    ].join('\n');
+    const out = applyPreviewFields(yaml, ['x'], new Set(['x']));
+    expect(out).toContain('      light: /previews/x.webp');
+    expect(out).not.toContain('dark:');
+    expect(out).toContain('      og: /previews/x-og.png');
   });
 });
