@@ -34,3 +34,39 @@ describe('index.html consent mode', () => {
     expect(count('content="ca-pub-5076417401305199"')).toBe(1);
   });
 });
+
+describe('index.html font loading', () => {
+  const link =
+    /<link[^>]*rel="preload"[^>]*as="style"[^>]*fonts\.googleapis\.com[^>]*>/.exec(
+      html
+    )?.[0] ?? '';
+
+  it('loads the Google Fonts stylesheet non-blocking', () => {
+    expect(link).not.toBe('');
+    expect(link).toContain('onload="this.onload=null;this.rel=\'stylesheet\'"');
+    expect(html.replace(/<noscript>[\s\S]*?<\/noscript>/g, '')).not.toMatch(
+      /<link\s+rel="stylesheet"\s+href="https:\/\/fonts\.googleapis/
+    );
+  });
+
+  it('has a noscript stylesheet fallback', () => {
+    expect(html).toMatch(
+      /<noscript>\s*<link\s+rel="stylesheet"\s+href="https:\/\/fonts\.googleapis\.com[^"]+"\s*\/>\s*<\/noscript>/
+    );
+  });
+
+  it('keeps ordering: theme script, then fonts, then consent, then ad/gtag tags', () => {
+    const theme = html.indexOf("setAttribute('data-theme'");
+    const fonts = html.indexOf('rel="preload"');
+    const consent = html.indexOf("gtag('consent', 'default'");
+    expect(theme).toBeGreaterThan(-1);
+    expect(theme).toBeLessThan(fonts);
+    expect(fonts).toBeLessThan(consent);
+    expect(consent).toBeLessThan(
+      html.indexOf('src="https://www.googletagmanager.com/gtag/js')
+    );
+    expect(consent).toBeLessThan(
+      html.indexOf('src="https://pagead2.googlesyndication.com')
+    );
+  });
+});
