@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run typecheck && vite build",
+    "build": "npm run typecheck && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && tsx scripts/prerender.ts && tsx scripts/check-dist.ts",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json",
     "preview": "vite preview",
     "test": "vitest run",
@@ -23,7 +23,9 @@
     "coverage": "vitest run --coverage",
     "lint": "eslint src scripts --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --no-error-on-unmatched-pattern",
     "lint:fix": "eslint src scripts --ext ts,tsx --fix --no-error-on-unmatched-pattern",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.ts\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.ts\"",
+    "previews": "tsx scripts/previews/capture.ts",
+    "check:dist": "tsx scripts/check-dist.ts"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
@@ -38,7 +40,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
     "jsdom": "^25.0.1",
+    "playwright": "^1.65.0",
     "prettier": "^3.1.0",
+    "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "vite": "^5.0.5",
     "vitest": "^2.1.9",

@@ -2,8 +2,7 @@ import React from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 
 import './styles/global.css';
-import { Layout } from './components/layout';
-import { HomePage } from './pages/home/HomePage';
+import { resolveRoute } from './routes';
 
 const container = document.getElementById('root');
 
@@ -11,16 +10,18 @@ if (!container) {
   throw new Error('Root element #root not found');
 }
 
-const app = (
-  <React.StrictMode>
-    <Layout currentPath="/">
-      <HomePage />
-    </Layout>
-  </React.StrictMode>
-);
+const route = resolveRoute(window.location.pathname);
 
-// Prerendered pages (Phase 8) ship markup inside #root, so hydrate them.
-if (container.hasChildNodes()) {
+// Dev serves the bare template for every URL, so set the per-route title here.
+if (import.meta.env.DEV) {
+  document.title = route.meta.title;
+}
+
+const app = <React.StrictMode>{route.render()}</React.StrictMode>;
+
+// Prerendered pages ship element markup inside #root, so hydrate them. The dev
+// template only holds the `<!--app-html-->` placeholder comment.
+if (container.firstElementChild) {
   hydrateRoot(container, app);
 } else {
   createRoot(container).render(app);

@@ -123,6 +123,28 @@
   font-weight: 600;
 }
 
+/*
+ * No JavaScript (the inline head script sets html[data-js]): the menu button
+ * cannot open anything, so hide it and show the links inline, wrapping.
+ */
+@media (max-width: 767.98px) {
+  :global(html:not([data-js])) .menuButton {
+    display: none;
+  }
+
+  :global(html:not([data-js])) .list {
+    display: flex;
+    flex-wrap: wrap;
+    position: static;
+    min-width: 0;
+    padding: 0;
+    gap: 0 var(--space-1);
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
 /* Phone: icon-only theme toggle (aria-label is kept). */
 .theme button span {
   display: none;

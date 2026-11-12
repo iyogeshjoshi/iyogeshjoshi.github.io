@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import {
   LIGHT_QUERY,
@@ -41,13 +41,30 @@ const prefersReducedMotion = (): boolean =>
   typeof window.matchMedia === 'function' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// useLayoutEffect warns during server rendering; it is only needed in the browser.
+const useIsomorphicLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+/** What the server renders: no stored preference is visible there. */
+const SERVER_MODE: ThemeMode = 'auto';
+const SERVER_RESOLVED: ResolvedTheme = resolve(SERVER_MODE, false);
+
 export const useTheme = (): UseTheme => {
-  const [mode, setModeState] = useState<ThemeMode>(initialMode);
-  const [resolved, setResolved] = useState<ResolvedTheme>(() => initialResolved(initialMode()));
+  // Start from the server values so hydration matches the prerendered markup,
+  // then adopt what the inline head script put on <html> before first paint.
+  const [mode, setModeState] = useState<ThemeMode>(SERVER_MODE);
+  const [resolved, setResolved] = useState<ResolvedTheme>(SERVER_RESOLVED);
+
+  useIsomorphicLayoutEffect(() => {
+    const current = initialMode();
+    setModeState(current);
+    setResolved(initialResolved(current));
+  }, []);
 
   // Follow system changes while in auto.
   useEffect(() => {
-    if (mode !== 'auto' || typeof window.matchMedia !== 'function') return undefined;
+    if (mode !== 'auto' || typeof window.matchMedia !== 'function')
+      return undefined;
     const mql = window.matchMedia(LIGHT_QUERY);
     const onChange = (): void => setResolved(applyTheme('auto'));
     if (typeof mql.addEventListener === 'function') {
@@ -65,7 +82,10 @@ export const useTheme = (): UseTheme => {
     };
     writeMode(next);
     const doc = document as ViewTransitionDocument;
-    if (typeof doc.startViewTransition === 'function' && !prefersReducedMotion()) {
+    if (
+      typeof doc.startViewTransition === 'function' &&
+      !prefersReducedMotion()
+    ) {
       doc.startViewTransition(commit);
     } else {
       commit();

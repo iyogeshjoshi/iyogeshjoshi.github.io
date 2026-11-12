@@ -3,17 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>deviloper.dev — Side projects, small tools &amp; games</title>
-    <meta
-      name="description"
-      content="A growing collection of side projects — free web tools, small games and simulations, each on its own deviloper.dev subdomain."
-    />
+    <!--app-head-->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!--
+      No Content-Security-Policy <meta> on purpose: AdSense Auto ads and Funding
+      Choices (consent) inject inline scripts and load scripts/frames from many,
+      changing Google domains. A CSP strict enough to matter would break ads.
+    -->
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#0A0F1A" />
     <script>
       (function () {
         try {
           var d = document.documentElement;
+          d.setAttribute('data-js', '');
           var m = 'auto';
           try {
             var s = localStorage.getItem('theme');
@@ -36,7 +39,6 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
     />
-    <link rel="canonical" href="https://deviloper.dev/" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
@@ -54,7 +56,7 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/entry-client.tsx"></script>
   </body>
 </html>
